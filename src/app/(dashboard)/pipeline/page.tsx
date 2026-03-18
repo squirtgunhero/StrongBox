@@ -84,7 +84,7 @@ export default function PipelinePage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-semibold">Pipeline</h1>
-          <p className="text-sm text-stone-500 mt-1">
+          <p className="text-sm text-zinc-500 mt-1">
             {allPipelineLoans.length} loans &middot;{" "}
             {formatCurrencyCompact(
               allPipelineLoans.reduce(
@@ -102,8 +102,8 @@ export default function PipelinePage() {
               className={cn(
                 "flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-l-md transition-colors",
                 view === "kanban"
-                  ? "bg-[#EFF4F9] text-[#162D4A]"
-                  : "text-stone-500 hover:bg-stone-50"
+                  ? "bg-blue-500/10 text-[#162D4A]"
+                  : "text-zinc-500 hover:bg-white/5"
               )}
             >
               <Kanban className="h-3.5 w-3.5" /> Board
@@ -113,8 +113,8 @@ export default function PipelinePage() {
               className={cn(
                 "flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-r-md border-l transition-colors",
                 view === "table"
-                  ? "bg-[#EFF4F9] text-[#162D4A]"
-                  : "text-stone-500 hover:bg-stone-50"
+                  ? "bg-blue-500/10 text-[#162D4A]"
+                  : "text-zinc-500 hover:bg-white/5"
               )}
             >
               <List className="h-3.5 w-3.5" /> Table
@@ -122,7 +122,7 @@ export default function PipelinePage() {
           </div>
           <Link
             href="/loans/new"
-            className="flex items-center gap-2 rounded-md bg-[#1E3A5F] px-4 py-2 text-sm font-medium text-white hover:bg-[#162D4A] transition-colors"
+            className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 transition-colors"
           >
             <Plus className="h-4 w-4" /> New Loan
           </Link>
@@ -131,7 +131,7 @@ export default function PipelinePage() {
 
       {isLoading ? (
         <div className="flex items-center justify-center p-20">
-          <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
+          <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
         </div>
       ) : view === "kanban" ? (
         <KanbanView
@@ -169,7 +169,7 @@ function KanbanView({
         <div
           key={col.status}
           className={cn(
-            "flex-shrink-0 w-64 rounded-lg border border-t-4 bg-stone-50",
+            "flex-shrink-0 w-64 rounded-lg border border-t-4 bg-white/5",
             col.color,
             dragOverCol === col.status && "ring-2 ring-[#93B4D4]"
           )}
@@ -189,14 +189,14 @@ function KanbanView({
         >
           <div className="flex items-center justify-between px-3 py-2.5 border-b">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold uppercase tracking-wider text-stone-500">
+              <span className="text-xs font-semibold uppercase tracking-wider text-zinc-500">
                 {col.label}
               </span>
-              <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-stone-200 px-1.5 text-[10px] font-medium text-stone-500">
+              <span className="flex h-5 min-w-[20px] items-center justify-center rounded-full bg-stone-200 px-1.5 text-[10px] font-medium text-zinc-500">
                 {col.loans.length}
               </span>
             </div>
-            <span className="text-[10px] text-stone-400 font-medium">
+            <span className="text-[10px] text-zinc-500 font-medium">
               {formatCurrencyCompact(col.total)}
             </span>
           </div>
@@ -216,21 +216,21 @@ function KanbanView({
                   setDragOverCol(null);
                 }}
                 className={cn(
-                  "block rounded-md border bg-white p-3 text-left hover:shadow-sm transition-all cursor-grab active:cursor-grabbing800700",
+                  "block rounded-md rounded-xl p-3 text-left hover:shadow-sm transition-all cursor-grab active:cursor-grabbing800700",
                   dragLoanId === loan.id && "opacity-50"
                 )}
               >
                 <div className="flex items-start justify-between gap-1">
-                  <p className="text-xs font-medium text-[#1E3A5F]">
+                  <p className="text-xs font-medium text-[#3B82F6]">
                     {loan.loanNumber}
                   </p>
-                  <GripVertical className="h-3 w-3 text-stone-300 flex-shrink-0 mt-0.5" />
+                  <GripVertical className="h-3 w-3 text-zinc-600 flex-shrink-0 mt-0.5" />
                 </div>
                 <p className="text-sm font-medium mt-1 truncate">
                   {loan.borrower?.lastName}, {loan.borrower?.firstName}
                 </p>
                 {loan.property && (
-                  <p className="text-[11px] text-stone-500 mt-0.5 truncate">
+                  <p className="text-[11px] text-zinc-500 mt-0.5 truncate">
                     {loan.property.address}, {loan.property.city}
                   </p>
                 )}
@@ -238,7 +238,7 @@ function KanbanView({
                   <span className="text-xs font-semibold">
                     {formatCurrency(loan.loanAmount)}
                   </span>
-                  <span className="text-[10px] text-stone-400">
+                  <span className="text-[10px] text-zinc-500">
                     {Number(loan.interestRate).toFixed(1)}%
                   </span>
                 </div>
@@ -254,9 +254,9 @@ function KanbanView({
 function TableView({ loans }: { loans: any[] }) {
   if (!loans.length) {
     return (
-      <div className="rounded-lg border bg-white p-12 text-center">
-        <FileText className="h-10 w-10 text-stone-300 mx-auto mb-3" />
-        <p className="text-sm text-stone-500">No loans in pipeline</p>
+      <div className="rounded-lg rounded-xl p-12 text-center">
+        <FileText className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
+        <p className="text-sm text-zinc-500">No loans in pipeline</p>
       </div>
     );
   }
@@ -265,26 +265,26 @@ function TableView({ loans }: { loans: any[] }) {
     <div className="rounded-lg border bg-white">
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b bg-stone-50">
-            <th className="px-4 py-3 text-left font-medium text-stone-500">
+          <tr className="border-b bg-white/5">
+            <th className="px-4 py-3 text-left font-medium text-zinc-500">
               Loan #
             </th>
-            <th className="px-4 py-3 text-left font-medium text-stone-500">
+            <th className="px-4 py-3 text-left font-medium text-zinc-500">
               Borrower
             </th>
-            <th className="px-4 py-3 text-left font-medium text-stone-500">
+            <th className="px-4 py-3 text-left font-medium text-zinc-500">
               Property
             </th>
-            <th className="px-4 py-3 text-left font-medium text-stone-500">
+            <th className="px-4 py-3 text-left font-medium text-zinc-500">
               Amount
             </th>
-            <th className="px-4 py-3 text-left font-medium text-stone-500">
+            <th className="px-4 py-3 text-left font-medium text-zinc-500">
               Rate
             </th>
-            <th className="px-4 py-3 text-left font-medium text-stone-500">
+            <th className="px-4 py-3 text-left font-medium text-zinc-500">
               Status
             </th>
-            <th className="px-4 py-3 text-left font-medium text-stone-500">
+            <th className="px-4 py-3 text-left font-medium text-zinc-500">
               Loan Officer
             </th>
           </tr>
@@ -293,12 +293,12 @@ function TableView({ loans }: { loans: any[] }) {
           {loans.map((loan: any) => (
             <tr
               key={loan.id}
-              className="border-b last:border-0 hover:bg-stone-50"
+              className="border-b last:border-0 hover:bg-white/5"
             >
               <td className="px-4 py-3">
                 <Link
                   href={`/loans/${loan.id}`}
-                  className="font-medium text-[#1E3A5F] hover:text-[#162D4A]"
+                  className="font-medium text-[#3B82F6] hover:text-blue-400"
                 >
                   {loan.loanNumber}
                 </Link>
@@ -306,7 +306,7 @@ function TableView({ loans }: { loans: any[] }) {
               <td className="px-4 py-3">
                 {loan.borrower?.lastName}, {loan.borrower?.firstName}
               </td>
-              <td className="px-4 py-3 text-stone-500 text-xs">
+              <td className="px-4 py-3 text-zinc-500 text-xs">
                 {loan.property
                   ? `${loan.property.address}, ${loan.property.city} ${loan.property.state}`
                   : "-"}
@@ -314,13 +314,13 @@ function TableView({ loans }: { loans: any[] }) {
               <td className="px-4 py-3 font-medium">
                 {formatCurrency(loan.loanAmount)}
               </td>
-              <td className="px-4 py-3 text-stone-500">
+              <td className="px-4 py-3 text-zinc-500">
                 {Number(loan.interestRate).toFixed(1)}%
               </td>
               <td className="px-4 py-3">
                 <LoanStatusBadge status={loan.status as LoanStatus} />
               </td>
-              <td className="px-4 py-3 text-stone-500 text-xs">
+              <td className="px-4 py-3 text-zinc-500 text-xs">
                 {loan.loanOfficer
                   ? `${loan.loanOfficer.firstName} ${loan.loanOfficer.lastName}`
                   : "-"}

@@ -74,7 +74,7 @@ export default function PortalDocumentsPage() {
 
       {isLoading ? (
         <div className="flex items-center justify-center p-20">
-          <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
+          <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
         </div>
       ) : (
         <div className="space-y-6">
@@ -94,7 +94,7 @@ export default function PortalDocumentsPage() {
                     <div className="flex items-center justify-between">
                       <div>
                         <p className="text-sm font-medium">{doc.fileName}</p>
-                        <p className="text-xs text-stone-500 mt-0.5">
+                        <p className="text-xs text-zinc-500 mt-0.5">
                           {doc.category.replace(/_/g, " ")} — Loan{" "}
                           {doc.loanNumber}
                         </p>
@@ -117,7 +117,7 @@ export default function PortalDocumentsPage() {
                         <label
                           htmlFor={`upload-${doc.id}`}
                           className={cn(
-                            "flex items-center gap-2 rounded-md bg-[#1E3A5F] px-3 py-1.5 text-xs font-medium text-white cursor-pointer hover:bg-[#162D4A]",
+                            "flex items-center gap-2 rounded-md bg-[#3B82F6] px-3 py-1.5 text-xs font-medium text-white cursor-pointer hover:bg-blue-600",
                             uploading && "opacity-50 pointer-events-none"
                           )}
                         >
@@ -140,25 +140,25 @@ export default function PortalDocumentsPage() {
           <div>
             <h2 className="text-sm font-semibold mb-3">All Documents</h2>
             {allDocs.length === 0 ? (
-              <div className="rounded-lg border bg-white p-12 text-center">
-                <FileText className="h-10 w-10 text-stone-300 mx-auto mb-3" />
-                <p className="text-sm text-stone-500">No documents yet</p>
+              <div className="rounded-lg rounded-xl p-12 text-center">
+                <FileText className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
+                <p className="text-sm text-zinc-500">No documents yet</p>
               </div>
             ) : (
               <div className="rounded-lg border bg-white">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b bg-stone-50">
-                      <th className="px-4 py-3 text-left font-medium text-stone-500">
+                    <tr className="border-b bg-white/5">
+                      <th className="px-4 py-3 text-left font-medium text-zinc-500">
                         File
                       </th>
-                      <th className="px-4 py-3 text-left font-medium text-stone-500">
+                      <th className="px-4 py-3 text-left font-medium text-zinc-500">
                         Category
                       </th>
-                      <th className="px-4 py-3 text-left font-medium text-stone-500">
+                      <th className="px-4 py-3 text-left font-medium text-zinc-500">
                         Loan
                       </th>
-                      <th className="px-4 py-3 text-left font-medium text-stone-500">
+                      <th className="px-4 py-3 text-left font-medium text-zinc-500">
                         Status
                       </th>
                     </tr>
@@ -173,16 +173,16 @@ export default function PortalDocumentsPage() {
                         >
                           <td className="px-4 py-3">
                             <div className="flex items-center gap-2">
-                              <Icon className="h-4 w-4 text-stone-400" />
+                              <Icon className="h-4 w-4 text-zinc-500" />
                               <span className="font-medium">
                                 {doc.fileName}
                               </span>
                             </div>
                           </td>
-                          <td className="px-4 py-3 text-stone-500">
+                          <td className="px-4 py-3 text-zinc-500">
                             {doc.category.replace(/_/g, " ")}
                           </td>
-                          <td className="px-4 py-3 text-stone-500 text-xs">
+                          <td className="px-4 py-3 text-zinc-500 text-xs">
                             {doc.loanNumber}
                           </td>
                           <td className="px-4 py-3">

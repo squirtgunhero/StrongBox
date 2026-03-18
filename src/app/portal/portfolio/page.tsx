@@ -22,26 +22,26 @@ export default function PortfolioPage() {
 
       {isLoading ? (
         <div className="flex items-center justify-center p-20">
-          <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
+          <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
         </div>
       ) : portfolio.length === 0 ? (
-        <div className="rounded-lg border bg-white p-12 text-center">
-          <Building2 className="h-10 w-10 text-stone-300 mx-auto mb-3" />
-          <p className="text-sm text-stone-500">No active investments</p>
+        <div className="rounded-lg rounded-xl p-12 text-center">
+          <Building2 className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
+          <p className="text-sm text-zinc-500">No active investments</p>
         </div>
       ) : (
         <div className="space-y-3">
           {portfolio.map((inv: any) => (
-            <div key={inv.loanNumber} className="rounded-lg border bg-white p-4">
+            <div key={inv.loanNumber} className="rounded-lg rounded-xl p-4">
               <div className="flex items-start justify-between">
                 <div>
                   <h3 className="text-sm font-semibold">{inv.loanNumber}</h3>
-                  <p className="text-xs text-stone-500 mt-0.5">{inv.property}</p>
-                  {inv.borrower && <p className="text-xs text-stone-400">{inv.borrower}</p>}
+                  <p className="text-xs text-zinc-500 mt-0.5">{inv.property}</p>
+                  {inv.borrower && <p className="text-xs text-zinc-500">{inv.borrower}</p>}
                 </div>
                 <div className="text-right">
                   <p className="text-sm font-bold">{formatCurrency(inv.amount)}</p>
-                  <p className="text-xs text-stone-500">{inv.interestRate?.toFixed(2)}% rate</p>
+                  <p className="text-xs text-zinc-500">{inv.interestRate?.toFixed(2)}% rate</p>
                 </div>
               </div>
               <div className="mt-3 flex items-center justify-between text-xs">
@@ -49,7 +49,7 @@ export default function PortfolioPage() {
                   {inv.status}
                 </span>
                 {inv.maturityDate && (
-                  <span className="text-stone-400">
+                  <span className="text-zinc-500">
                     Matures: {new Date(inv.maturityDate).toLocaleDateString()}
                   </span>
                 )}

@@ -22,15 +22,15 @@ type ViewTab = "my" | "team";
 const PRIORITY_CONFIG: Record<string, { label: string; color: string }> = {
   URGENT: { label: "Urgent", color: "text-red-600 bg-red-50950" },
   HIGH: { label: "High", color: "text-orange-600 bg-orange-50950" },
-  MEDIUM: { label: "Medium", color: "text-[#1E3A5F] bg-[#EFF4F9]" },
-  LOW: { label: "Low", color: "text-stone-500 bg-stone-100" },
+  MEDIUM: { label: "Medium", color: "text-[#3B82F6] bg-blue-500/10" },
+  LOW: { label: "Low", color: "text-zinc-500 bg-white/10" },
 };
 
 const STATUS_ICONS: Record<string, { icon: typeof Circle; color: string }> = {
-  PENDING: { icon: Circle, color: "text-stone-400" },
-  IN_PROGRESS: { icon: Clock, color: "text-[#1E3A5F]" },
+  PENDING: { icon: Circle, color: "text-zinc-500" },
+  IN_PROGRESS: { icon: Clock, color: "text-[#3B82F6]" },
   COMPLETED: { icon: CheckCircle2, color: "text-emerald-500" },
-  CANCELLED: { icon: X, color: "text-stone-400" },
+  CANCELLED: { icon: X, color: "text-zinc-500" },
   BLOCKED: { icon: AlertTriangle, color: "text-red-500" },
 };
 
@@ -114,7 +114,7 @@ export default function TasksPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-semibold">Tasks</h1>
-          <p className="text-sm text-stone-500 mt-1">
+          <p className="text-sm text-zinc-500 mt-1">
             {total} tasks
             {overdueCount > 0 && (
               <span className="text-red-600 font-medium ml-2">
@@ -125,7 +125,7 @@ export default function TasksPage() {
         </div>
         <button
           onClick={() => setShowCreate(true)}
-          className="flex items-center gap-2 rounded-md bg-[#1E3A5F] px-4 py-2 text-sm font-medium text-white hover:bg-[#162D4A] transition-colors"
+          className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 transition-colors"
         >
           <Plus className="h-4 w-4" /> New Task
         </button>
@@ -144,8 +144,8 @@ export default function TasksPage() {
               className={cn(
                 "flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium transition-colors border-r last:border-r-0700 first:rounded-l-md last:rounded-r-md",
                 view === tab.key
-                  ? "bg-[#EFF4F9] text-[#162D4A]"
-                  : "text-stone-500 hover:bg-stone-50"
+                  ? "bg-blue-500/10 text-[#162D4A]"
+                  : "text-zinc-500 hover:bg-white/5"
               )}
             >
               <tab.icon className="h-3.5 w-3.5" />
@@ -157,7 +157,7 @@ export default function TasksPage() {
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="rounded-md border bg-white px-3 py-1.5 text-xs"
+          className="rounded-md px-3 py-1.5 text-xs"
         >
           <option value="">All Statuses</option>
           <option value="PENDING">To Do</option>
@@ -169,14 +169,14 @@ export default function TasksPage() {
 
       {/* Quick Create */}
       {showCreate && (
-        <div className="rounded-lg border bg-white p-4 mb-4">
+        <div className="rounded-lg rounded-xl p-4 mb-4">
           <div className="flex items-center gap-3">
             <input
               type="text"
               value={newTitle}
               onChange={(e) => setNewTitle(e.target.value)}
               placeholder="Task title..."
-              className="flex-1 rounded-md border bg-white px-3 py-2 text-sm"
+              className="flex-1 rounded-md px-3 py-2 text-sm"
               autoFocus
               onKeyDown={(e) => {
                 if (e.key === "Enter" && newTitle.trim()) {
@@ -191,7 +191,7 @@ export default function TasksPage() {
             <select
               value={newPriority}
               onChange={(e) => setNewPriority(e.target.value)}
-              className="rounded-md border bg-white px-3 py-2 text-sm"
+              className="rounded-md px-3 py-2 text-sm"
             >
               <option value="LOW">Low</option>
               <option value="MEDIUM">Medium</option>
@@ -202,7 +202,7 @@ export default function TasksPage() {
               type="date"
               value={newDueDate}
               onChange={(e) => setNewDueDate(e.target.value)}
-              className="rounded-md border bg-white px-3 py-2 text-sm"
+              className="rounded-md px-3 py-2 text-sm"
             />
             <button
               onClick={() => {
@@ -215,13 +215,13 @@ export default function TasksPage() {
                 }
               }}
               disabled={!newTitle.trim() || createTask.isPending}
-              className="rounded-md bg-[#1E3A5F] px-4 py-2 text-sm font-medium text-white hover:bg-[#162D4A] disabled:opacity-50"
+              className="rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
             >
               Add
             </button>
             <button
               onClick={() => setShowCreate(false)}
-              className="rounded p-2 text-stone-400 hover:text-stone-600 hover:bg-stone-100"
+              className="rounded p-2 text-zinc-500 hover:text-zinc-400 hover:bg-white/5"
             >
               <X className="h-4 w-4" />
             </button>
@@ -232,12 +232,12 @@ export default function TasksPage() {
       {/* Task List */}
       {isLoading ? (
         <div className="flex items-center justify-center p-20">
-          <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
+          <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
         </div>
       ) : tasks.length === 0 ? (
-        <div className="rounded-lg border bg-white p-12 text-center">
-          <CheckCircle2 className="h-10 w-10 text-stone-300 mx-auto mb-3" />
-          <p className="text-sm text-stone-500">No tasks found</p>
+        <div className="rounded-lg rounded-xl p-12 text-center">
+          <CheckCircle2 className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
+          <p className="text-sm text-zinc-500">No tasks found</p>
         </div>
       ) : (
         <div className="space-y-1">
@@ -255,7 +255,7 @@ export default function TasksPage() {
               <div
                 key={task.id}
                 className={cn(
-                  "flex items-center gap-3 rounded-lg border bg-white px-4 py-3 transition-colors hover:bg-stone-50",
+                  "flex items-center gap-3 rounded-lg border bg-white px-4 py-3 transition-colors hover:bg-white/5",
                   overdue && "border-red-200900"
                 )}
               >
@@ -278,7 +278,7 @@ export default function TasksPage() {
                   <p
                     className={cn(
                       "text-sm font-medium",
-                      task.status === "COMPLETED" && "line-through text-stone-400"
+                      task.status === "COMPLETED" && "line-through text-zinc-500"
                     )}
                   >
                     {task.title}
@@ -287,18 +287,18 @@ export default function TasksPage() {
                     {task.loan && (
                       <Link
                         href={`/loans/${task.loan.id}`}
-                        className="text-[11px] text-[#1E3A5F] hover:text-[#162D4A]"
+                        className="text-[11px] text-[#3B82F6] hover:text-blue-400"
                       >
                         {task.loan.loanNumber}
                       </Link>
                     )}
                     {task.assignee && (
-                      <span className="text-[11px] text-stone-400">
+                      <span className="text-[11px] text-zinc-500">
                         {task.assignee.firstName} {task.assignee.lastName}
                       </span>
                     )}
                     {task.isAutoGenerated && (
-                      <span className="text-[10px] text-stone-400 bg-stone-100 px-1.5 py-0.5 rounded">
+                      <span className="text-[10px] text-zinc-500 bg-white/10 px-1.5 py-0.5 rounded">
                         auto
                       </span>
                     )}
@@ -318,7 +318,7 @@ export default function TasksPage() {
                   <span
                     className={cn(
                       "text-xs whitespace-nowrap",
-                      overdue ? "text-red-600 font-medium" : "text-stone-400"
+                      overdue ? "text-red-600 font-medium" : "text-zinc-500"
                     )}
                   >
                     {overdue && <AlertTriangle className="h-3 w-3 inline mr-1" />}

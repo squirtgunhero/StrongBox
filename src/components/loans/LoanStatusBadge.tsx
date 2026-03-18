@@ -2,23 +2,23 @@ import { cn } from "@/lib/utils";
 import type { LoanStatus } from "@prisma/client";
 
 const STATUS_STYLES: Record<string, string> = {
-  LEAD: "bg-stone-100 text-stone-600",
-  APPLICATION: "bg-[#EFF6FF] text-[#2563EB]",
-  PROCESSING: "bg-purple-50 text-purple-600",
-  UNDERWRITING: "bg-indigo-50 text-indigo-600",
-  CONDITIONAL_APPROVAL: "bg-amber-50 text-amber-700",
-  APPROVED: "bg-emerald-50 text-emerald-600",
-  CLOSING: "bg-cyan-50 text-cyan-700",
-  FUNDED: "bg-[#EFF6FF] text-[#2563EB]",
-  ACTIVE: "bg-[#F0FDF4] text-[#16A34A]",
-  EXTENDED: "bg-[#FEFCE8] text-[#CA8A04]",
-  PAYOFF_REQUESTED: "bg-orange-50 text-orange-600",
-  PAID_OFF: "bg-stone-100 text-stone-600",
-  DEFAULT: "bg-[#FEF2F2] text-[#DC2626]",
-  FORECLOSURE: "bg-red-100 text-red-700",
-  REO: "bg-red-100 text-red-700",
-  CANCELLED: "bg-stone-100 text-stone-500",
-  DENIED: "bg-[#FEF2F2] text-[#DC2626]",
+  LEAD: "bg-zinc-500/10 text-zinc-400",
+  APPLICATION: "bg-blue-500/10 text-blue-400",
+  PROCESSING: "bg-purple-500/10 text-purple-400",
+  UNDERWRITING: "bg-indigo-500/10 text-indigo-400",
+  CONDITIONAL_APPROVAL: "bg-amber-500/10 text-amber-400",
+  APPROVED: "bg-emerald-500/10 text-emerald-400",
+  CLOSING: "bg-cyan-500/10 text-cyan-400",
+  FUNDED: "bg-blue-500/10 text-blue-400",
+  ACTIVE: "bg-emerald-500/10 text-emerald-400",
+  EXTENDED: "bg-yellow-500/10 text-yellow-400",
+  PAYOFF_REQUESTED: "bg-orange-500/10 text-orange-400",
+  PAID_OFF: "bg-zinc-500/10 text-zinc-400",
+  DEFAULT: "bg-red-500/10 text-red-400",
+  FORECLOSURE: "bg-red-500/15 text-red-400",
+  REO: "bg-red-500/15 text-red-400",
+  CANCELLED: "bg-zinc-500/10 text-zinc-500",
+  DENIED: "bg-red-500/10 text-red-400",
 };
 
 const STATUS_LABELS: Record<string, string> = {
@@ -46,7 +46,7 @@ export function LoanStatusBadge({ status }: { status: LoanStatus }) {
     <span
       className={cn(
         "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium",
-        STATUS_STYLES[status] ?? "bg-stone-100 text-stone-600"
+        STATUS_STYLES[status] ?? "bg-zinc-500/10 text-zinc-400"
       )}
     >
       {STATUS_LABELS[status] ?? status}

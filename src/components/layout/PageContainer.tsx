@@ -17,7 +17,7 @@ export function PageContainer({
         <div>
           <h1 className="text-2xl font-semibold">{title}</h1>
           {description && (
-            <p className="mt-1 text-sm text-stone-500">{description}</p>
+            <p className="mt-1 text-sm text-zinc-500">{description}</p>
           )}
         </div>
         {actions && <div className="flex items-center gap-3">{actions}</div>}

@@ -82,15 +82,15 @@ export default function ReportBuilderPage() {
     <div>
       <div className="mb-6">
         <h1 className="text-2xl font-semibold">Report Builder</h1>
-        <p className="text-sm text-stone-500 mt-1">Create custom reports from any data</p>
+        <p className="text-sm text-zinc-500 mt-1">Create custom reports from any data</p>
       </div>
 
       <div className="grid grid-cols-4 gap-6">
         {/* Configuration Panel */}
         <div className="col-span-1 space-y-4">
           {/* Entity */}
-          <div className="rounded-lg border bg-white p-4">
-            <h3 className="text-xs font-semibold text-stone-500 mb-2">Data Source</h3>
+          <div className="rounded-lg rounded-xl p-4">
+            <h3 className="text-xs font-semibold text-zinc-500 mb-2">Data Source</h3>
             <select
               value={entity}
               onChange={(e) => {
@@ -98,7 +98,7 @@ export default function ReportBuilderPage() {
                 setSelectedFields([]);
                 setFilters([]);
               }}
-              className="w-full rounded-md border bg-white px-3 py-2 text-sm"
+              className="w-full rounded-md px-3 py-2 text-sm"
             >
               {["loans", "contacts", "payments", "properties", "documents"].map((e) => (
                 <option key={e} value={e}>
@@ -109,11 +109,11 @@ export default function ReportBuilderPage() {
           </div>
 
           {/* Fields */}
-          <div className="rounded-lg border bg-white p-4">
-            <h3 className="text-xs font-semibold text-stone-500 mb-2">Fields ({selectedFields.length})</h3>
+          <div className="rounded-lg rounded-xl p-4">
+            <h3 className="text-xs font-semibold text-zinc-500 mb-2">Fields ({selectedFields.length})</h3>
             <div className="space-y-1 max-h-[300px] overflow-y-auto">
               {entityFields.map((f: any) => (
-                <label key={f.field} className="flex items-center gap-2 text-xs cursor-pointer hover:bg-stone-50 px-2 py-1 rounded">
+                <label key={f.field} className="flex items-center gap-2 text-xs cursor-pointer hover:bg-white/5 px-2 py-1 rounded">
                   <input
                     type="checkbox"
                     checked={selectedFields.includes(f.field)}
@@ -121,17 +121,17 @@ export default function ReportBuilderPage() {
                     className="rounded"
                   />
                   {f.label}
-                  <span className="text-stone-400 text-[10px] ml-auto">{f.type}</span>
+                  <span className="text-zinc-500 text-[10px] ml-auto">{f.type}</span>
                 </label>
               ))}
             </div>
           </div>
 
           {/* Filters */}
-          <div className="rounded-lg border bg-white p-4">
+          <div className="rounded-lg rounded-xl p-4">
             <div className="flex items-center justify-between mb-2">
-              <h3 className="text-xs font-semibold text-stone-500">Filters</h3>
-              <button onClick={addFilter} className="text-[#1E3A5F] hover:text-[#162D4A]">
+              <h3 className="text-xs font-semibold text-zinc-500">Filters</h3>
+              <button onClick={addFilter} className="text-[#3B82F6] hover:text-blue-400">
                 <Plus className="h-3.5 w-3.5" />
               </button>
             </div>
@@ -162,7 +162,7 @@ export default function ReportBuilderPage() {
                     className="w-20 rounded border text-[10px] px-1 py-1"
                     placeholder="value"
                   />
-                  <button onClick={() => removeFilter(i)} className="text-stone-400 hover:text-red-500">
+                  <button onClick={() => removeFilter(i)} className="text-zinc-500 hover:text-red-500">
                     <X className="h-3 w-3" />
                   </button>
                 </div>
@@ -171,8 +171,8 @@ export default function ReportBuilderPage() {
           </div>
 
           {/* Sort */}
-          <div className="rounded-lg border bg-white p-4">
-            <h3 className="text-xs font-semibold text-stone-500 mb-2">Sort By</h3>
+          <div className="rounded-lg rounded-xl p-4">
+            <h3 className="text-xs font-semibold text-zinc-500 mb-2">Sort By</h3>
             <div className="flex gap-2">
               <select
                 value={sortBy}
@@ -200,7 +200,7 @@ export default function ReportBuilderPage() {
             <button
               onClick={() => runReport.mutate()}
               disabled={selectedFields.length === 0 || runReport.isPending}
-              className="flex-1 flex items-center justify-center gap-2 rounded-md bg-[#1E3A5F] px-4 py-2 text-sm font-medium text-white hover:bg-[#162D4A] disabled:opacity-50"
+              className="flex-1 flex items-center justify-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
             >
               {runReport.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Play className="h-4 w-4" />}
               Run
@@ -208,7 +208,7 @@ export default function ReportBuilderPage() {
             {reportData && (
               <button
                 onClick={exportCSV}
-                className="flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium text-stone-600 hover:bg-stone-50"
+                className="flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium text-zinc-400 hover:bg-white/5"
               >
                 <Download className="h-4 w-4" /> CSV
               </button>
@@ -220,19 +220,19 @@ export default function ReportBuilderPage() {
         <div className="col-span-3">
           {runReport.isPending ? (
             <div className="flex items-center justify-center p-20">
-              <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
+              <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
             </div>
           ) : reportData ? (
             <div className="rounded-lg border bg-white">
               <div className="px-4 py-3 border-b flex items-center justify-between">
-                <p className="text-xs text-stone-500">{reportData.total} results</p>
+                <p className="text-xs text-zinc-500">{reportData.total} results</p>
               </div>
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b bg-stone-50">
+                    <tr className="border-b bg-white/5">
                       {selectedFields.map((f) => (
-                        <th key={f} className="px-3 py-2 text-left font-medium text-stone-500 text-xs whitespace-nowrap">
+                        <th key={f} className="px-3 py-2 text-left font-medium text-zinc-500 text-xs whitespace-nowrap">
                           {entityFields.find((ef: any) => ef.field === f)?.label || f}
                         </th>
                       ))}
@@ -270,8 +270,8 @@ export default function ReportBuilderPage() {
           ) : (
             <div className="flex flex-col items-center justify-center p-20 text-center">
               <Database className="h-12 w-12 text-stone-200 mb-4" />
-              <p className="text-sm text-stone-500">Select fields and run the report</p>
-              <p className="text-xs text-stone-400 mt-1">Choose a data source, pick fields, add filters, then click Run</p>
+              <p className="text-sm text-zinc-500">Select fields and run the report</p>
+              <p className="text-xs text-zinc-500 mt-1">Choose a data source, pick fields, add filters, then click Run</p>
             </div>
           )}
         </div>

@@ -163,11 +163,11 @@ export default function WorkflowSettingsPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-semibold">Workflow Rules</h1>
-          <p className="text-sm text-stone-500 mt-1">Automate actions based on triggers and conditions</p>
+          <p className="text-sm text-zinc-500 mt-1">Automate actions based on triggers and conditions</p>
         </div>
         <button
           onClick={() => setShowCreate(true)}
-          className="flex items-center gap-2 rounded-md bg-[#1E3A5F] px-4 py-2 text-sm font-medium text-white hover:bg-[#162D4A]"
+          className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600"
         >
           <Plus className="h-4 w-4" /> New Rule
         </button>
@@ -175,17 +175,17 @@ export default function WorkflowSettingsPage() {
 
       {/* Create Form */}
       {showCreate && (
-        <div className="rounded-lg border bg-white p-5 mb-6">
+        <div className="rounded-lg rounded-xl p-5 mb-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-semibold">Create Workflow Rule</h3>
-            <button onClick={() => { setShowCreate(false); setForm({ ...EMPTY_FORM }); }} className="text-stone-400 hover:text-stone-600">
+            <button onClick={() => { setShowCreate(false); setForm({ ...EMPTY_FORM }); }} className="text-zinc-500 hover:text-zinc-400">
               <X className="h-4 w-4" />
             </button>
           </div>
 
           <div className="grid grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="block text-xs text-stone-500 mb-1">Rule Name</label>
+              <label className="block text-xs text-zinc-500 mb-1">Rule Name</label>
               <input
                 type="text"
                 value={form.name}
@@ -195,7 +195,7 @@ export default function WorkflowSettingsPage() {
               />
             </div>
             <div>
-              <label className="block text-xs text-stone-500 mb-1">Description</label>
+              <label className="block text-xs text-zinc-500 mb-1">Description</label>
               <input
                 type="text"
                 value={form.description}
@@ -208,7 +208,7 @@ export default function WorkflowSettingsPage() {
 
           {/* Trigger */}
           <div className="mb-4">
-            <p className="text-xs font-medium text-stone-500 mb-2">WHEN</p>
+            <p className="text-xs font-medium text-zinc-500 mb-2">WHEN</p>
             <div className="flex items-center gap-3">
               <select
                 value={form.triggerEntity}
@@ -233,14 +233,14 @@ export default function WorkflowSettingsPage() {
 
           {/* Conditions */}
           <div className="mb-4">
-            <p className="text-xs font-medium text-stone-500 mb-2">IF (conditions match)</p>
+            <p className="text-xs font-medium text-zinc-500 mb-2">IF (conditions match)</p>
             <div className="space-y-1.5 mb-2">
               {Object.entries(form.conditions).map(([key, val]) => (
-                <div key={key} className="flex items-center gap-2 text-xs bg-stone-50 rounded px-2 py-1.5">
+                <div key={key} className="flex items-center gap-2 text-xs bg-white/5 rounded px-2 py-1.5">
                   <span className="font-medium">{key}</span>
-                  <span className="text-stone-400">=</span>
+                  <span className="text-zinc-500">=</span>
                   <span>{val}</span>
-                  <button onClick={() => removeCondition(key)} className="ml-auto text-stone-400 hover:text-red-500">
+                  <button onClick={() => removeCondition(key)} className="ml-auto text-zinc-500 hover:text-red-500">
                     <X className="h-3 w-3" />
                   </button>
                 </div>
@@ -254,7 +254,7 @@ export default function WorkflowSettingsPage() {
                 placeholder="Field (e.g., status)"
                 className="rounded-md border px-3 py-1.5 text-xs"
               />
-              <span className="text-stone-400 text-xs">=</span>
+              <span className="text-zinc-500 text-xs">=</span>
               <input
                 type="text"
                 value={condValue}
@@ -265,7 +265,7 @@ export default function WorkflowSettingsPage() {
               <button
                 onClick={addCondition}
                 disabled={!condKey || !condValue}
-                className="text-xs text-[#1E3A5F] hover:text-[#162D4A] font-medium disabled:opacity-50"
+                className="text-xs text-[#3B82F6] hover:text-blue-400 font-medium disabled:opacity-50"
               >
                 Add
               </button>
@@ -274,7 +274,7 @@ export default function WorkflowSettingsPage() {
 
           {/* Actions */}
           <div className="mb-4">
-            <p className="text-xs font-medium text-stone-500 mb-2">THEN (execute actions)</p>
+            <p className="text-xs font-medium text-zinc-500 mb-2">THEN (execute actions)</p>
             <div className="space-y-3 mb-2">
               {form.actions.map((action, idx) => {
                 const actionDef = ACTION_TYPES.find((a) => a.value === action.type);
@@ -282,14 +282,14 @@ export default function WorkflowSettingsPage() {
                   <div key={idx} className="rounded-md border p-3">
                     <div className="flex items-center justify-between mb-2">
                       <span className="text-xs font-medium">{actionDef?.label || action.type}</span>
-                      <button onClick={() => removeAction(idx)} className="text-stone-400 hover:text-red-500">
+                      <button onClick={() => removeAction(idx)} className="text-zinc-500 hover:text-red-500">
                         <X className="h-3.5 w-3.5" />
                       </button>
                     </div>
                     <div className="grid grid-cols-2 gap-2">
                       {(actionDef?.fields || []).map((field) => (
                         <div key={field}>
-                          <label className="block text-[10px] text-stone-500 mb-0.5">{field}</label>
+                          <label className="block text-[10px] text-zinc-500 mb-0.5">{field}</label>
                           <input
                             type="text"
                             value={action.config[field] || ""}
@@ -309,7 +309,7 @@ export default function WorkflowSettingsPage() {
                 <button
                   key={at.value}
                   onClick={() => addAction(at.value)}
-                  className="text-[10px] rounded-full border px-2.5 py-1 text-stone-500 hover:bg-stone-50"
+                  className="text-[10px] rounded-full border px-2.5 py-1 text-zinc-500 hover:bg-white/5"
                 >
                   + {at.label}
                 </button>
@@ -321,7 +321,7 @@ export default function WorkflowSettingsPage() {
             <button
               onClick={() => createRule.mutate(form)}
               disabled={!form.name || form.actions.length === 0 || createRule.isPending}
-              className="rounded-md bg-[#1E3A5F] px-4 py-2 text-sm font-medium text-white hover:bg-[#162D4A] disabled:opacity-50"
+              className="rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
             >
               {createRule.isPending ? "Creating..." : "Create Rule"}
             </button>
@@ -338,13 +338,13 @@ export default function WorkflowSettingsPage() {
       {/* Rules List */}
       {isLoading ? (
         <div className="flex items-center justify-center p-20">
-          <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
+          <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
         </div>
       ) : rules.length === 0 ? (
-        <div className="rounded-lg border bg-white p-12 text-center">
-          <Zap className="h-10 w-10 text-stone-300 mx-auto mb-3" />
-          <p className="text-sm text-stone-500">No workflow rules configured</p>
-          <p className="text-xs text-stone-400 mt-1">Create rules to automate tasks, notifications, and more</p>
+        <div className="rounded-lg rounded-xl p-12 text-center">
+          <Zap className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
+          <p className="text-sm text-zinc-500">No workflow rules configured</p>
+          <p className="text-xs text-zinc-500 mt-1">Create rules to automate tasks, notifications, and more</p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -357,24 +357,24 @@ export default function WorkflowSettingsPage() {
               <div
                 key={rule.id}
                 className={cn(
-                  "rounded-lg border bg-white p-4",
+                  "rounded-lg rounded-xl p-4",
                   !rule.isActive && "opacity-60"
                 )}
               >
                 <div className="flex items-start justify-between">
                   <div>
                     <div className="flex items-center gap-2">
-                      <Zap className={cn("h-4 w-4", rule.isActive ? "text-amber-500" : "text-stone-400")} />
+                      <Zap className={cn("h-4 w-4", rule.isActive ? "text-amber-500" : "text-zinc-500")} />
                       <h3 className="text-sm font-semibold">{rule.name}</h3>
                     </div>
                     {rule.description && (
-                      <p className="text-xs text-stone-500 mt-0.5 ml-6">{rule.description}</p>
+                      <p className="text-xs text-zinc-500 mt-0.5 ml-6">{rule.description}</p>
                     )}
                   </div>
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => toggleRule.mutate({ id: rule.id, isActive: !rule.isActive })}
-                      className="text-stone-400 hover:text-stone-600"
+                      className="text-zinc-500 hover:text-zinc-400"
                     >
                       {rule.isActive ? (
                         <ToggleRight className="h-5 w-5 text-emerald-500" />
@@ -384,7 +384,7 @@ export default function WorkflowSettingsPage() {
                     </button>
                     <button
                       onClick={() => deleteRule.mutate(rule.id)}
-                      className="text-stone-400 hover:text-red-500"
+                      className="text-zinc-500 hover:text-red-500"
                     >
                       <Trash2 className="h-4 w-4" />
                     </button>
@@ -393,14 +393,14 @@ export default function WorkflowSettingsPage() {
 
                 <div className="ml-6 mt-3 space-y-1.5 text-xs">
                   <div className="flex items-center gap-2">
-                    <span className="text-stone-400 w-10">When</span>
-                    <span className="bg-[#EFF4F9] text-[#1E3A5F] px-2 py-0.5 rounded">
+                    <span className="text-zinc-500 w-10">When</span>
+                    <span className="bg-blue-500/10 text-[#3B82F6] px-2 py-0.5 rounded">
                       {rule.triggerEntity}.{rule.triggerEvent}
                     </span>
                   </div>
                   {condEntries.length > 0 && (
                     <div className="flex items-center gap-2">
-                      <span className="text-stone-400 w-10">If</span>
+                      <span className="text-zinc-500 w-10">If</span>
                       <div className="flex flex-wrap gap-1">
                         {condEntries.map(([k, v]) => (
                           <span key={k} className="bg-amber-50950 text-amber-600 px-2 py-0.5 rounded">
@@ -411,7 +411,7 @@ export default function WorkflowSettingsPage() {
                     </div>
                   )}
                   <div className="flex items-center gap-2">
-                    <span className="text-stone-400 w-10">Then</span>
+                    <span className="text-zinc-500 w-10">Then</span>
                     <div className="flex flex-wrap gap-1">
                       {actions.map((a, i) => (
                         <span key={i} className="bg-emerald-50950 text-emerald-600 px-2 py-0.5 rounded">

@@ -53,14 +53,14 @@ export default function IntegrationsPage() {
     <div>
       <div className="mb-6">
         <h1 className="text-2xl font-semibold">Integrations</h1>
-        <p className="text-sm text-stone-500 mt-1">
+        <p className="text-sm text-zinc-500 mt-1">
           Connect StrongBox with external services
         </p>
       </div>
 
       {isLoading ? (
         <div className="flex items-center justify-center p-20">
-          <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
+          <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
         </div>
       ) : (
         <div className="space-y-8">
@@ -73,19 +73,19 @@ export default function IntegrationsPage() {
             return (
               <div key={cat}>
                 <h3 className="text-sm font-semibold mb-3 capitalize flex items-center gap-2">
-                  <Icon className="h-4 w-4 text-stone-400" />
+                  <Icon className="h-4 w-4 text-zinc-500" />
                   {cat}
                 </h3>
                 <div className="grid grid-cols-2 gap-4">
                   {catIntegrations.map((integration: any) => (
                     <div
                       key={integration.id}
-                      className="rounded-lg border bg-white p-5"
+                      className="rounded-lg rounded-xl p-5"
                     >
                       <div className="flex items-start justify-between mb-3">
                         <div>
                           <h4 className="text-sm font-semibold">{integration.name}</h4>
-                          <p className="text-xs text-stone-500 mt-0.5">
+                          <p className="text-xs text-zinc-500 mt-0.5">
                             {integration.description}
                           </p>
                         </div>
@@ -94,19 +94,19 @@ export default function IntegrationsPage() {
                             <CheckCircle2 className="h-3 w-3" /> Active
                           </span>
                         ) : (
-                          <span className="flex items-center gap-1 rounded-full bg-stone-100 px-2 py-0.5 text-[10px] font-medium text-stone-500">
+                          <span className="flex items-center gap-1 rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-medium text-zinc-500">
                             <XCircle className="h-3 w-3" /> Not Configured
                           </span>
                         )}
                       </div>
 
-                      <div className="text-[10px] text-stone-400 mb-3">
+                      <div className="text-[10px] text-zinc-500 mb-3">
                         <p className="font-medium mb-1">Required Environment Variables:</p>
                         <div className="flex flex-wrap gap-1">
                           {integration.requiredEnvVars.map((v: string) => (
                             <span
                               key={v}
-                              className="font-mono bg-stone-100 px-1.5 py-0.5 rounded"
+                              className="font-mono bg-white/10 px-1.5 py-0.5 rounded"
                             >
                               {v}
                             </span>
@@ -118,7 +118,7 @@ export default function IntegrationsPage() {
                         <button
                           onClick={() => testMutation.mutate(integration.id)}
                           disabled={testMutation.isPending}
-                          className="text-xs text-[#1E3A5F] hover:text-[#162D4A] font-medium"
+                          className="text-xs text-[#3B82F6] hover:text-blue-400 font-medium"
                         >
                           {testMutation.isPending && testMutation.variables === integration.id
                             ? "Testing..."

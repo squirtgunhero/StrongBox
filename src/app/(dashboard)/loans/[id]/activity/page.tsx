@@ -7,8 +7,8 @@ export default function LoanActivityPage({
     <div>
       <h1 className="text-2xl font-semibold mb-6">Loan Activity</h1>
       {/* TODO: Audit trail / activity feed */}
-      <div className="rounded-lg border bg-white p-6">
-        <p className="text-sm text-stone-500">Activity for loan {params.id}</p>
+      <div className="rounded-lg rounded-xl p-6">
+        <p className="text-sm text-zinc-500">Activity for loan {params.id}</p>
       </div>
     </div>
   );

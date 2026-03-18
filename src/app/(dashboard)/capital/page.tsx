@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/utils/currency";
 
 const TYPE_CONFIG: Record<string, { label: string; color: string }> = {
-  LINE_OF_CREDIT: { label: "Line of Credit", color: "text-[#1E3A5F] bg-[#EFF4F9]" },
+  LINE_OF_CREDIT: { label: "Line of Credit", color: "text-[#3B82F6] bg-blue-500/10" },
   PRIVATE_INVESTOR: { label: "Private Investor", color: "text-purple-600 bg-purple-50950" },
   FUND: { label: "Fund", color: "text-emerald-600 bg-emerald-50950" },
   OPERATING_CAPITAL: { label: "Operating", color: "text-amber-600 bg-amber-50950" },
@@ -67,11 +67,11 @@ export default function CapitalPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-semibold">Capital Sources</h1>
-          <p className="text-sm text-stone-500 mt-1">{sources.length} sources</p>
+          <p className="text-sm text-zinc-500 mt-1">{sources.length} sources</p>
         </div>
         <button
           onClick={() => setShowCreate(true)}
-          className="flex items-center gap-2 rounded-md bg-[#1E3A5F] px-4 py-2 text-sm font-medium text-white hover:bg-[#162D4A]"
+          className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600"
         >
           <Plus className="h-4 w-4" /> Add Source
         </button>
@@ -79,35 +79,35 @@ export default function CapitalPage() {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-3 gap-4 mb-6">
-        <div className="rounded-lg border bg-white p-4">
+        <div className="rounded-lg rounded-xl p-4">
           <div className="flex items-center gap-3">
-            <div className="rounded-full bg-[#EFF4F9] p-2">
-              <Landmark className="h-4 w-4 text-[#1E3A5F]" />
+            <div className="rounded-full bg-blue-500/10 p-2">
+              <Landmark className="h-4 w-4 text-[#3B82F6]" />
             </div>
             <div>
-              <p className="text-xs text-stone-500">Total Capacity</p>
+              <p className="text-xs text-zinc-500">Total Capacity</p>
               <p className="text-xl font-bold">{formatCurrency(totals.totalLimit)}</p>
             </div>
           </div>
         </div>
-        <div className="rounded-lg border bg-white p-4">
+        <div className="rounded-lg rounded-xl p-4">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-amber-50 p-2">
               <TrendingUp className="h-4 w-4 text-amber-500" />
             </div>
             <div>
-              <p className="text-xs text-stone-500">Deployed</p>
+              <p className="text-xs text-zinc-500">Deployed</p>
               <p className="text-xl font-bold">{formatCurrency(totals.totalDeployed)}</p>
             </div>
           </div>
         </div>
-        <div className="rounded-lg border bg-white p-4">
+        <div className="rounded-lg rounded-xl p-4">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-emerald-50 p-2">
               <Wallet className="h-4 w-4 text-emerald-500" />
             </div>
             <div>
-              <p className="text-xs text-stone-500">Available</p>
+              <p className="text-xs text-zinc-500">Available</p>
               <p className="text-xl font-bold text-emerald-600">
                 {formatCurrency(totals.totalAvailable)}
               </p>
@@ -118,16 +118,16 @@ export default function CapitalPage() {
 
       {/* Create Form */}
       {showCreate && (
-        <div className="rounded-lg border bg-white p-4 mb-6">
+        <div className="rounded-lg rounded-xl p-4 mb-6">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-semibold">Add Capital Source</h3>
-            <button onClick={() => setShowCreate(false)} className="text-stone-400 hover:text-stone-600">
+            <button onClick={() => setShowCreate(false)} className="text-zinc-500 hover:text-zinc-400">
               <X className="h-4 w-4" />
             </button>
           </div>
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <label className="block text-xs text-stone-500 mb-1">Name</label>
+              <label className="block text-xs text-zinc-500 mb-1">Name</label>
               <input
                 type="text"
                 value={form.name}
@@ -137,7 +137,7 @@ export default function CapitalPage() {
               />
             </div>
             <div>
-              <label className="block text-xs text-stone-500 mb-1">Type</label>
+              <label className="block text-xs text-zinc-500 mb-1">Type</label>
               <select
                 value={form.type}
                 onChange={(e) => setForm({ ...form, type: e.target.value })}
@@ -150,7 +150,7 @@ export default function CapitalPage() {
               </select>
             </div>
             <div>
-              <label className="block text-xs text-stone-500 mb-1">Credit Limit / Total</label>
+              <label className="block text-xs text-zinc-500 mb-1">Credit Limit / Total</label>
               <input
                 type="number"
                 step="0.01"
@@ -161,7 +161,7 @@ export default function CapitalPage() {
               />
             </div>
             <div>
-              <label className="block text-xs text-stone-500 mb-1">Interest Rate (%)</label>
+              <label className="block text-xs text-zinc-500 mb-1">Interest Rate (%)</label>
               <input
                 type="number"
                 step="0.01"
@@ -171,7 +171,7 @@ export default function CapitalPage() {
               />
             </div>
             <div>
-              <label className="block text-xs text-stone-500 mb-1">Bank Name</label>
+              <label className="block text-xs text-zinc-500 mb-1">Bank Name</label>
               <input
                 type="text"
                 value={form.bankName}
@@ -180,7 +180,7 @@ export default function CapitalPage() {
               />
             </div>
             <div>
-              <label className="block text-xs text-stone-500 mb-1">Notes</label>
+              <label className="block text-xs text-zinc-500 mb-1">Notes</label>
               <input
                 type="text"
                 value={form.notes}
@@ -193,7 +193,7 @@ export default function CapitalPage() {
             <button
               onClick={() => createSource.mutate(form)}
               disabled={!form.name || createSource.isPending}
-              className="rounded-md bg-[#1E3A5F] px-4 py-2 text-sm font-medium text-white hover:bg-[#162D4A] disabled:opacity-50"
+              className="rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
             >
               Create
             </button>
@@ -204,12 +204,12 @@ export default function CapitalPage() {
       {/* Capital Sources List */}
       {isLoading ? (
         <div className="flex items-center justify-center p-20">
-          <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
+          <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
         </div>
       ) : sources.length === 0 ? (
-        <div className="rounded-lg border bg-white p-12 text-center">
-          <Landmark className="h-10 w-10 text-stone-300 mx-auto mb-3" />
-          <p className="text-sm text-stone-500">No capital sources configured</p>
+        <div className="rounded-lg rounded-xl p-12 text-center">
+          <Landmark className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
+          <p className="text-sm text-zinc-500">No capital sources configured</p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -223,7 +223,7 @@ export default function CapitalPage() {
             return (
               <div
                 key={source.id}
-                className="rounded-lg border bg-white p-4"
+                className="rounded-lg rounded-xl p-4"
               >
                 <div className="flex items-start justify-between">
                   <div>
@@ -238,19 +238,19 @@ export default function CapitalPage() {
                         {typeCfg.label}
                       </span>
                       {!source.isActive && (
-                        <span className="text-[10px] text-stone-400 bg-stone-100 px-1.5 py-0.5 rounded">
+                        <span className="text-[10px] text-zinc-500 bg-white/10 px-1.5 py-0.5 rounded">
                           inactive
                         </span>
                       )}
                     </div>
                     {source.bankName && (
-                      <p className="text-xs text-stone-500 mt-0.5">{source.bankName}</p>
+                      <p className="text-xs text-zinc-500 mt-0.5">{source.bankName}</p>
                     )}
                   </div>
                   <div className="text-right">
                     <p className="text-sm font-bold">{formatCurrency(limit)}</p>
                     {source.interestRate && (
-                      <p className="text-xs text-stone-500">
+                      <p className="text-xs text-zinc-500">
                         {Number(source.interestRate).toFixed(2)}% rate
                       </p>
                     )}
@@ -260,7 +260,7 @@ export default function CapitalPage() {
                 {/* Utilization Bar */}
                 {limit > 0 && (
                   <div className="mt-3">
-                    <div className="flex justify-between text-xs text-stone-500 mb-1">
+                    <div className="flex justify-between text-xs text-zinc-500 mb-1">
                       <span>Deployed: {formatCurrency(deployed)}</span>
                       <span>Available: {formatCurrency(available)}</span>
                     </div>
@@ -272,12 +272,12 @@ export default function CapitalPage() {
                             ? "bg-red-500"
                             : utilization > 70
                             ? "bg-amber-500"
-                            : "bg-[#1E3A5F]"
+                            : "bg-[#3B82F6]"
                         )}
                         style={{ width: `${Math.min(100, utilization)}%` }}
                       />
                     </div>
-                    <p className="text-[10px] text-stone-400 mt-1 text-right">
+                    <p className="text-[10px] text-zinc-500 mt-1 text-right">
                       {utilization.toFixed(0)}% utilized
                     </p>
                   </div>
@@ -286,7 +286,7 @@ export default function CapitalPage() {
                 {/* Allocations */}
                 {source.allocations && source.allocations.length > 0 && (
                   <div className="mt-3 pt-3 border-t">
-                    <p className="text-xs text-stone-500 font-medium mb-2">
+                    <p className="text-xs text-zinc-500 font-medium mb-2">
                       Active Allocations ({source.allocations.length})
                     </p>
                     <div className="space-y-1">
@@ -295,7 +295,7 @@ export default function CapitalPage() {
                           key={alloc.id}
                           className="flex items-center justify-between text-xs"
                         >
-                          <span className="text-[#1E3A5F]">
+                          <span className="text-[#3B82F6]">
                             {alloc.loan.loanNumber}
                           </span>
                           <span className="font-medium">
@@ -304,7 +304,7 @@ export default function CapitalPage() {
                         </div>
                       ))}
                       {source.allocations.length > 5 && (
-                        <p className="text-[10px] text-stone-400">
+                        <p className="text-[10px] text-zinc-500">
                           +{source.allocations.length - 5} more
                         </p>
                       )}

@@ -29,9 +29,9 @@ export function PipelineSummary() {
 
   if (isLoading) {
     return (
-      <div className="rounded-lg border border-stone-200 bg-white p-6">
+      <div className="rounded-xl p-6" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
         <div className="flex items-center justify-center h-32">
-          <Loader2 className="h-5 w-5 animate-spin text-stone-400" />
+          <Loader2 className="h-5 w-5 animate-spin text-zinc-500" />
         </div>
       </div>
     );
@@ -41,22 +41,22 @@ export function PipelineSummary() {
   if (!report) return null;
 
   return (
-    <div className="rounded-lg border border-stone-200 bg-white p-5">
+    <div className="rounded-xl p-5" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-semibold text-stone-900">Pipeline</h3>
-        <Link href="/reports?type=pipeline" className="text-xs text-[#1E3A5F] hover:text-[#162D4A]">
+        <h3 className="text-sm font-semibold text-white">Pipeline</h3>
+        <Link href="/reports?type=pipeline" className="text-xs text-[#3B82F6] hover:text-blue-400">
           View Report
         </Link>
       </div>
 
       <div className="grid grid-cols-2 gap-3 mb-4">
         <div>
-          <p className="text-2xl font-bold text-stone-900">{report.summary.totalDeals}</p>
-          <p className="text-xs text-stone-500">Active Deals</p>
+          <p className="text-2xl font-bold text-white">{report.summary.totalDeals}</p>
+          <p className="text-xs text-zinc-500">Active Deals</p>
         </div>
         <div>
-          <p className="text-2xl font-bold font-mono text-stone-900">{formatCurrency(report.summary.totalAmount)}</p>
-          <p className="text-xs text-stone-500">Pipeline Value</p>
+          <p className="text-2xl font-bold font-mono text-white">{formatCurrency(report.summary.totalAmount)}</p>
+          <p className="text-xs text-zinc-500">Pipeline Value</p>
         </div>
       </div>
 
@@ -69,14 +69,14 @@ export function PipelineSummary() {
             const pct = report.summary.totalAmount > 0 ? (s.totalAmount / report.summary.totalAmount) * 100 : 0;
             return (
               <div key={s.status} className="flex items-center gap-2">
-                <span className="text-[10px] text-stone-500 w-10 text-right">{cfg.label}</span>
-                <div className="flex-1 bg-stone-100 rounded-full h-2">
+                <span className="text-[10px] text-zinc-500 w-10 text-right">{cfg.label}</span>
+                <div className="flex-1 bg-white/10 rounded-full h-2">
                   <div
                     className={cn("h-2 rounded-full transition-all", cfg.color)}
                     style={{ width: `${Math.max(4, pct)}%` }}
                   />
                 </div>
-                <span className="text-[10px] font-medium w-5 text-right">{s.count}</span>
+                <span className="text-[10px] font-medium text-zinc-400 w-5 text-right">{s.count}</span>
               </div>
             );
           })}

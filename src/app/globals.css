@@ -1,36 +1,37 @@
 @import "tailwindcss";
 
 :root {
-  /* Core neutrals */
-  --background: #FAFAFA;
-  --surface: #FFFFFF;
-  --surface-secondary: #F5F5F4;
-  --border: #E7E5E4;
-  --border-subtle: #F0EEEC;
-  --ring: #A8A29E;
+  /* Core dark surfaces */
+  --background: #0F1117;
+  --surface: #1A1D27;
+  --surface-secondary: #22252F;
+  --surface-hover: #282B35;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.12);
+  --ring: rgba(255, 255, 255, 0.15);
 
   /* Text hierarchy */
-  --text-primary: #1C1917;
-  --text-secondary: #57534E;
-  --text-tertiary: #A8A29E;
+  --text-primary: #F5F5F4;
+  --text-secondary: #A1A1AA;
+  --text-tertiary: #71717A;
 
-  /* Accent — deep navy blue */
-  --accent: #1E3A5F;
-  --accent-hover: #162D4A;
-  --accent-subtle: #EFF4F9;
-  --accent-muted: #93B4D4;
+  /* Accent — blue */
+  --accent: #3B82F6;
+  --accent-hover: #2563EB;
+  --accent-subtle: rgba(59, 130, 246, 0.12);
+  --accent-muted: rgba(59, 130, 246, 0.4);
 
   /* Status colors */
-  --status-active: #16A34A;
-  --status-active-bg: #F0FDF4;
-  --status-pipeline: #CA8A04;
-  --status-pipeline-bg: #FEFCE8;
-  --status-funded: #2563EB;
-  --status-funded-bg: #EFF6FF;
-  --status-paid-off: #57534E;
-  --status-paid-off-bg: #F5F5F4;
-  --status-distressed: #DC2626;
-  --status-distressed-bg: #FEF2F2;
+  --status-active: #22C55E;
+  --status-active-bg: rgba(34, 197, 94, 0.12);
+  --status-pipeline: #EAB308;
+  --status-pipeline-bg: rgba(234, 179, 8, 0.12);
+  --status-funded: #3B82F6;
+  --status-funded-bg: rgba(59, 130, 246, 0.12);
+  --status-paid-off: #71717A;
+  --status-paid-off-bg: rgba(113, 113, 122, 0.12);
+  --status-distressed: #EF4444;
+  --status-distressed-bg: rgba(239, 68, 68, 0.12);
 }
 
 @theme inline {
@@ -39,11 +40,10 @@
   --font-sans: var(--font-inter);
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', ui-monospace, monospace;
 
-  /* Accent palette for Tailwind classes */
-  --color-accent: #1E3A5F;
-  --color-accent-hover: #162D4A;
-  --color-accent-subtle: #EFF4F9;
-  --color-accent-muted: #93B4D4;
+  --color-accent: #3B82F6;
+  --color-accent-hover: #2563EB;
+  --color-accent-subtle: rgba(59, 130, 246, 0.12);
+  --color-accent-muted: rgba(59, 130, 246, 0.4);
 }
 
 body {

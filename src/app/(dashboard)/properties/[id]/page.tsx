@@ -60,12 +60,12 @@ export default function PropertyDetailPage() {
 
   const property = data?.property;
   const inputClass =
-    "w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-zinc-800 dark:border-zinc-700";
+    "w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-[#1E3A5F] focus:ring-1 focus:ring-[#1E3A5F]";
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center p-20">
-        <Loader2 className="h-6 w-6 animate-spin text-zinc-400" />
+        <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
       </div>
     );
   }
@@ -73,7 +73,7 @@ export default function PropertyDetailPage() {
   if (!property) {
     return (
       <div className="text-center p-12">
-        <p className="text-zinc-500">Property not found</p>
+        <p className="text-stone-500">Property not found</p>
       </div>
     );
   }
@@ -119,7 +119,7 @@ export default function PropertyDetailPage() {
     <div>
       <Link
         href="/properties"
-        className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-700 mb-4"
+        className="inline-flex items-center gap-1 text-sm text-stone-500 hover:text-stone-700 mb-4"
       >
         <ArrowLeft className="h-4 w-4" /> Back to properties
       </Link>
@@ -127,12 +127,12 @@ export default function PropertyDetailPage() {
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-50 dark:bg-brand-950">
-            <Home className="h-5 w-5 text-brand-600 dark:text-brand-400" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#EFF4F9]">
+            <Home className="h-5 w-5 text-[#1E3A5F]" />
           </div>
           <div>
             <h1 className="text-xl font-semibold">{property.address}</h1>
-            <p className="text-sm text-zinc-500 flex items-center gap-1">
+            <p className="text-sm text-stone-500 flex items-center gap-1">
               <MapPin className="h-3 w-3" />
               {property.city}, {property.state} {property.zip}
             </p>
@@ -143,14 +143,14 @@ export default function PropertyDetailPage() {
             <>
               <button
                 onClick={() => setEditing(false)}
-                className="rounded-md border px-3 py-1.5 text-sm hover:bg-zinc-50 dark:border-zinc-700"
+                className="rounded-md border px-3 py-1.5 text-sm hover:bg-stone-50"
               >
                 Cancel
               </button>
               <button
                 onClick={saveEdits}
                 disabled={updateProperty.isPending}
-                className="flex items-center gap-1.5 rounded-md bg-brand-600 px-3 py-1.5 text-sm font-medium text-white hover:bg-brand-700 disabled:opacity-50"
+                className="flex items-center gap-1.5 rounded-md bg-[#1E3A5F] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#162D4A] disabled:opacity-50"
               >
                 {updateProperty.isPending ? (
                   <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -163,7 +163,7 @@ export default function PropertyDetailPage() {
           ) : (
             <button
               onClick={startEditing}
-              className="rounded-md border px-3 py-1.5 text-sm hover:bg-zinc-50 dark:border-zinc-700"
+              className="rounded-md border px-3 py-1.5 text-sm hover:bg-stone-50"
             >
               Edit
             </button>
@@ -173,32 +173,32 @@ export default function PropertyDetailPage() {
 
       {/* Quick Stats */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-        <div className="rounded-lg border p-3 dark:border-zinc-800">
-          <p className="text-xs text-zinc-500">Type</p>
+        <div className="rounded-lg border p-3">
+          <p className="text-xs text-stone-500">Type</p>
           <p className="text-sm font-medium mt-0.5">
             {property.propertyType?.replace(/_/g, " ")}
           </p>
         </div>
-        <div className="rounded-lg border p-3 dark:border-zinc-800">
-          <p className="text-xs text-zinc-500">Bed / Bath</p>
+        <div className="rounded-lg border p-3">
+          <p className="text-xs text-stone-500">Bed / Bath</p>
           <p className="text-sm font-medium mt-0.5">
             {property.bedrooms ?? "-"} / {property.bathrooms ? Number(property.bathrooms) : "-"}
           </p>
         </div>
-        <div className="rounded-lg border p-3 dark:border-zinc-800">
-          <p className="text-xs text-zinc-500">Sq Ft</p>
+        <div className="rounded-lg border p-3">
+          <p className="text-xs text-stone-500">Sq Ft</p>
           <p className="text-sm font-medium mt-0.5">
             {property.squareFeet?.toLocaleString() ?? "-"}
           </p>
         </div>
-        <div className="rounded-lg border p-3 dark:border-zinc-800">
-          <p className="text-xs text-zinc-500">Year Built</p>
+        <div className="rounded-lg border p-3">
+          <p className="text-xs text-stone-500">Year Built</p>
           <p className="text-sm font-medium mt-0.5">{property.yearBuilt ?? "-"}</p>
         </div>
       </div>
 
       {/* Tabs */}
-      <div className="border-b dark:border-zinc-800 mb-4">
+      <div className="border-b mb-4">
         <div className="flex gap-6">
           {TABS.map((t, i) => (
             <button
@@ -207,8 +207,8 @@ export default function PropertyDetailPage() {
               className={cn(
                 "pb-2 text-sm font-medium border-b-2 -mb-px transition-colors",
                 i === tab
-                  ? "border-brand-600 text-brand-600 dark:text-brand-400"
-                  : "border-transparent text-zinc-500 hover:text-zinc-700"
+                  ? "border-[#1E3A5F] text-[#1E3A5F]"
+                  : "border-transparent text-stone-500 hover:text-stone-700"
               )}
             >
               {t}
@@ -217,11 +217,11 @@ export default function PropertyDetailPage() {
         </div>
       </div>
 
-      <div className="rounded-lg border bg-white p-6 dark:bg-zinc-900 dark:border-zinc-800">
+      <div className="rounded-lg border bg-white p-6">
         {/* Details Tab */}
         {tab === 0 && (
           <div className="space-y-6">
-            <h3 className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">
+            <h3 className="text-sm font-semibold text-stone-700">
               Property Details
             </h3>
             {editing ? (
@@ -320,7 +320,7 @@ export default function PropertyDetailPage() {
                 <Field label="Occupancy" value={property.occupancyStatus} />
                 {property.notes && (
                   <div className="col-span-full">
-                    <dt className="text-zinc-500">Notes</dt>
+                    <dt className="text-stone-500">Notes</dt>
                     <dd className="font-medium mt-0.5 whitespace-pre-wrap">{property.notes}</dd>
                   </div>
                 )}
@@ -332,7 +332,7 @@ export default function PropertyDetailPage() {
         {/* Valuation Tab */}
         {tab === 1 && (
           <div className="space-y-6">
-            <h3 className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">
+            <h3 className="text-sm font-semibold text-stone-700">
               Valuation & Financials
             </h3>
             {editing ? (
@@ -376,15 +376,15 @@ export default function PropertyDetailPage() {
         {/* Loan Tab */}
         {tab === 2 && (
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">
+            <h3 className="text-sm font-semibold text-stone-700">
               Associated Loan
             </h3>
             {property.loan ? (
-              <div className="rounded-lg border p-4 dark:border-zinc-700">
+              <div className="rounded-lg border p-4">
                 <div className="flex items-center justify-between">
                   <Link
                     href={`/loans/${property.loan.id}`}
-                    className="text-brand-600 font-medium hover:text-brand-700 dark:text-brand-400"
+                    className="text-[#1E3A5F] font-medium hover:text-[#162D4A]"
                   >
                     {property.loan.loanNumber}
                   </Link>
@@ -392,33 +392,33 @@ export default function PropertyDetailPage() {
                 </div>
                 <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-3 text-sm">
                   <div>
-                    <p className="text-zinc-500 text-xs">Borrower</p>
+                    <p className="text-stone-500 text-xs">Borrower</p>
                     <p className="font-medium">
                       {property.loan.borrower?.firstName} {property.loan.borrower?.lastName}
                     </p>
                   </div>
                   <div>
-                    <p className="text-zinc-500 text-xs">Amount</p>
+                    <p className="text-stone-500 text-xs">Amount</p>
                     <p className="font-medium">
                       {formatCurrency(property.loan.loanAmount)}
                     </p>
                   </div>
                   <div>
-                    <p className="text-zinc-500 text-xs">Rate</p>
+                    <p className="text-stone-500 text-xs">Rate</p>
                     <p className="font-medium">
                       {Number(property.loan.interestRate).toFixed(1)}%
                     </p>
                   </div>
                   <div>
-                    <p className="text-zinc-500 text-xs">Term</p>
+                    <p className="text-stone-500 text-xs">Term</p>
                     <p className="font-medium">{property.loan.termMonths} mo</p>
                   </div>
                 </div>
               </div>
             ) : (
               <div className="text-center p-8">
-                <FileText className="h-8 w-8 text-zinc-300 mx-auto mb-2" />
-                <p className="text-sm text-zinc-500">No loan associated</p>
+                <FileText className="h-8 w-8 text-stone-300 mx-auto mb-2" />
+                <p className="text-sm text-stone-500">No loan associated</p>
               </div>
             )}
           </div>
@@ -427,7 +427,7 @@ export default function PropertyDetailPage() {
         {/* Documents Tab */}
         {tab === 3 && (
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-zinc-700 dark:text-zinc-300">
+            <h3 className="text-sm font-semibold text-stone-700">
               Documents
             </h3>
             {property.documents?.length ? (
@@ -435,13 +435,13 @@ export default function PropertyDetailPage() {
                 {property.documents.map((doc: any) => (
                   <div
                     key={doc.id}
-                    className="flex items-center justify-between rounded-md border p-3 dark:border-zinc-700"
+                    className="flex items-center justify-between rounded-md border p-3"
                   >
                     <div className="flex items-center gap-2">
-                      <FileText className="h-4 w-4 text-zinc-400" />
+                      <FileText className="h-4 w-4 text-stone-400" />
                       <span className="text-sm font-medium">{doc.fileName}</span>
                     </div>
-                    <span className="text-xs text-zinc-400">
+                    <span className="text-xs text-stone-400">
                       {new Date(doc.createdAt).toLocaleDateString()}
                     </span>
                   </div>
@@ -449,8 +449,8 @@ export default function PropertyDetailPage() {
               </div>
             ) : (
               <div className="text-center p-8">
-                <FileText className="h-8 w-8 text-zinc-300 mx-auto mb-2" />
-                <p className="text-sm text-zinc-500">No documents yet</p>
+                <FileText className="h-8 w-8 text-stone-300 mx-auto mb-2" />
+                <p className="text-sm text-stone-500">No documents yet</p>
               </div>
             )}
           </div>
@@ -463,7 +463,7 @@ export default function PropertyDetailPage() {
 function Field({ label, value }: { label: string; value: any }) {
   return (
     <div>
-      <dt className="text-zinc-500">{label}</dt>
+      <dt className="text-stone-500">{label}</dt>
       <dd className="font-medium mt-0.5">{value ?? "-"}</dd>
     </div>
   );
@@ -472,7 +472,7 @@ function Field({ label, value }: { label: string; value: any }) {
 function CurrencyField({ label, value }: { label: string; value: any }) {
   return (
     <div>
-      <dt className="text-zinc-500">{label}</dt>
+      <dt className="text-stone-500">{label}</dt>
       <dd className="font-medium mt-0.5">
         {value ? formatCurrency(Number(value)) : "-"}
       </dd>

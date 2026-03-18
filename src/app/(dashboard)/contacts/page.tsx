@@ -91,7 +91,7 @@ export default function ContactsPage() {
         <h1 className="text-2xl font-semibold">Contacts</h1>
         <button
           onClick={() => setShowForm(true)}
-          className="flex items-center gap-2 rounded-md bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 transition-colors"
+          className="flex items-center gap-2 rounded-md bg-[#1E3A5F] px-4 py-2 text-sm font-medium text-white hover:bg-[#162D4A] transition-colors"
         >
           <Plus className="h-4 w-4" />
           New Contact
@@ -110,7 +110,7 @@ export default function ContactsPage() {
       {/* Filters */}
       <div className="flex flex-col gap-4 mb-4 sm:flex-row sm:items-center">
         <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
           <input
             type="text"
             placeholder="Search contacts..."
@@ -119,7 +119,7 @@ export default function ContactsPage() {
               setSearch(e.target.value);
               setPage(1);
             }}
-            className="w-full h-9 rounded-md border bg-white pl-9 pr-3 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-zinc-800 dark:border-zinc-700"
+            className="w-full h-9 rounded-md border bg-white pl-9 pr-3 text-sm outline-none focus:border-[#1E3A5F] focus:ring-1 focus:ring-[#1E3A5F]"
           />
         </div>
         <div className="flex gap-1">
@@ -133,8 +133,8 @@ export default function ContactsPage() {
               className={cn(
                 "px-3 py-1.5 rounded-md text-xs font-medium transition-colors",
                 type === tab.key
-                  ? "bg-brand-100 text-brand-700 dark:bg-brand-950 dark:text-brand-400"
-                  : "text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                  ? "bg-[#EFF4F9] text-[#162D4A]"
+                  : "text-stone-500 hover:bg-stone-100"
               )}
             >
               {tab.label}
@@ -144,16 +144,16 @@ export default function ContactsPage() {
       </div>
 
       {/* Table */}
-      <div className="rounded-lg border bg-white dark:bg-zinc-900 dark:border-zinc-800">
+      <div className="rounded-lg border bg-white">
         {isLoading ? (
           <div className="flex items-center justify-center p-12">
-            <Loader2 className="h-6 w-6 animate-spin text-zinc-400" />
+            <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
           </div>
         ) : !data?.contacts?.length ? (
           <div className="p-12 text-center">
-            <Users className="h-10 w-10 text-zinc-300 mx-auto mb-3" />
-            <p className="text-sm text-zinc-500">No contacts found</p>
-            <p className="text-xs text-zinc-400 mt-1">
+            <Users className="h-10 w-10 text-stone-300 mx-auto mb-3" />
+            <p className="text-sm text-stone-500">No contacts found</p>
+            <p className="text-xs text-stone-400 mt-1">
               {search ? "Try a different search" : "Create your first contact"}
             </p>
           </div>
@@ -161,66 +161,66 @@ export default function ContactsPage() {
           <>
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b bg-zinc-50 dark:bg-zinc-800/50 dark:border-zinc-800">
-                  <th className="px-4 py-3 text-left font-medium text-zinc-500">Name</th>
-                  <th className="px-4 py-3 text-left font-medium text-zinc-500">Email</th>
-                  <th className="px-4 py-3 text-left font-medium text-zinc-500">Phone</th>
-                  <th className="px-4 py-3 text-left font-medium text-zinc-500">Type</th>
-                  <th className="px-4 py-3 text-left font-medium text-zinc-500">Loans</th>
-                  <th className="px-4 py-3 text-left font-medium text-zinc-500">Risk</th>
+                <tr className="border-b bg-stone-50">
+                  <th className="px-4 py-3 text-left font-medium text-stone-500">Name</th>
+                  <th className="px-4 py-3 text-left font-medium text-stone-500">Email</th>
+                  <th className="px-4 py-3 text-left font-medium text-stone-500">Phone</th>
+                  <th className="px-4 py-3 text-left font-medium text-stone-500">Type</th>
+                  <th className="px-4 py-3 text-left font-medium text-stone-500">Loans</th>
+                  <th className="px-4 py-3 text-left font-medium text-stone-500">Risk</th>
                 </tr>
               </thead>
               <tbody>
                 {data.contacts.map((contact) => (
                   <tr
                     key={contact.id}
-                    className="border-b last:border-0 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/30"
+                    className="border-b last:border-0 hover:bg-stone-50"
                   >
                     <td className="px-4 py-3">
                       <Link
                         href={`/contacts/${contact.id}`}
-                        className="font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400"
+                        className="font-medium text-[#1E3A5F] hover:text-[#162D4A]"
                       >
                         {contact.lastName}, {contact.firstName}
                       </Link>
                       {contact.companyName && (
-                        <p className="text-xs text-zinc-400">{contact.companyName}</p>
+                        <p className="text-xs text-stone-400">{contact.companyName}</p>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-zinc-500">{contact.email || "-"}</td>
-                    <td className="px-4 py-3 text-zinc-500">{contact.phone || "-"}</td>
+                    <td className="px-4 py-3 text-stone-500">{contact.email || "-"}</td>
+                    <td className="px-4 py-3 text-stone-500">{contact.phone || "-"}</td>
                     <td className="px-4 py-3">
                       <div className="flex gap-1 flex-wrap">
                         {contact.isBorrower && (
-                          <span className="rounded-full bg-brand-100 px-2 py-0.5 text-xs text-brand-700 dark:bg-brand-950 dark:text-brand-400">
+                          <span className="rounded-full bg-[#EFF4F9] px-2 py-0.5 text-xs text-[#162D4A]">
                             Borrower
                           </span>
                         )}
                         {contact.isInvestor && (
-                          <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-700 dark:bg-green-950 dark:text-green-400">
+                          <span className="rounded-full bg-green-100 px-2 py-0.5 text-xs text-green-700950400">
                             Investor
                           </span>
                         )}
                         {contact.isReferralPartner && (
-                          <span className="rounded-full bg-purple-100 px-2 py-0.5 text-xs text-purple-700 dark:bg-purple-950 dark:text-purple-400">
+                          <span className="rounded-full bg-purple-100 px-2 py-0.5 text-xs text-purple-700950400">
                             Referral
                           </span>
                         )}
                         {contact.isVendor && (
-                          <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs text-amber-700 dark:bg-amber-950 dark:text-amber-400">
+                          <span className="rounded-full bg-amber-100 px-2 py-0.5 text-xs text-amber-700950400">
                             Vendor
                           </span>
                         )}
                       </div>
                     </td>
-                    <td className="px-4 py-3 text-zinc-500">{contact._count.loans}</td>
+                    <td className="px-4 py-3 text-stone-500">{contact._count.loans}</td>
                     <td className="px-4 py-3">
                       {contact.naughtyLevel > 0 ? (
-                        <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs text-red-700 dark:bg-red-950 dark:text-red-400">
+                        <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs text-red-700400">
                           Level {contact.naughtyLevel}
                         </span>
                       ) : (
-                        <span className="text-xs text-zinc-400">Good</span>
+                        <span className="text-xs text-stone-400">Good</span>
                       )}
                     </td>
                   </tr>
@@ -230,8 +230,8 @@ export default function ContactsPage() {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-between border-t px-4 py-3 dark:border-zinc-800">
-                <p className="text-xs text-zinc-500">
+              <div className="flex items-center justify-between border-t px-4 py-3">
+                <p className="text-xs text-stone-500">
                   Showing {(page - 1) * data.limit + 1}-
                   {Math.min(page * data.limit, data.total)} of {data.total}
                 </p>
@@ -239,14 +239,14 @@ export default function ContactsPage() {
                   <button
                     disabled={page === 1}
                     onClick={() => setPage(page - 1)}
-                    className="rounded p-1 hover:bg-zinc-100 disabled:opacity-30 dark:hover:bg-zinc-800"
+                    className="rounded p-1 hover:bg-stone-100 disabled:opacity-30800"
                   >
                     <ChevronLeft className="h-4 w-4" />
                   </button>
                   <button
                     disabled={page >= totalPages}
                     onClick={() => setPage(page + 1)}
-                    className="rounded p-1 hover:bg-zinc-100 disabled:opacity-30 dark:hover:bg-zinc-800"
+                    className="rounded p-1 hover:bg-stone-100 disabled:opacity-30800"
                   >
                     <ChevronRight className="h-4 w-4" />
                   </button>
@@ -292,11 +292,11 @@ function ContactForm({
     setFormData((prev) => ({ ...prev, [field]: value }));
 
   return (
-    <div className="mb-6 rounded-lg border bg-white p-6 dark:bg-zinc-900 dark:border-zinc-800">
+    <div className="mb-6 rounded-lg border bg-white p-6">
       <h2 className="text-lg font-medium mb-4">New Contact</h2>
 
       {error && (
-        <div className="mb-4 rounded-md bg-red-50 border border-red-200 p-3 text-sm text-red-700 dark:bg-red-950 dark:border-red-900 dark:text-red-400">
+        <div className="mb-4 rounded-md bg-red-50 border border-red-200 p-3 text-sm text-red-700">
           {error}
         </div>
       )}
@@ -310,65 +310,65 @@ function ContactForm({
       >
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           <div>
-            <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+            <label className="block text-sm font-medium text-stone-700 mb-1">
               First Name *
             </label>
             <input
               required
               value={formData.firstName}
               onChange={(e) => update("firstName", e.target.value)}
-              className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-zinc-800 dark:border-zinc-700"
+              className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-[#1E3A5F] focus:ring-1 focus:ring-[#1E3A5F]"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+            <label className="block text-sm font-medium text-stone-700 mb-1">
               Last Name *
             </label>
             <input
               required
               value={formData.lastName}
               onChange={(e) => update("lastName", e.target.value)}
-              className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-zinc-800 dark:border-zinc-700"
+              className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-[#1E3A5F] focus:ring-1 focus:ring-[#1E3A5F]"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+            <label className="block text-sm font-medium text-stone-700 mb-1">
               Company / Entity
             </label>
             <input
               value={formData.companyName}
               onChange={(e) => update("companyName", e.target.value)}
-              className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-zinc-800 dark:border-zinc-700"
+              className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-[#1E3A5F] focus:ring-1 focus:ring-[#1E3A5F]"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
-            <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+            <label className="block text-sm font-medium text-stone-700 mb-1">
               Email
             </label>
             <input
               type="email"
               value={formData.email}
               onChange={(e) => update("email", e.target.value)}
-              className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-zinc-800 dark:border-zinc-700"
+              className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-[#1E3A5F] focus:ring-1 focus:ring-[#1E3A5F]"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+            <label className="block text-sm font-medium text-stone-700 mb-1">
               Phone
             </label>
             <input
               value={formData.phone}
               onChange={(e) => update("phone", e.target.value)}
-              className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-zinc-800 dark:border-zinc-700"
+              className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-[#1E3A5F] focus:ring-1 focus:ring-[#1E3A5F]"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-2">
+          <label className="block text-sm font-medium text-stone-700 mb-2">
             Contact Type
           </label>
           <div className="flex gap-4">
@@ -383,7 +383,7 @@ function ContactForm({
                   type="checkbox"
                   checked={formData[key as keyof typeof formData] as boolean}
                   onChange={(e) => update(key, e.target.checked)}
-                  className="rounded border-zinc-300"
+                  className="rounded border-stone-300"
                 />
                 {label}
               </label>
@@ -393,45 +393,45 @@ function ContactForm({
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-4">
           <div className="sm:col-span-2">
-            <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+            <label className="block text-sm font-medium text-stone-700 mb-1">
               Address
             </label>
             <input
               value={formData.address}
               onChange={(e) => update("address", e.target.value)}
-              className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-zinc-800 dark:border-zinc-700"
+              className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-[#1E3A5F] focus:ring-1 focus:ring-[#1E3A5F]"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+            <label className="block text-sm font-medium text-stone-700 mb-1">
               City
             </label>
             <input
               value={formData.city}
               onChange={(e) => update("city", e.target.value)}
-              className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-zinc-800 dark:border-zinc-700"
+              className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-[#1E3A5F] focus:ring-1 focus:ring-[#1E3A5F]"
             />
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+              <label className="block text-sm font-medium text-stone-700 mb-1">
                 State
               </label>
               <input
                 value={formData.state}
                 onChange={(e) => update("state", e.target.value)}
                 maxLength={2}
-                className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-zinc-800 dark:border-zinc-700"
+                className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-[#1E3A5F] focus:ring-1 focus:ring-[#1E3A5F]"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+              <label className="block text-sm font-medium text-stone-700 mb-1">
                 ZIP
               </label>
               <input
                 value={formData.zip}
                 onChange={(e) => update("zip", e.target.value)}
-                className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-zinc-800 dark:border-zinc-700"
+                className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-[#1E3A5F] focus:ring-1 focus:ring-[#1E3A5F]"
               />
             </div>
           </div>
@@ -441,14 +441,14 @@ function ContactForm({
           <button
             type="button"
             onClick={onCancel}
-            className="rounded-md border px-4 py-2 text-sm font-medium hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-800"
+            className="rounded-md border px-4 py-2 text-sm font-medium hover:bg-stone-50"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={isLoading}
-            className="flex items-center gap-2 rounded-md bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-md bg-[#1E3A5F] px-4 py-2 text-sm font-medium text-white hover:bg-[#162D4A] disabled:opacity-50"
           >
             {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
             Create Contact

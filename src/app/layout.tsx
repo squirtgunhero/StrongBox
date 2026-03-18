@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description:
     "Multi-user real estate lending platform for loan origination, execution, and servicing.",
   manifest: "/manifest.json",
-  themeColor: "#C33732",
+  themeColor: "#1E3A5F",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",

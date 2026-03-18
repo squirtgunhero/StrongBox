@@ -66,7 +66,7 @@ export default function SettingsPage() {
     <div>
       <div className="mb-6">
         <h1 className="text-2xl font-semibold">Settings</h1>
-        <p className="text-sm text-zinc-500 mt-1">
+        <p className="text-sm text-stone-500 mt-1">
           Configure your organization and integrations
         </p>
       </div>
@@ -78,15 +78,15 @@ export default function SettingsPage() {
             <Link
               key={section.href}
               href={section.href}
-              className="rounded-lg border bg-white p-5 hover:bg-zinc-50 transition-colors dark:bg-zinc-900 dark:border-zinc-800 dark:hover:bg-zinc-800/50"
+              className="rounded-lg border bg-white p-5 hover:bg-stone-50 transition-colors/50"
             >
               <div className="flex items-start gap-4">
-                <div className="rounded-lg bg-brand-50 dark:bg-brand-950/30 p-3">
-                  <Icon className="h-5 w-5 text-brand-600 dark:text-brand-400" />
+                <div className="rounded-lg bg-[#EFF4F9] p-3">
+                  <Icon className="h-5 w-5 text-[#1E3A5F]" />
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold">{section.label}</h3>
-                  <p className="text-xs text-zinc-500 mt-0.5">
+                  <p className="text-xs text-stone-500 mt-0.5">
                     {section.description}
                   </p>
                 </div>

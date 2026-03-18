@@ -20,13 +20,13 @@ import { formatCurrency } from "@/lib/utils/currency";
 import { formatDate, isOverdue } from "@/lib/utils/dates";
 
 const STATUS_COLORS: Record<string, string> = {
-  SCHEDULED: "text-brand-600 bg-brand-50 dark:bg-brand-950",
-  PENDING: "text-amber-600 bg-amber-50 dark:bg-amber-950",
-  PAID: "text-emerald-600 bg-emerald-50 dark:bg-emerald-950",
-  LATE: "text-red-600 bg-red-50 dark:bg-red-950",
-  NSF: "text-red-700 bg-red-100 dark:bg-red-950",
-  WAIVED: "text-zinc-500 bg-zinc-100 dark:bg-zinc-800",
-  PARTIAL: "text-amber-600 bg-amber-50 dark:bg-amber-950",
+  SCHEDULED: "text-[#1E3A5F] bg-[#EFF4F9]",
+  PENDING: "text-amber-600 bg-amber-50950",
+  PAID: "text-emerald-600 bg-emerald-50950",
+  LATE: "text-red-600 bg-red-50950",
+  NSF: "text-red-700 bg-red-100950",
+  WAIVED: "text-stone-500 bg-stone-100",
+  PARTIAL: "text-amber-600 bg-amber-50950",
 };
 
 export default function LoanPaymentsPage() {
@@ -105,7 +105,7 @@ export default function LoanPaymentsPage() {
       <div className="flex items-center gap-3 mb-6">
         <Link
           href={`/loans/${id}`}
-          className="rounded-md p-2 text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+          className="rounded-md p-2 text-stone-400 hover:text-stone-600 hover:bg-stone-100"
         >
           <ArrowLeft className="h-5 w-5" />
         </Link>
@@ -113,7 +113,7 @@ export default function LoanPaymentsPage() {
           <h1 className="text-xl font-semibold">
             Payments {loan ? `— ${loan.loanNumber}` : ""}
           </h1>
-          <p className="text-sm text-zinc-500">
+          <p className="text-sm text-stone-500">
             {paidCount}/{payments.length} paid
             {overdueCount > 0 && (
               <span className="text-red-600 ml-2">{overdueCount} overdue</span>
@@ -125,7 +125,7 @@ export default function LoanPaymentsPage() {
           <button
             onClick={() => generateSchedule.mutate()}
             disabled={generateSchedule.isPending}
-            className="flex items-center gap-2 rounded-md bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-md bg-[#1E3A5F] px-4 py-2 text-sm font-medium text-white hover:bg-[#162D4A] disabled:opacity-50"
           >
             {generateSchedule.isPending ? (
               <Loader2 className="h-4 w-4 animate-spin" />
@@ -140,20 +140,20 @@ export default function LoanPaymentsPage() {
       {/* Summary Stats */}
       {payments.length > 0 && (
         <div className="grid grid-cols-4 gap-4 mb-6">
-          <div className="rounded-lg border bg-white p-3 dark:bg-zinc-900 dark:border-zinc-800">
-            <p className="text-xs text-zinc-500">Total Payments</p>
+          <div className="rounded-lg border bg-white p-3">
+            <p className="text-xs text-stone-500">Total Payments</p>
             <p className="text-lg font-bold">{payments.length}</p>
           </div>
-          <div className="rounded-lg border bg-white p-3 dark:bg-zinc-900 dark:border-zinc-800">
-            <p className="text-xs text-zinc-500">Paid</p>
+          <div className="rounded-lg border bg-white p-3">
+            <p className="text-xs text-stone-500">Paid</p>
             <p className="text-lg font-bold text-emerald-600">{paidCount}</p>
           </div>
-          <div className="rounded-lg border bg-white p-3 dark:bg-zinc-900 dark:border-zinc-800">
-            <p className="text-xs text-zinc-500">Total Collected</p>
+          <div className="rounded-lg border bg-white p-3">
+            <p className="text-xs text-stone-500">Total Collected</p>
             <p className="text-lg font-bold">{formatCurrency(totalPaid)}</p>
           </div>
-          <div className="rounded-lg border bg-white p-3 dark:bg-zinc-900 dark:border-zinc-800">
-            <p className="text-xs text-zinc-500">Overdue</p>
+          <div className="rounded-lg border bg-white p-3">
+            <p className="text-xs text-stone-500">Overdue</p>
             <p className={cn("text-lg font-bold", overdueCount > 0 ? "text-red-600" : "")}>
               {overdueCount}
             </p>
@@ -164,29 +164,29 @@ export default function LoanPaymentsPage() {
       {/* Payment Schedule Table */}
       {isLoading ? (
         <div className="flex items-center justify-center p-20">
-          <Loader2 className="h-6 w-6 animate-spin text-zinc-400" />
+          <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
         </div>
       ) : payments.length === 0 ? (
-        <div className="rounded-lg border bg-white p-12 text-center dark:bg-zinc-900 dark:border-zinc-800">
-          <Calendar className="h-10 w-10 text-zinc-300 mx-auto mb-3" />
-          <p className="text-sm text-zinc-500 mb-2">No payment schedule</p>
-          <p className="text-xs text-zinc-400">
+        <div className="rounded-lg border bg-white p-12 text-center">
+          <Calendar className="h-10 w-10 text-stone-300 mx-auto mb-3" />
+          <p className="text-sm text-stone-500 mb-2">No payment schedule</p>
+          <p className="text-xs text-stone-400">
             Generate a payment schedule to start tracking payments
           </p>
         </div>
       ) : (
-        <div className="rounded-lg border bg-white dark:bg-zinc-900 dark:border-zinc-800">
+        <div className="rounded-lg border bg-white">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b bg-zinc-50 dark:bg-zinc-800/50 dark:border-zinc-800">
-                <th className="px-4 py-3 text-left font-medium text-zinc-500">#</th>
-                <th className="px-4 py-3 text-left font-medium text-zinc-500">Due Date</th>
-                <th className="px-4 py-3 text-right font-medium text-zinc-500">Interest</th>
-                <th className="px-4 py-3 text-right font-medium text-zinc-500">Principal</th>
-                <th className="px-4 py-3 text-right font-medium text-zinc-500">Total</th>
-                <th className="px-4 py-3 text-left font-medium text-zinc-500">Status</th>
-                <th className="px-4 py-3 text-left font-medium text-zinc-500">Paid Date</th>
-                <th className="px-4 py-3 text-right font-medium text-zinc-500">Action</th>
+              <tr className="border-b bg-stone-50">
+                <th className="px-4 py-3 text-left font-medium text-stone-500">#</th>
+                <th className="px-4 py-3 text-left font-medium text-stone-500">Due Date</th>
+                <th className="px-4 py-3 text-right font-medium text-stone-500">Interest</th>
+                <th className="px-4 py-3 text-right font-medium text-stone-500">Principal</th>
+                <th className="px-4 py-3 text-right font-medium text-stone-500">Total</th>
+                <th className="px-4 py-3 text-left font-medium text-stone-500">Status</th>
+                <th className="px-4 py-3 text-left font-medium text-stone-500">Paid Date</th>
+                <th className="px-4 py-3 text-right font-medium text-stone-500">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -200,11 +200,11 @@ export default function LoanPaymentsPage() {
                   <tr
                     key={payment.id}
                     className={cn(
-                      "border-b last:border-0 dark:border-zinc-800",
-                      overdue && "bg-red-50/50 dark:bg-red-950/20"
+                      "border-b last:border-0",
+                      overdue && "bg-red-50/50950/20"
                     )}
                   >
-                    <td className="px-4 py-3 text-zinc-400 text-xs">{idx + 1}</td>
+                    <td className="px-4 py-3 text-stone-400 text-xs">{idx + 1}</td>
                     <td className="px-4 py-3">
                       <span className={cn("text-xs", overdue && "text-red-600 font-medium")}>
                         {overdue && <AlertTriangle className="h-3 w-3 inline mr-1" />}
@@ -232,7 +232,7 @@ export default function LoanPaymentsPage() {
                         {payment.status}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-xs text-zinc-500">
+                    <td className="px-4 py-3 text-xs text-stone-500">
                       {payment.paidDate ? formatDate(payment.paidDate) : "—"}
                     </td>
                     <td className="px-4 py-3 text-right">
@@ -245,12 +245,12 @@ export default function LoanPaymentsPage() {
                                 step="0.01"
                                 value={recordAmount || Number(payment.amount).toFixed(2)}
                                 onChange={(e) => setRecordAmount(e.target.value)}
-                                className="w-24 rounded border px-2 py-1 text-xs dark:bg-zinc-800 dark:border-zinc-700"
+                                className="w-24 rounded border px-2 py-1 text-xs"
                               />
                               <select
                                 value={recordMethod}
                                 onChange={(e) => setRecordMethod(e.target.value)}
-                                className="rounded border px-2 py-1 text-xs dark:bg-zinc-800 dark:border-zinc-700"
+                                className="rounded border px-2 py-1 text-xs"
                               >
                                 <option>ACH</option>
                                 <option>Wire</option>
@@ -275,7 +275,7 @@ export default function LoanPaymentsPage() {
                               </button>
                               <button
                                 onClick={() => setShowRecord(null)}
-                                className="text-zinc-400 hover:text-zinc-600"
+                                className="text-stone-400 hover:text-stone-600"
                               >
                                 <X className="h-3.5 w-3.5" />
                               </button>
@@ -286,7 +286,7 @@ export default function LoanPaymentsPage() {
                                 setShowRecord(payment.id);
                                 setRecordAmount(Number(payment.amount).toFixed(2));
                               }}
-                              className="text-xs text-brand-600 hover:text-brand-700 dark:text-brand-400"
+                              className="text-xs text-[#1E3A5F] hover:text-[#162D4A]"
                             >
                               Record Payment
                             </button>

@@ -18,19 +18,19 @@ import { formatRelative } from "@/lib/utils/dates";
 import Link from "next/link";
 
 const TYPE_ICONS: Record<string, { icon: typeof Bell; color: string }> = {
-  TASK_ASSIGNED: { icon: ClipboardCheck, color: "text-brand-500 bg-brand-50 dark:bg-brand-950" },
-  DOCUMENT_UPLOADED: { icon: Upload, color: "text-emerald-500 bg-emerald-50 dark:bg-emerald-950" },
-  DOCUMENT_REQUESTED: { icon: FileText, color: "text-amber-500 bg-amber-50 dark:bg-amber-950" },
-  STATUS_CHANGE: { icon: RefreshCw, color: "text-purple-500 bg-purple-50 dark:bg-purple-950" },
-  PAYMENT_DUE: { icon: DollarSign, color: "text-amber-500 bg-amber-50 dark:bg-amber-950" },
-  PAYMENT_RECEIVED: { icon: DollarSign, color: "text-emerald-500 bg-emerald-50 dark:bg-emerald-950" },
-  PAYMENT_LATE: { icon: AlertTriangle, color: "text-red-500 bg-red-50 dark:bg-red-950" },
-  DRAW_SUBMITTED: { icon: FileText, color: "text-brand-500 bg-brand-50 dark:bg-brand-950" },
-  DRAW_APPROVED: { icon: CheckCheck, color: "text-emerald-500 bg-emerald-50 dark:bg-emerald-950" },
-  DRAW_REJECTED: { icon: AlertTriangle, color: "text-red-500 bg-red-50 dark:bg-red-950" },
-  APPROVAL_NEEDED: { icon: ClipboardCheck, color: "text-amber-500 bg-amber-50 dark:bg-amber-950" },
-  LOAN_MATURITY_WARNING: { icon: AlertTriangle, color: "text-red-500 bg-red-50 dark:bg-red-950" },
-  SYSTEM: { icon: Bell, color: "text-zinc-500 bg-zinc-100 dark:bg-zinc-800" },
+  TASK_ASSIGNED: { icon: ClipboardCheck, color: "text-[#1E3A5F] bg-[#EFF4F9]" },
+  DOCUMENT_UPLOADED: { icon: Upload, color: "text-emerald-500 bg-emerald-50950" },
+  DOCUMENT_REQUESTED: { icon: FileText, color: "text-amber-500 bg-amber-50950" },
+  STATUS_CHANGE: { icon: RefreshCw, color: "text-purple-500 bg-purple-50950" },
+  PAYMENT_DUE: { icon: DollarSign, color: "text-amber-500 bg-amber-50950" },
+  PAYMENT_RECEIVED: { icon: DollarSign, color: "text-emerald-500 bg-emerald-50950" },
+  PAYMENT_LATE: { icon: AlertTriangle, color: "text-red-500 bg-red-50950" },
+  DRAW_SUBMITTED: { icon: FileText, color: "text-[#1E3A5F] bg-[#EFF4F9]" },
+  DRAW_APPROVED: { icon: CheckCheck, color: "text-emerald-500 bg-emerald-50950" },
+  DRAW_REJECTED: { icon: AlertTriangle, color: "text-red-500 bg-red-50950" },
+  APPROVAL_NEEDED: { icon: ClipboardCheck, color: "text-amber-500 bg-amber-50950" },
+  LOAN_MATURITY_WARNING: { icon: AlertTriangle, color: "text-red-500 bg-red-50950" },
+  SYSTEM: { icon: Bell, color: "text-stone-500 bg-stone-100" },
 };
 
 export default function NotificationsPage() {
@@ -72,7 +72,7 @@ export default function NotificationsPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-semibold">Notifications</h1>
-          <p className="text-sm text-zinc-500 mt-1">
+          <p className="text-sm text-stone-500 mt-1">
             {unreadCount > 0 ? `${unreadCount} unread` : "All caught up"}
           </p>
         </div>
@@ -80,7 +80,7 @@ export default function NotificationsPage() {
           <button
             onClick={() => markAllRead.mutate()}
             disabled={markAllRead.isPending}
-            className="flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium text-zinc-600 hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800 transition-colors"
+            className="flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium text-stone-600 hover:bg-stone-50 transition-colors"
           >
             <CheckCheck className="h-4 w-4" />
             Mark all read
@@ -90,12 +90,12 @@ export default function NotificationsPage() {
 
       {isLoading ? (
         <div className="flex items-center justify-center p-20">
-          <Loader2 className="h-6 w-6 animate-spin text-zinc-400" />
+          <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
         </div>
       ) : notifications.length === 0 ? (
-        <div className="rounded-lg border bg-white p-12 text-center dark:bg-zinc-900 dark:border-zinc-800">
-          <Bell className="h-10 w-10 text-zinc-300 mx-auto mb-3" />
-          <p className="text-sm text-zinc-500">No notifications</p>
+        <div className="rounded-lg border bg-white p-12 text-center">
+          <Bell className="h-10 w-10 text-stone-300 mx-auto mb-3" />
+          <p className="text-sm text-stone-500">No notifications</p>
         </div>
       ) : (
         <div className="space-y-1">
@@ -109,8 +109,8 @@ export default function NotificationsPage() {
                 className={cn(
                   "flex items-start gap-3 rounded-lg border px-4 py-3 transition-colors",
                   notif.isRead
-                    ? "bg-white dark:bg-zinc-900 dark:border-zinc-800"
-                    : "bg-brand-50/50 border-brand-100 dark:bg-brand-950/20 dark:border-brand-900/50"
+                    ? "bg-white"
+                    : "bg-[#EFF4F9]/50 border-[#EFF4F9] "
                 )}
               >
                 <div
@@ -132,17 +132,17 @@ export default function NotificationsPage() {
                     >
                       {notif.title}
                     </p>
-                    <span className="text-[11px] text-zinc-400 whitespace-nowrap flex-shrink-0">
+                    <span className="text-[11px] text-stone-400 whitespace-nowrap flex-shrink-0">
                       {formatRelative(notif.createdAt)}
                     </span>
                   </div>
-                  <p className="text-xs text-zinc-500 mt-0.5">{notif.message}</p>
+                  <p className="text-xs text-stone-500 mt-0.5">{notif.message}</p>
 
                   <div className="flex items-center gap-3 mt-2">
                     {notif.actionUrl && (
                       <Link
                         href={notif.actionUrl}
-                        className="flex items-center gap-1 text-xs text-brand-600 hover:text-brand-700 dark:text-brand-400"
+                        className="flex items-center gap-1 text-xs text-[#1E3A5F] hover:text-[#162D4A]"
                       >
                         View <ArrowRight className="h-3 w-3" />
                       </Link>
@@ -150,7 +150,7 @@ export default function NotificationsPage() {
                     {!notif.isRead && (
                       <button
                         onClick={() => markRead.mutate(notif.id)}
-                        className="text-xs text-zinc-400 hover:text-zinc-600"
+                        className="text-xs text-stone-400 hover:text-stone-600"
                       >
                         Mark as read
                       </button>
@@ -160,7 +160,7 @@ export default function NotificationsPage() {
 
                 {!notif.isRead && (
                   <div className="flex-shrink-0 mt-1">
-                    <div className="h-2 w-2 rounded-full bg-brand-500" />
+                    <div className="h-2 w-2 rounded-full bg-[#1E3A5F]" />
                   </div>
                 )}
               </div>

@@ -59,7 +59,7 @@ export default function PropertiesPage() {
 
       <div className="flex flex-col gap-4 mb-4 sm:flex-row sm:items-center">
         <div className="relative flex-1 max-w-sm">
-          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-400" />
+          <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" />
           <input
             type="text"
             placeholder="Search by address, city, or parcel..."
@@ -68,21 +68,21 @@ export default function PropertiesPage() {
               setSearch(e.target.value);
               setPage(1);
             }}
-            className="w-full h-9 rounded-md border bg-white pl-9 pr-3 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-zinc-800 dark:border-zinc-700"
+            className="w-full h-9 rounded-md border bg-white pl-9 pr-3 text-sm outline-none focus:border-[#1E3A5F] focus:ring-1 focus:ring-[#1E3A5F]"
           />
         </div>
       </div>
 
-      <div className="rounded-lg border bg-white dark:bg-zinc-900 dark:border-zinc-800">
+      <div className="rounded-lg border bg-white">
         {isLoading ? (
           <div className="flex items-center justify-center p-12">
-            <Loader2 className="h-6 w-6 animate-spin text-zinc-400" />
+            <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
           </div>
         ) : !data?.properties?.length ? (
           <div className="p-12 text-center">
-            <Home className="h-10 w-10 text-zinc-300 mx-auto mb-3" />
-            <p className="text-sm text-zinc-500">No properties found</p>
-            <p className="text-xs text-zinc-400 mt-1">
+            <Home className="h-10 w-10 text-stone-300 mx-auto mb-3" />
+            <p className="text-sm text-stone-500">No properties found</p>
+            <p className="text-xs text-stone-400 mt-1">
               Properties are created when you add them to a loan.
             </p>
           </div>
@@ -90,23 +90,23 @@ export default function PropertiesPage() {
           <>
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b bg-zinc-50 dark:bg-zinc-800/50 dark:border-zinc-800">
-                  <th className="px-4 py-3 text-left font-medium text-zinc-500">
+                <tr className="border-b bg-stone-50">
+                  <th className="px-4 py-3 text-left font-medium text-stone-500">
                     Address
                   </th>
-                  <th className="px-4 py-3 text-left font-medium text-zinc-500">
+                  <th className="px-4 py-3 text-left font-medium text-stone-500">
                     Type
                   </th>
-                  <th className="px-4 py-3 text-left font-medium text-zinc-500">
+                  <th className="px-4 py-3 text-left font-medium text-stone-500">
                     Beds/Baths
                   </th>
-                  <th className="px-4 py-3 text-left font-medium text-zinc-500">
+                  <th className="px-4 py-3 text-left font-medium text-stone-500">
                     Sq Ft
                   </th>
-                  <th className="px-4 py-3 text-left font-medium text-zinc-500">
+                  <th className="px-4 py-3 text-left font-medium text-stone-500">
                     Loan
                   </th>
-                  <th className="px-4 py-3 text-left font-medium text-zinc-500">
+                  <th className="px-4 py-3 text-left font-medium text-stone-500">
                     Status
                   </th>
                 </tr>
@@ -115,50 +115,50 @@ export default function PropertiesPage() {
                 {data.properties.map((p: any) => (
                   <tr
                     key={p.id}
-                    className="border-b last:border-0 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/30"
+                    className="border-b last:border-0 hover:bg-stone-50"
                   >
                     <td className="px-4 py-3">
                       <Link
                         href={`/properties/${p.id}`}
-                        className="font-medium text-brand-600 hover:text-brand-700 dark:text-brand-400"
+                        className="font-medium text-[#1E3A5F] hover:text-[#162D4A]"
                       >
                         <div className="flex items-start gap-2">
-                          <MapPin className="h-3.5 w-3.5 mt-0.5 flex-shrink-0 text-zinc-400" />
+                          <MapPin className="h-3.5 w-3.5 mt-0.5 flex-shrink-0 text-stone-400" />
                           <div>
                             <p>{p.address}</p>
-                            <p className="text-xs text-zinc-400">
+                            <p className="text-xs text-stone-400">
                               {p.city}, {p.state} {p.zip}
                             </p>
                           </div>
                         </div>
                       </Link>
                     </td>
-                    <td className="px-4 py-3 text-zinc-500">
+                    <td className="px-4 py-3 text-stone-500">
                       {PROPERTY_TYPE_LABELS[p.propertyType] || p.propertyType}
                     </td>
-                    <td className="px-4 py-3 text-zinc-500">
+                    <td className="px-4 py-3 text-stone-500">
                       {p.bedrooms ?? "-"} / {p.bathrooms ? Number(p.bathrooms) : "-"}
                     </td>
-                    <td className="px-4 py-3 text-zinc-500">
+                    <td className="px-4 py-3 text-stone-500">
                       {p.squareFeet?.toLocaleString() ?? "-"}
                     </td>
                     <td className="px-4 py-3">
                       {p.loan ? (
                         <Link
                           href={`/loans/${p.loan.id}`}
-                          className="text-brand-600 hover:text-brand-700 dark:text-brand-400 text-xs"
+                          className="text-[#1E3A5F] hover:text-[#162D4A] text-xs"
                         >
                           {p.loan.loanNumber}
                         </Link>
                       ) : (
-                        <span className="text-zinc-400 text-xs">No loan</span>
+                        <span className="text-stone-400 text-xs">No loan</span>
                       )}
                     </td>
                     <td className="px-4 py-3">
                       {p.loan ? (
                         <LoanStatusBadge status={p.loan.status as LoanStatus} />
                       ) : (
-                        <span className="text-zinc-400 text-xs">-</span>
+                        <span className="text-stone-400 text-xs">-</span>
                       )}
                     </td>
                   </tr>
@@ -167,8 +167,8 @@ export default function PropertiesPage() {
             </table>
 
             {totalPages > 1 && (
-              <div className="flex items-center justify-between border-t px-4 py-3 dark:border-zinc-800">
-                <p className="text-xs text-zinc-500">
+              <div className="flex items-center justify-between border-t px-4 py-3">
+                <p className="text-xs text-stone-500">
                   {(page - 1) * data.limit + 1}-
                   {Math.min(page * data.limit, data.total)} of {data.total}
                 </p>
@@ -176,14 +176,14 @@ export default function PropertiesPage() {
                   <button
                     disabled={page === 1}
                     onClick={() => setPage(page - 1)}
-                    className="rounded p-1 hover:bg-zinc-100 disabled:opacity-30 dark:hover:bg-zinc-800"
+                    className="rounded p-1 hover:bg-stone-100 disabled:opacity-30800"
                   >
                     <ChevronLeft className="h-4 w-4" />
                   </button>
                   <button
                     disabled={page >= totalPages}
                     onClick={() => setPage(page + 1)}
-                    className="rounded p-1 hover:bg-zinc-100 disabled:opacity-30 dark:hover:bg-zinc-800"
+                    className="rounded p-1 hover:bg-stone-100 disabled:opacity-30800"
                   >
                     <ChevronRight className="h-4 w-4" />
                   </button>

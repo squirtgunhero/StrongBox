@@ -62,7 +62,7 @@ export default function ImportPage() {
     <div>
       <div className="mb-6">
         <h1 className="text-2xl font-semibold">Data Import</h1>
-        <p className="text-sm text-zinc-500 mt-1">Import data from CSV files</p>
+        <p className="text-sm text-stone-500 mt-1">Import data from CSV files</p>
       </div>
 
       {/* Import Type */}
@@ -74,23 +74,23 @@ export default function ImportPage() {
             className={cn(
               "rounded-lg border p-3 text-left transition-colors",
               importType === t.value
-                ? "border-brand-500 bg-brand-50 dark:bg-brand-950/30 dark:border-brand-700"
-                : "bg-white hover:bg-zinc-50 dark:bg-zinc-900 dark:border-zinc-800 dark:hover:bg-zinc-800"
+                ? "border-[#1E3A5F] bg-[#EFF4F9] "
+                : "bg-white hover:bg-stone-50"
             )}
           >
             <p className="text-sm font-medium">{t.label}</p>
-            <p className="text-[10px] text-zinc-500 mt-0.5">{t.description}</p>
+            <p className="text-[10px] text-stone-500 mt-0.5">{t.description}</p>
           </button>
         ))}
       </div>
 
       {/* Upload Area */}
-      <div className="rounded-lg border bg-white p-5 dark:bg-zinc-900 dark:border-zinc-800 mb-6">
+      <div className="rounded-lg border bg-white p-5 mb-6">
         <div className="flex items-start gap-6">
           <div
             className={cn(
               "flex-1 border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors",
-              file ? "border-emerald-300 bg-emerald-50/50 dark:border-emerald-800 dark:bg-emerald-950/20" : "border-zinc-300 dark:border-zinc-700 hover:border-brand-400"
+              file ? "border-emerald-300 bg-emerald-50/50" : "border-stone-300 hover:border-[#93B4D4]"
             )}
             onClick={() => fileRef.current?.click()}
           >
@@ -106,20 +106,20 @@ export default function ImportPage() {
                 <FileSpreadsheet className="h-6 w-6 text-emerald-500" />
                 <div className="text-left">
                   <p className="text-sm font-medium">{file.name}</p>
-                  <p className="text-xs text-zinc-500">{(file.size / 1024).toFixed(1)} KB</p>
+                  <p className="text-xs text-stone-500">{(file.size / 1024).toFixed(1)} KB</p>
                 </div>
                 <button
                   onClick={(e) => { e.stopPropagation(); setFile(null); setResults(null); }}
-                  className="text-zinc-400 hover:text-zinc-600"
+                  className="text-stone-400 hover:text-stone-600"
                 >
                   <X className="h-4 w-4" />
                 </button>
               </div>
             ) : (
               <>
-                <Upload className="h-8 w-8 text-zinc-300 mx-auto mb-2" />
-                <p className="text-sm text-zinc-500">Click to select a CSV file</p>
-                <p className="text-[10px] text-zinc-400 mt-1">Supports .csv and .tsv formats</p>
+                <Upload className="h-8 w-8 text-stone-300 mx-auto mb-2" />
+                <p className="text-sm text-stone-500">Click to select a CSV file</p>
+                <p className="text-[10px] text-stone-400 mt-1">Supports .csv and .tsv formats</p>
               </>
             )}
           </div>
@@ -135,7 +135,7 @@ export default function ImportPage() {
                 />
                 Dry Run (preview only)
               </label>
-              <p className="text-[10px] text-zinc-400 mt-1 ml-6">
+              <p className="text-[10px] text-stone-400 mt-1 ml-6">
                 Validates data without creating records
               </p>
             </div>
@@ -143,7 +143,7 @@ export default function ImportPage() {
             <button
               onClick={handleImport}
               disabled={!file || isImporting}
-              className="w-full flex items-center justify-center gap-2 rounded-md bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 disabled:opacity-50"
+              className="w-full flex items-center justify-center gap-2 rounded-md bg-[#1E3A5F] px-4 py-2 text-sm font-medium text-white hover:bg-[#162D4A] disabled:opacity-50"
             >
               {isImporting ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -153,7 +153,7 @@ export default function ImportPage() {
               {dryRun ? "Validate" : "Import"}
             </button>
 
-            <div className="text-[10px] text-zinc-400">
+            <div className="text-[10px] text-stone-400">
               <p className="font-medium mb-1">Expected headers:</p>
               <p className="font-mono">{typeCfg.sampleHeaders}</p>
             </div>
@@ -166,7 +166,7 @@ export default function ImportPage() {
 
       {/* Results */}
       {results && (
-        <div className="rounded-lg border bg-white p-5 dark:bg-zinc-900 dark:border-zinc-800">
+        <div className="rounded-lg border bg-white p-5">
           {results.error ? (
             <div className="flex items-center gap-2 text-red-600">
               <AlertTriangle className="h-5 w-5" />
@@ -182,32 +182,32 @@ export default function ImportPage() {
               </div>
 
               <div className="grid grid-cols-4 gap-4 mb-4">
-                <div className="rounded-md bg-zinc-50 dark:bg-zinc-800 p-3">
-                  <p className="text-xs text-zinc-500">Total Rows</p>
+                <div className="rounded-md bg-stone-50 p-3">
+                  <p className="text-xs text-stone-500">Total Rows</p>
                   <p className="text-lg font-bold">{results.results.total}</p>
                 </div>
-                <div className="rounded-md bg-emerald-50 dark:bg-emerald-950/30 p-3">
-                  <p className="text-xs text-zinc-500">Valid</p>
+                <div className="rounded-md bg-emerald-50950/30 p-3">
+                  <p className="text-xs text-stone-500">Valid</p>
                   <p className="text-lg font-bold text-emerald-600">{results.results.valid}</p>
                 </div>
-                <div className="rounded-md bg-brand-50 dark:bg-brand-950/30 p-3">
-                  <p className="text-xs text-zinc-500">{results.dryRun ? "Would Create" : "Created"}</p>
-                  <p className="text-lg font-bold text-brand-600">{results.dryRun ? results.results.valid : results.results.created}</p>
+                <div className="rounded-md bg-[#EFF4F9] p-3">
+                  <p className="text-xs text-stone-500">{results.dryRun ? "Would Create" : "Created"}</p>
+                  <p className="text-lg font-bold text-[#1E3A5F]">{results.dryRun ? results.results.valid : results.results.created}</p>
                 </div>
-                <div className="rounded-md bg-amber-50 dark:bg-amber-950/30 p-3">
-                  <p className="text-xs text-zinc-500">Skipped / Errors</p>
+                <div className="rounded-md bg-amber-50950/30 p-3">
+                  <p className="text-xs text-stone-500">Skipped / Errors</p>
                   <p className="text-lg font-bold text-amber-600">{results.results.skipped + results.results.errors.length}</p>
                 </div>
               </div>
 
               {results.results.errors.length > 0 && (
                 <div className="mb-4">
-                  <p className="text-xs font-medium text-zinc-500 mb-2">Errors</p>
+                  <p className="text-xs font-medium text-stone-500 mb-2">Errors</p>
                   <div className="space-y-1 max-h-40 overflow-y-auto">
                     {results.results.errors.map((err: any, i: number) => (
-                      <div key={i} className="flex items-center gap-2 text-xs text-red-600 bg-red-50 dark:bg-red-950/20 rounded px-2 py-1">
+                      <div key={i} className="flex items-center gap-2 text-xs text-red-600 bg-red-50 rounded px-2 py-1">
                         <span className="font-medium">Row {err.row}</span>
-                        <span className="text-zinc-400">|</span>
+                        <span className="text-stone-400">|</span>
                         <span>{err.field}: {err.message}</span>
                       </div>
                     ))}
@@ -217,21 +217,21 @@ export default function ImportPage() {
 
               {results.sampleRows && results.sampleRows.length > 0 && (
                 <div>
-                  <p className="text-xs font-medium text-zinc-500 mb-2">Sample Data (first 3 rows)</p>
+                  <p className="text-xs font-medium text-stone-500 mb-2">Sample Data (first 3 rows)</p>
                   <div className="overflow-x-auto">
                     <table className="text-xs w-full">
                       <thead>
-                        <tr className="border-b dark:border-zinc-800">
+                        <tr className="border-b">
                           {results.headers.map((h: string) => (
-                            <th key={h} className="px-2 py-1.5 text-left font-medium text-zinc-500">{h}</th>
+                            <th key={h} className="px-2 py-1.5 text-left font-medium text-stone-500">{h}</th>
                           ))}
                         </tr>
                       </thead>
                       <tbody>
                         {results.sampleRows.map((row: any, i: number) => (
-                          <tr key={i} className="border-b last:border-0 dark:border-zinc-800">
+                          <tr key={i} className="border-b last:border-0">
                             {results.headers.map((h: string) => (
-                              <td key={h} className="px-2 py-1.5 text-zinc-600 dark:text-zinc-400">{row[h] || "—"}</td>
+                              <td key={h} className="px-2 py-1.5 text-stone-500">{row[h] || "—"}</td>
                             ))}
                           </tr>
                         ))}
@@ -276,12 +276,12 @@ function MigrationSection() {
   };
 
   return (
-    <div className="mt-8 border-t pt-8 dark:border-zinc-800">
+    <div className="mt-8 border-t pt-8">
       <div className="mb-4 flex items-center gap-2">
-        <Database className="h-5 w-5 text-brand-600" />
+        <Database className="h-5 w-5 text-[#1E3A5F]" />
         <h2 className="text-lg font-semibold">Data Migration</h2>
       </div>
-      <p className="text-sm text-zinc-500 mb-4">
+      <p className="text-sm text-stone-500 mb-4">
         Import data from Strong Investor Loans specific spreadsheets
       </p>
 
@@ -293,17 +293,17 @@ function MigrationSection() {
             className={cn(
               "rounded-lg border p-2 text-left transition-colors",
               sheetType === s.value
-                ? "border-brand-500 bg-brand-50 dark:bg-brand-950/30 dark:border-brand-700"
-                : "bg-white hover:bg-zinc-50 dark:bg-zinc-900 dark:border-zinc-800"
+                ? "border-[#1E3A5F] bg-[#EFF4F9] "
+                : "bg-white hover:bg-stone-50"
             )}
           >
             <p className="text-xs font-medium">{s.label}</p>
-            <p className="text-[10px] text-zinc-500 mt-0.5">{s.description}</p>
+            <p className="text-[10px] text-stone-500 mt-0.5">{s.description}</p>
           </button>
         ))}
       </div>
 
-      <div className="rounded-lg border bg-white p-5 dark:bg-zinc-900 dark:border-zinc-800">
+      <div className="rounded-lg border bg-white p-5">
         <div className="flex items-center gap-4">
           <div className="flex-1">
             <input
@@ -317,19 +317,19 @@ function MigrationSection() {
               onClick={() => fileRef.current?.click()}
               className={cn(
                 "w-full border-2 border-dashed rounded-lg p-4 text-center transition-colors",
-                file ? "border-emerald-300 bg-emerald-50/50" : "border-zinc-300 hover:border-brand-400"
+                file ? "border-emerald-300 bg-emerald-50/50" : "border-stone-300 hover:border-[#93B4D4]"
               )}
             >
               {file ? (
                 <div className="flex items-center justify-center gap-2">
                   <FileSpreadsheet className="h-5 w-5 text-emerald-500" />
                   <span className="text-sm font-medium">{file.name}</span>
-                  <button onClick={(e) => { e.stopPropagation(); setFile(null); }} className="text-zinc-400 hover:text-zinc-600">
+                  <button onClick={(e) => { e.stopPropagation(); setFile(null); }} className="text-stone-400 hover:text-stone-600">
                     <X className="h-4 w-4" />
                   </button>
                 </div>
               ) : (
-                <p className="text-sm text-zinc-500">Click to select a CSV file</p>
+                <p className="text-sm text-stone-500">Click to select a CSV file</p>
               )}
             </button>
           </div>
@@ -341,7 +341,7 @@ function MigrationSection() {
             <button
               onClick={handleMigration}
               disabled={!file || isRunning}
-              className="w-full flex items-center justify-center gap-2 rounded-md bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 disabled:opacity-50"
+              className="w-full flex items-center justify-center gap-2 rounded-md bg-[#1E3A5F] px-4 py-2 text-sm font-medium text-white hover:bg-[#162D4A] disabled:opacity-50"
             >
               {isRunning ? <Loader2 className="h-4 w-4 animate-spin" /> : <Database className="h-4 w-4" />}
               Migrate
@@ -351,7 +351,7 @@ function MigrationSection() {
       </div>
 
       {migrationResults && (
-        <div className="mt-4 rounded-lg border bg-white p-5 dark:bg-zinc-900 dark:border-zinc-800">
+        <div className="mt-4 rounded-lg border bg-white p-5">
           {migrationResults.error ? (
             <div className="flex items-center gap-2 text-red-600">
               <AlertTriangle className="h-5 w-5" />
@@ -366,31 +366,31 @@ function MigrationSection() {
                 </h3>
               </div>
               <div className="grid grid-cols-5 gap-3">
-                <div className="rounded-md bg-zinc-50 dark:bg-zinc-800 p-3">
-                  <p className="text-xs text-zinc-500">Total</p>
+                <div className="rounded-md bg-stone-50 p-3">
+                  <p className="text-xs text-stone-500">Total</p>
                   <p className="text-lg font-bold">{migrationResults.results.total}</p>
                 </div>
-                <div className="rounded-md bg-zinc-50 dark:bg-zinc-800 p-3">
-                  <p className="text-xs text-zinc-500">Processed</p>
+                <div className="rounded-md bg-stone-50 p-3">
+                  <p className="text-xs text-stone-500">Processed</p>
                   <p className="text-lg font-bold">{migrationResults.results.processed}</p>
                 </div>
-                <div className="rounded-md bg-emerald-50 dark:bg-emerald-950/30 p-3">
-                  <p className="text-xs text-zinc-500">Created</p>
+                <div className="rounded-md bg-emerald-50950/30 p-3">
+                  <p className="text-xs text-stone-500">Created</p>
                   <p className="text-lg font-bold text-emerald-600">{migrationResults.results.created}</p>
                 </div>
-                <div className="rounded-md bg-brand-50 dark:bg-brand-950/30 p-3">
-                  <p className="text-xs text-zinc-500">Updated</p>
-                  <p className="text-lg font-bold text-brand-600">{migrationResults.results.updated}</p>
+                <div className="rounded-md bg-[#EFF4F9] p-3">
+                  <p className="text-xs text-stone-500">Updated</p>
+                  <p className="text-lg font-bold text-[#1E3A5F]">{migrationResults.results.updated}</p>
                 </div>
-                <div className="rounded-md bg-amber-50 dark:bg-amber-950/30 p-3">
-                  <p className="text-xs text-zinc-500">Errors</p>
+                <div className="rounded-md bg-amber-50950/30 p-3">
+                  <p className="text-xs text-stone-500">Errors</p>
                   <p className="text-lg font-bold text-amber-600">{migrationResults.results.errors.length}</p>
                 </div>
               </div>
               {migrationResults.results.errors.length > 0 && (
                 <div className="mt-3 space-y-1 max-h-40 overflow-y-auto">
                   {migrationResults.results.errors.map((err: any, i: number) => (
-                    <div key={i} className="text-xs text-red-600 bg-red-50 dark:bg-red-950/20 rounded px-2 py-1">
+                    <div key={i} className="text-xs text-red-600 bg-red-50 rounded px-2 py-1">
                       Row {err.row}: {err.message}
                     </div>
                   ))}

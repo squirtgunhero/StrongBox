@@ -66,11 +66,11 @@ export default function CommunicationsPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-semibold">Communications</h1>
-          <p className="text-sm text-zinc-500 mt-1">Email, SMS, and communication log</p>
+          <p className="text-sm text-stone-500 mt-1">Email, SMS, and communication log</p>
         </div>
         <button
           onClick={() => setShowCompose(true)}
-          className="flex items-center gap-2 rounded-md bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700"
+          className="flex items-center gap-2 rounded-md bg-[#1E3A5F] px-4 py-2 text-sm font-medium text-white hover:bg-[#162D4A]"
         >
           <Send className="h-4 w-4" /> Compose
         </button>
@@ -87,8 +87,8 @@ export default function CommunicationsPage() {
               className={cn(
                 "flex items-center gap-2 rounded-md px-3 py-1.5 text-xs font-medium transition-colors",
                 typeFilter === opt.value
-                  ? "bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-400"
-                  : "text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                  ? "bg-[#EFF4F9] text-[#162D4A]"
+                  : "text-stone-500 hover:bg-stone-100"
               )}
             >
               <Icon className="h-3.5 w-3.5" /> {opt.label}
@@ -112,12 +112,12 @@ export default function CommunicationsPage() {
       {/* Communication List */}
       {isLoading ? (
         <div className="flex items-center justify-center p-20">
-          <Loader2 className="h-6 w-6 animate-spin text-zinc-400" />
+          <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
         </div>
       ) : communications.length === 0 ? (
-        <div className="rounded-lg border bg-white p-12 text-center dark:bg-zinc-900 dark:border-zinc-800">
-          <Mail className="h-10 w-10 text-zinc-300 mx-auto mb-3" />
-          <p className="text-sm text-zinc-500">No communications yet</p>
+        <div className="rounded-lg border bg-white p-12 text-center">
+          <Mail className="h-10 w-10 text-stone-300 mx-auto mb-3" />
+          <p className="text-sm text-stone-500">No communications yet</p>
         </div>
       ) : (
         <div className="space-y-2">
@@ -126,18 +126,18 @@ export default function CommunicationsPage() {
             return (
               <div
                 key={comm.id}
-                className="rounded-lg border bg-white p-4 dark:bg-zinc-900 dark:border-zinc-800"
+                className="rounded-lg border bg-white p-4"
               >
                 <div className="flex items-start gap-3">
-                  <div className="rounded-full bg-zinc-100 dark:bg-zinc-800 p-2">
-                    <Icon className="h-4 w-4 text-zinc-500" />
+                  <div className="rounded-full bg-stone-100 p-2">
+                    <Icon className="h-4 w-4 text-stone-500" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs font-medium text-zinc-400 uppercase">
+                      <span className="text-xs font-medium text-stone-400 uppercase">
                         {comm.type.replace(/_/g, " ")}
                       </span>
-                      <span className="text-xs text-zinc-400">
+                      <span className="text-xs text-stone-400">
                         {comm.direction === "INBOUND" ? "from" : "to"}{" "}
                         {comm.type === "EMAIL"
                           ? comm.toEmails?.[0] || comm.fromEmail
@@ -148,11 +148,11 @@ export default function CommunicationsPage() {
                           : "—"}
                       </span>
                       {comm.loan && (
-                        <span className="text-xs text-brand-600 dark:text-brand-400">
+                        <span className="text-xs text-[#1E3A5F]">
                           {comm.loan.loanNumber}
                         </span>
                       )}
-                      <span className="text-xs text-zinc-400 ml-auto">
+                      <span className="text-xs text-stone-400 ml-auto">
                         {formatRelative(comm.createdAt)}
                       </span>
                     </div>
@@ -160,12 +160,12 @@ export default function CommunicationsPage() {
                       <p className="text-sm font-medium mb-1">{comm.subject}</p>
                     )}
                     {comm.body && (
-                      <p className="text-xs text-zinc-500 line-clamp-2">
+                      <p className="text-xs text-stone-500 line-clamp-2">
                         {comm.body.replace(/<[^>]*>/g, "")}
                       </p>
                     )}
                     {comm.author && (
-                      <p className="text-[10px] text-zinc-400 mt-1">
+                      <p className="text-[10px] text-stone-400 mt-1">
                         by {comm.author.firstName} {comm.author.lastName}
                       </p>
                     )}
@@ -228,10 +228,10 @@ function ComposeModal({
   return (
     <>
       <div className="fixed inset-0 z-40 bg-black/30" onClick={onClose} />
-      <div className="fixed inset-y-0 right-0 z-50 w-[500px] bg-white dark:bg-zinc-900 border-l dark:border-zinc-800 shadow-2xl flex flex-col">
-        <div className="flex items-center justify-between px-6 py-4 border-b dark:border-zinc-800">
+      <div className="fixed inset-y-0 right-0 z-50 w-[500px] bg-white border-l shadow-2xl flex flex-col">
+        <div className="flex items-center justify-between px-6 py-4 border-b">
           <h2 className="text-lg font-semibold">Compose</h2>
-          <button onClick={onClose} className="text-zinc-400 hover:text-zinc-600 text-xl">
+          <button onClick={onClose} className="text-stone-400 hover:text-stone-600 text-xl">
             &times;
           </button>
         </div>
@@ -246,8 +246,8 @@ function ComposeModal({
                 className={cn(
                   "px-3 py-1.5 text-xs font-medium rounded-md transition-colors",
                   type === t
-                    ? "bg-brand-50 text-brand-700 dark:bg-brand-950"
-                    : "text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                    ? "bg-[#EFF4F9] text-[#162D4A]"
+                    : "text-stone-500 hover:bg-stone-100"
                 )}
               >
                 {t.replace(/_/g, " ")}
@@ -258,11 +258,11 @@ function ComposeModal({
           {/* Template */}
           {templates.length > 0 && (
             <div>
-              <label className="block text-xs font-medium text-zinc-500 mb-1">Template</label>
+              <label className="block text-xs font-medium text-stone-500 mb-1">Template</label>
               <select
                 value={selectedTemplate}
                 onChange={(e) => handleTemplateChange(e.target.value)}
-                className="w-full rounded-md border bg-white px-3 py-2 text-sm dark:bg-zinc-800 dark:border-zinc-700"
+                className="w-full rounded-md border bg-white px-3 py-2 text-sm"
               >
                 <option value="">— No template —</option>
                 {templates
@@ -276,57 +276,57 @@ function ComposeModal({
 
           {/* To */}
           <div>
-            <label className="block text-xs font-medium text-zinc-500 mb-1">
+            <label className="block text-xs font-medium text-stone-500 mb-1">
               {type === "EMAIL" ? "To (email)" : type === "SMS" ? "To (phone)" : "Contact"}
             </label>
             <input
               value={to}
               onChange={(e) => setTo(e.target.value)}
               placeholder={type === "EMAIL" ? "email@example.com" : type === "SMS" ? "+1..." : "Name"}
-              className="w-full rounded-md border bg-white px-3 py-2 text-sm dark:bg-zinc-800 dark:border-zinc-700"
+              className="w-full rounded-md border bg-white px-3 py-2 text-sm"
             />
           </div>
 
           {/* Subject */}
           {type === "EMAIL" && (
             <div>
-              <label className="block text-xs font-medium text-zinc-500 mb-1">Subject</label>
+              <label className="block text-xs font-medium text-stone-500 mb-1">Subject</label>
               <input
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)}
-                className="w-full rounded-md border bg-white px-3 py-2 text-sm dark:bg-zinc-800 dark:border-zinc-700"
+                className="w-full rounded-md border bg-white px-3 py-2 text-sm"
               />
             </div>
           )}
 
           {/* Body */}
           <div>
-            <label className="block text-xs font-medium text-zinc-500 mb-1">Message</label>
+            <label className="block text-xs font-medium text-stone-500 mb-1">Message</label>
             <textarea
               value={body}
               onChange={(e) => setBody(e.target.value)}
               rows={8}
-              className="w-full rounded-md border bg-white px-3 py-2 text-sm dark:bg-zinc-800 dark:border-zinc-700"
+              className="w-full rounded-md border bg-white px-3 py-2 text-sm"
             />
             {selectedTemplate && (
-              <p className="text-[10px] text-zinc-400 mt-1">
+              <p className="text-[10px] text-stone-400 mt-1">
                 Variables like {"{{borrowerName}}"} will be replaced when sent via workflow
               </p>
             )}
           </div>
         </div>
 
-        <div className="border-t dark:border-zinc-800 px-6 py-4 flex justify-end gap-3">
+        <div className="border-t px-6 py-4 flex justify-end gap-3">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-sm font-medium text-zinc-600 hover:bg-zinc-100 rounded-md dark:text-zinc-400 dark:hover:bg-zinc-800"
+            className="px-4 py-2 text-sm font-medium text-stone-600 hover:bg-stone-100 rounded-md"
           >
             Cancel
           </button>
           <button
             onClick={() => sendMutation.mutate()}
             disabled={!to || !body || sendMutation.isPending}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-brand-600 hover:bg-brand-700 rounded-md disabled:opacity-50"
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[#1E3A5F] hover:bg-[#162D4A] rounded-md disabled:opacity-50"
           >
             {sendMutation.isPending ? (
               <Loader2 className="h-4 w-4 animate-spin" />

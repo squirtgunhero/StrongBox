@@ -48,37 +48,37 @@ export default function ConditionsDashboard() {
     <div>
       <div className="mb-6">
         <h1 className="text-2xl font-semibold">Underwriting Conditions</h1>
-        <p className="text-sm text-zinc-500 mt-1">Track and manage conditions across all active loans</p>
+        <p className="text-sm text-stone-500 mt-1">Track and manage conditions across all active loans</p>
       </div>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-4 gap-4 mb-6">
-        <div className="rounded-lg border bg-white p-4 dark:bg-zinc-900 dark:border-zinc-800">
-          <p className="text-xs text-zinc-500">Total Conditions</p>
+        <div className="rounded-lg border bg-white p-4">
+          <p className="text-xs text-stone-500">Total Conditions</p>
           <p className="text-2xl font-bold">{allConditions.length}</p>
         </div>
-        <div className="rounded-lg border bg-white p-4 dark:bg-zinc-900 dark:border-zinc-800">
-          <p className="text-xs text-zinc-500">Outstanding</p>
+        <div className="rounded-lg border bg-white p-4">
+          <p className="text-xs text-stone-500">Outstanding</p>
           <p className="text-2xl font-bold text-amber-600">{outstanding.length}</p>
         </div>
-        <div className="rounded-lg border bg-white p-4 dark:bg-zinc-900 dark:border-zinc-800">
-          <p className="text-xs text-zinc-500">Cleared</p>
+        <div className="rounded-lg border bg-white p-4">
+          <p className="text-xs text-stone-500">Cleared</p>
           <p className="text-2xl font-bold text-emerald-600">{cleared.length}</p>
         </div>
-        <div className="rounded-lg border bg-white p-4 dark:bg-zinc-900 dark:border-zinc-800">
-          <p className="text-xs text-zinc-500">Loans with Conditions</p>
+        <div className="rounded-lg border bg-white p-4">
+          <p className="text-xs text-stone-500">Loans with Conditions</p>
           <p className="text-2xl font-bold">{loans.length}</p>
         </div>
       </div>
 
       {isLoading ? (
         <div className="flex items-center justify-center p-20">
-          <Loader2 className="h-6 w-6 animate-spin text-zinc-400" />
+          <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
         </div>
       ) : outstanding.length === 0 && cleared.length === 0 ? (
-        <div className="rounded-lg border bg-white p-12 text-center dark:bg-zinc-900 dark:border-zinc-800">
+        <div className="rounded-lg border bg-white p-12 text-center">
           <CheckCircle2 className="h-10 w-10 text-emerald-400 mx-auto mb-3" />
-          <p className="text-sm text-zinc-500">No conditions found across active loans</p>
+          <p className="text-sm text-stone-500">No conditions found across active loans</p>
         </div>
       ) : (
         <div className="space-y-6">
@@ -88,21 +88,21 @@ export default function ConditionsDashboard() {
               <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
                 <AlertCircle className="h-4 w-4 text-amber-500" />
                 {category}
-                <span className="text-xs text-zinc-400 font-normal">({conditions.length})</span>
+                <span className="text-xs text-stone-400 font-normal">({conditions.length})</span>
               </h3>
-              <div className="rounded-lg border bg-white dark:bg-zinc-900 dark:border-zinc-800">
+              <div className="rounded-lg border bg-white">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b bg-zinc-50 dark:bg-zinc-800/50 dark:border-zinc-800">
-                      <th className="px-4 py-3 text-left font-medium text-zinc-500">Condition</th>
-                      <th className="px-4 py-3 text-left font-medium text-zinc-500">Loan</th>
-                      <th className="px-4 py-3 text-left font-medium text-zinc-500">Borrower</th>
-                      <th className="px-4 py-3 text-left font-medium text-zinc-500">Notes</th>
+                    <tr className="border-b bg-stone-50">
+                      <th className="px-4 py-3 text-left font-medium text-stone-500">Condition</th>
+                      <th className="px-4 py-3 text-left font-medium text-stone-500">Loan</th>
+                      <th className="px-4 py-3 text-left font-medium text-stone-500">Borrower</th>
+                      <th className="px-4 py-3 text-left font-medium text-stone-500">Notes</th>
                     </tr>
                   </thead>
                   <tbody>
                     {conditions.map((c: any) => (
-                      <tr key={c.id} className="border-b last:border-0 dark:border-zinc-800">
+                      <tr key={c.id} className="border-b last:border-0">
                         <td className="px-4 py-3">
                           <div className="flex items-start gap-2">
                             <div className="mt-0.5 h-2 w-2 rounded-full bg-amber-500 shrink-0" />
@@ -112,13 +112,13 @@ export default function ConditionsDashboard() {
                         <td className="px-4 py-3">
                           <Link
                             href={`/loans/${c.loanId}`}
-                            className="text-brand-600 hover:text-brand-700 dark:text-brand-400"
+                            className="text-[#1E3A5F] hover:text-[#162D4A]"
                           >
                             {c.loanNumber}
                           </Link>
                         </td>
-                        <td className="px-4 py-3 text-zinc-500">{c.borrowerName}</td>
-                        <td className="px-4 py-3 text-xs text-zinc-400">{c.notes || "—"}</td>
+                        <td className="px-4 py-3 text-stone-500">{c.borrowerName}</td>
+                        <td className="px-4 py-3 text-xs text-stone-400">{c.notes || "—"}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -133,19 +133,19 @@ export default function ConditionsDashboard() {
               <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
                 <CheckCircle2 className="h-4 w-4 text-emerald-500" />
                 Cleared
-                <span className="text-xs text-zinc-400 font-normal">({cleared.length})</span>
+                <span className="text-xs text-stone-400 font-normal">({cleared.length})</span>
               </h3>
-              <div className="rounded-lg border bg-white dark:bg-zinc-900 dark:border-zinc-800 opacity-70">
+              <div className="rounded-lg border bg-white opacity-70">
                 <div className="max-h-60 overflow-y-auto">
                   {cleared.map((c: any) => (
                     <div
                       key={c.id}
-                      className="flex items-center justify-between px-4 py-2 border-b last:border-0 dark:border-zinc-800 text-sm"
+                      className="flex items-center justify-between px-4 py-2 border-b last:border-0 text-sm"
                     >
-                      <span className="line-through text-zinc-400">{c.text}</span>
+                      <span className="line-through text-stone-400">{c.text}</span>
                       <Link
                         href={`/loans/${c.loanId}`}
-                        className="text-xs text-brand-600 dark:text-brand-400"
+                        className="text-xs text-[#1E3A5F]"
                       >
                         {c.loanNumber}
                       </Link>

@@ -17,7 +17,7 @@ export default function AccountPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center p-20">
-        <Loader2 className="h-6 w-6 animate-spin text-zinc-400" />
+        <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
       </div>
     );
   }
@@ -37,8 +37,8 @@ export default function AccountPage() {
           { label: "Total Returned", value: formatCurrency(account.totalReturned || 0) },
           { label: "Interest Earned", value: formatCurrency(account.totalInterestEarned || 0), color: "text-emerald-600" },
         ].map((item) => (
-          <div key={item.label} className="rounded-lg border bg-white p-4 dark:bg-zinc-900 dark:border-zinc-800">
-            <p className="text-xs text-zinc-500">{item.label}</p>
+          <div key={item.label} className="rounded-lg border bg-white p-4">
+            <p className="text-xs text-stone-500">{item.label}</p>
             <p className={`text-xl font-bold mt-1 ${item.color || ""}`}>{item.value}</p>
           </div>
         ))}
@@ -46,7 +46,7 @@ export default function AccountPage() {
 
       {/* Capital Sources */}
       {sources.length > 0 && (
-        <div className="rounded-lg border bg-white p-5 dark:bg-zinc-900 dark:border-zinc-800">
+        <div className="rounded-lg border bg-white p-5">
           <h2 className="text-sm font-semibold mb-4">Capital Sources</h2>
           <div className="space-y-3">
             {sources.map((src: any) => {
@@ -55,17 +55,17 @@ export default function AccountPage() {
                 <div key={src.name}>
                   <div className="flex items-center justify-between text-sm mb-1">
                     <span className="font-medium">{src.name}</span>
-                    <span className="text-xs text-zinc-500">
+                    <span className="text-xs text-stone-500">
                       {formatCurrency(src.deployed)} / {formatCurrency(src.creditLimit)}
                     </span>
                   </div>
-                  <div className="w-full bg-zinc-200 rounded-full h-2 dark:bg-zinc-700">
+                  <div className="w-full bg-stone-200 rounded-full h-2">
                     <div
-                      className="h-2 rounded-full bg-brand-500 transition-all"
+                      className="h-2 rounded-full bg-[#1E3A5F] transition-all"
                       style={{ width: `${Math.min(100, utilization)}%` }}
                     />
                   </div>
-                  <p className="text-[10px] text-zinc-400 mt-1 text-right">
+                  <p className="text-[10px] text-stone-400 mt-1 text-right">
                     {formatCurrency(src.available)} available
                   </p>
                 </div>

@@ -53,7 +53,7 @@ export default function DocumentDetailPage() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center p-20">
-        <Loader2 className="h-6 w-6 animate-spin text-zinc-400" />
+        <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
       </div>
     );
   }
@@ -62,7 +62,7 @@ export default function DocumentDetailPage() {
   if (!doc) {
     return (
       <div className="p-12 text-center">
-        <p className="text-sm text-zinc-500">Document not found</p>
+        <p className="text-sm text-stone-500">Document not found</p>
       </div>
     );
   }
@@ -75,13 +75,13 @@ export default function DocumentDetailPage() {
       <div className="flex items-center gap-3 mb-6">
         <Link
           href="/documents"
-          className="rounded-md p-2 text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+          className="rounded-md p-2 text-stone-400 hover:text-stone-600 hover:bg-stone-100"
         >
           <ArrowLeft className="h-5 w-5" />
         </Link>
         <div className="flex-1">
           <h1 className="text-xl font-semibold">{doc.fileName}</h1>
-          <p className="text-sm text-zinc-500">{doc.category.replace(/_/g, " ")}</p>
+          <p className="text-sm text-stone-500">{doc.category.replace(/_/g, " ")}</p>
         </div>
         <div className="flex items-center gap-2">
           {doc.storageUrl && (
@@ -89,7 +89,7 @@ export default function DocumentDetailPage() {
               href={doc.storageUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium text-zinc-600 hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-400"
+              className="flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium text-stone-600 hover:bg-stone-50"
             >
               <Download className="h-4 w-4" /> Download
             </a>
@@ -100,7 +100,7 @@ export default function DocumentDetailPage() {
                 deleteMutation.mutate();
               }
             }}
-            className="flex items-center gap-2 rounded-md border border-red-200 px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50 dark:border-red-900 dark:hover:bg-red-950"
+            className="flex items-center gap-2 rounded-md border border-red-200 px-4 py-2 text-sm font-medium text-red-600 hover:bg-red-50900950"
           >
             <Trash2 className="h-4 w-4" /> Delete
           </button>
@@ -110,13 +110,13 @@ export default function DocumentDetailPage() {
       <div className="grid grid-cols-3 gap-6">
         {/* Preview */}
         <div className="col-span-2">
-          <div className="rounded-lg border bg-white dark:bg-zinc-900 dark:border-zinc-800 overflow-hidden">
+          <div className="rounded-lg border bg-white overflow-hidden">
             {doc.storageUrl ? (
               isImage ? (
                 <img
                   src={doc.storageUrl}
                   alt={doc.fileName}
-                  className="w-full max-h-[600px] object-contain bg-zinc-100 dark:bg-zinc-800"
+                  className="w-full max-h-[600px] object-contain bg-stone-100"
                 />
               ) : isPdf ? (
                 <iframe
@@ -126,15 +126,15 @@ export default function DocumentDetailPage() {
                 />
               ) : (
                 <div className="flex flex-col items-center justify-center p-20 text-center">
-                  <FileText className="h-16 w-16 text-zinc-300 mb-4" />
-                  <p className="text-sm text-zinc-500 mb-3">
+                  <FileText className="h-16 w-16 text-stone-300 mb-4" />
+                  <p className="text-sm text-stone-500 mb-3">
                     Preview not available for this file type
                   </p>
                   <a
                     href={doc.storageUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-sm text-brand-600 hover:text-brand-700"
+                    className="flex items-center gap-2 text-sm text-[#1E3A5F] hover:text-[#162D4A]"
                   >
                     <ExternalLink className="h-4 w-4" /> Open in new tab
                   </a>
@@ -142,8 +142,8 @@ export default function DocumentDetailPage() {
               )
             ) : (
               <div className="flex flex-col items-center justify-center p-20 text-center">
-                <Clock className="h-16 w-16 text-zinc-300 mb-4" />
-                <p className="text-sm text-zinc-500">
+                <Clock className="h-16 w-16 text-stone-300 mb-4" />
+                <p className="text-sm text-stone-500">
                   This document has been requested but not yet uploaded
                 </p>
               </div>
@@ -153,45 +153,45 @@ export default function DocumentDetailPage() {
 
         {/* Details Sidebar */}
         <div className="space-y-4">
-          <div className="rounded-lg border bg-white p-4 dark:bg-zinc-900 dark:border-zinc-800">
+          <div className="rounded-lg border bg-white p-4">
             <h3 className="text-sm font-semibold mb-3">Details</h3>
             <dl className="space-y-2 text-sm">
               <div>
-                <dt className="text-zinc-400 text-xs">File Name</dt>
+                <dt className="text-stone-400 text-xs">File Name</dt>
                 <dd className="font-medium">{doc.fileName}</dd>
               </div>
               <div>
-                <dt className="text-zinc-400 text-xs">Category</dt>
+                <dt className="text-stone-400 text-xs">Category</dt>
                 <dd>{doc.category.replace(/_/g, " ")}</dd>
               </div>
               {doc.subcategory && (
                 <div>
-                  <dt className="text-zinc-400 text-xs">Subcategory</dt>
+                  <dt className="text-stone-400 text-xs">Subcategory</dt>
                   <dd>{doc.subcategory}</dd>
                 </div>
               )}
               <div>
-                <dt className="text-zinc-400 text-xs">File Type</dt>
+                <dt className="text-stone-400 text-xs">File Type</dt>
                 <dd>{doc.fileType}</dd>
               </div>
               <div>
-                <dt className="text-zinc-400 text-xs">File Size</dt>
+                <dt className="text-stone-400 text-xs">File Size</dt>
                 <dd>{formatFileSize(doc.fileSize)}</dd>
               </div>
               <div>
-                <dt className="text-zinc-400 text-xs">Version</dt>
+                <dt className="text-stone-400 text-xs">Version</dt>
                 <dd>v{doc.version}</dd>
               </div>
               {doc.description && (
                 <div>
-                  <dt className="text-zinc-400 text-xs">Description</dt>
+                  <dt className="text-stone-400 text-xs">Description</dt>
                   <dd>{doc.description}</dd>
                 </div>
               )}
             </dl>
           </div>
 
-          <div className="rounded-lg border bg-white p-4 dark:bg-zinc-900 dark:border-zinc-800">
+          <div className="rounded-lg border bg-white p-4">
             <h3 className="text-sm font-semibold mb-3">Status</h3>
             <div className="space-y-2 text-sm">
               <div className="flex items-center gap-2">
@@ -208,12 +208,12 @@ export default function DocumentDetailPage() {
                 )}
               </div>
               {doc.requestedAt && (
-                <p className="text-xs text-zinc-400">
+                <p className="text-xs text-stone-400">
                   Requested {formatRelative(doc.requestedAt)}
                 </p>
               )}
               {doc.receivedAt && (
-                <p className="text-xs text-zinc-400">
+                <p className="text-xs text-stone-400">
                   Received {formatRelative(doc.receivedAt)}
                 </p>
               )}
@@ -221,13 +221,13 @@ export default function DocumentDetailPage() {
           </div>
 
           {/* Association */}
-          <div className="rounded-lg border bg-white p-4 dark:bg-zinc-900 dark:border-zinc-800">
+          <div className="rounded-lg border bg-white p-4">
             <h3 className="text-sm font-semibold mb-3">Linked To</h3>
             <div className="space-y-2 text-sm">
               {doc.loan && (
                 <Link
                   href={`/loans/${doc.loan.id}`}
-                  className="flex items-center gap-2 text-brand-600 hover:text-brand-700 dark:text-brand-400"
+                  className="flex items-center gap-2 text-[#1E3A5F] hover:text-[#162D4A]"
                 >
                   <FileText className="h-4 w-4" />
                   Loan {doc.loan.loanNumber}
@@ -236,18 +236,18 @@ export default function DocumentDetailPage() {
               {doc.contact && (
                 <Link
                   href={`/contacts/${doc.contact.id}`}
-                  className="flex items-center gap-2 text-brand-600 hover:text-brand-700 dark:text-brand-400"
+                  className="flex items-center gap-2 text-[#1E3A5F] hover:text-[#162D4A]"
                 >
                   {doc.contact.firstName} {doc.contact.lastName}
                 </Link>
               )}
               {doc.property && (
-                <p className="text-zinc-500">
+                <p className="text-stone-500">
                   {doc.property.address}, {doc.property.city} {doc.property.state}
                 </p>
               )}
               {!doc.loan && !doc.contact && !doc.property && (
-                <p className="text-zinc-400">No association</p>
+                <p className="text-stone-400">No association</p>
               )}
             </div>
           </div>

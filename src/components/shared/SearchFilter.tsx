@@ -7,7 +7,7 @@ export function SearchFilter() {
       <input
         type="text"
         placeholder="Search..."
-        className="h-9 w-64 rounded-md border bg-white px-3 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-zinc-800 dark:border-zinc-700"
+        className="h-9 w-64 rounded-md border bg-white px-3 text-sm outline-none focus:border-[#1E3A5F] focus:ring-1 focus:ring-[#1E3A5F]"
       />
     </div>
   );

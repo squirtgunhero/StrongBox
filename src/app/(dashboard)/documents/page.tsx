@@ -131,12 +131,12 @@ export default function DocumentsPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-semibold">Document Center</h1>
-          <p className="text-sm text-zinc-500 mt-1">{total} documents</p>
+          <p className="text-sm text-stone-500 mt-1">{total} documents</p>
         </div>
         <button
           onClick={() => fileInputRef.current?.click()}
           disabled={uploading}
-          className="flex items-center gap-2 rounded-md bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 transition-colors disabled:opacity-50"
+          className="flex items-center gap-2 rounded-md bg-[#1E3A5F] px-4 py-2 text-sm font-medium text-white hover:bg-[#162D4A] transition-colors disabled:opacity-50"
         >
           {uploading ? (
             <Loader2 className="h-4 w-4 animate-spin" />
@@ -165,27 +165,27 @@ export default function DocumentsPage() {
         className={cn(
           "rounded-lg border-2 border-dashed p-8 mb-6 text-center transition-colors",
           dragOver
-            ? "border-brand-400 bg-brand-50 dark:border-brand-600 dark:bg-brand-950"
-            : "border-zinc-200 dark:border-zinc-800"
+            ? "border-[#93B4D4] bg-[#EFF4F9]"
+            : "border-stone-200"
         )}
       >
-        <Upload className="h-8 w-8 text-zinc-400 mx-auto mb-2" />
-        <p className="text-sm text-zinc-500">
+        <Upload className="h-8 w-8 text-stone-400 mx-auto mb-2" />
+        <p className="text-sm text-stone-500">
           Drag and drop files here, or{" "}
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="text-brand-600 hover:text-brand-700 font-medium"
+            className="text-[#1E3A5F] hover:text-[#162D4A] font-medium"
           >
             browse
           </button>
         </p>
-        <p className="text-xs text-zinc-400 mt-1">PDF, Images, Spreadsheets, and more</p>
+        <p className="text-xs text-stone-400 mt-1">PDF, Images, Spreadsheets, and more</p>
       </div>
 
       {/* Filters */}
       <div className="flex flex-wrap items-center gap-3 mb-4">
         <div className="relative flex-1 min-w-[200px] max-w-md">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-stone-400" />
           <input
             type="text"
             value={search}
@@ -194,7 +194,7 @@ export default function DocumentsPage() {
               setPage(1);
             }}
             placeholder="Search documents..."
-            className="w-full rounded-md border bg-white pl-10 pr-4 py-2 text-sm dark:bg-zinc-900 dark:border-zinc-800"
+            className="w-full rounded-md border bg-white pl-10 pr-4 py-2 text-sm"
           />
         </div>
 
@@ -204,7 +204,7 @@ export default function DocumentsPage() {
             setCategory(e.target.value);
             setPage(1);
           }}
-          className="rounded-md border bg-white px-3 py-2 text-sm dark:bg-zinc-900 dark:border-zinc-800"
+          className="rounded-md border bg-white px-3 py-2 text-sm"
         >
           {CATEGORIES.map((c) => (
             <option key={c.value} value={c.value}>
@@ -213,7 +213,7 @@ export default function DocumentsPage() {
           ))}
         </select>
 
-        <div className="flex rounded-md border dark:border-zinc-700">
+        <div className="flex rounded-md border700">
           {[
             { value: "", label: "All" },
             { value: "received", label: "Received" },
@@ -226,10 +226,10 @@ export default function DocumentsPage() {
                 setPage(1);
               }}
               className={cn(
-                "px-3 py-1.5 text-xs font-medium transition-colors first:rounded-l-md last:rounded-r-md border-r last:border-r-0 dark:border-zinc-700",
+                "px-3 py-1.5 text-xs font-medium transition-colors first:rounded-l-md last:rounded-r-md border-r last:border-r-0700",
                 receivedFilter === f.value
-                  ? "bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-400"
-                  : "text-zinc-500 hover:bg-zinc-50 dark:hover:bg-zinc-800"
+                  ? "bg-[#EFF4F9] text-[#162D4A]"
+                  : "text-stone-500 hover:bg-stone-50"
               )}
             >
               {f.label}
@@ -241,25 +241,25 @@ export default function DocumentsPage() {
       {/* Document List */}
       {isLoading ? (
         <div className="flex items-center justify-center p-20">
-          <Loader2 className="h-6 w-6 animate-spin text-zinc-400" />
+          <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
         </div>
       ) : documents.length === 0 ? (
-        <div className="rounded-lg border bg-white p-12 text-center dark:bg-zinc-900 dark:border-zinc-800">
-          <FileText className="h-10 w-10 text-zinc-300 mx-auto mb-3" />
-          <p className="text-sm text-zinc-500">No documents found</p>
+        <div className="rounded-lg border bg-white p-12 text-center">
+          <FileText className="h-10 w-10 text-stone-300 mx-auto mb-3" />
+          <p className="text-sm text-stone-500">No documents found</p>
         </div>
       ) : (
-        <div className="rounded-lg border bg-white dark:bg-zinc-900 dark:border-zinc-800">
+        <div className="rounded-lg border bg-white">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b bg-zinc-50 dark:bg-zinc-800/50 dark:border-zinc-800">
-                <th className="px-4 py-3 text-left font-medium text-zinc-500">File</th>
-                <th className="px-4 py-3 text-left font-medium text-zinc-500">Category</th>
-                <th className="px-4 py-3 text-left font-medium text-zinc-500">Loan</th>
-                <th className="px-4 py-3 text-left font-medium text-zinc-500">Status</th>
-                <th className="px-4 py-3 text-left font-medium text-zinc-500">Size</th>
-                <th className="px-4 py-3 text-left font-medium text-zinc-500">Uploaded</th>
-                <th className="px-4 py-3 text-right font-medium text-zinc-500">Actions</th>
+              <tr className="border-b bg-stone-50">
+                <th className="px-4 py-3 text-left font-medium text-stone-500">File</th>
+                <th className="px-4 py-3 text-left font-medium text-stone-500">Category</th>
+                <th className="px-4 py-3 text-left font-medium text-stone-500">Loan</th>
+                <th className="px-4 py-3 text-left font-medium text-stone-500">Status</th>
+                <th className="px-4 py-3 text-left font-medium text-stone-500">Size</th>
+                <th className="px-4 py-3 text-left font-medium text-stone-500">Uploaded</th>
+                <th className="px-4 py-3 text-right font-medium text-stone-500">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -268,15 +268,15 @@ export default function DocumentsPage() {
                 return (
                   <tr
                     key={doc.id}
-                    className="border-b last:border-0 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/30"
+                    className="border-b last:border-0 hover:bg-stone-50"
                   >
                     <td className="px-4 py-3">
                       <div className="flex items-center gap-3">
-                        <Icon className="h-5 w-5 text-zinc-400 flex-shrink-0" />
+                        <Icon className="h-5 w-5 text-stone-400 flex-shrink-0" />
                         <div>
                           <p className="font-medium truncate max-w-[250px]">{doc.fileName}</p>
                           {doc.description && (
-                            <p className="text-xs text-zinc-500 truncate max-w-[250px]">
+                            <p className="text-xs text-stone-500 truncate max-w-[250px]">
                               {doc.description}
                             </p>
                           )}
@@ -284,15 +284,15 @@ export default function DocumentsPage() {
                       </div>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="inline-flex items-center rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300">
+                      <span className="inline-flex items-center rounded-full bg-stone-100 px-2 py-0.5 text-xs font-medium text-stone-700">
                         {doc.category.replace(/_/g, " ")}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-zinc-500 text-xs">
+                    <td className="px-4 py-3 text-stone-500 text-xs">
                       {doc.loan ? (
                         <Link
                           href={`/loans/${doc.loan.id}`}
-                          className="text-brand-600 hover:text-brand-700 dark:text-brand-400"
+                          className="text-[#1E3A5F] hover:text-[#162D4A]"
                         >
                           {doc.loan.loanNumber}
                         </Link>
@@ -311,17 +311,17 @@ export default function DocumentsPage() {
                         </span>
                       )}
                     </td>
-                    <td className="px-4 py-3 text-zinc-500 text-xs">
+                    <td className="px-4 py-3 text-stone-500 text-xs">
                       {formatFileSize(doc.fileSize)}
                     </td>
-                    <td className="px-4 py-3 text-zinc-500 text-xs">
+                    <td className="px-4 py-3 text-stone-500 text-xs">
                       {formatRelative(doc.createdAt)}
                     </td>
                     <td className="px-4 py-3">
                       <div className="flex items-center justify-end gap-1">
                         <Link
                           href={`/documents/${doc.id}`}
-                          className="rounded p-1.5 text-zinc-400 hover:text-zinc-600 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                          className="rounded p-1.5 text-stone-400 hover:text-stone-600 hover:bg-stone-100"
                         >
                           <Eye className="h-4 w-4" />
                         </Link>
@@ -331,7 +331,7 @@ export default function DocumentsPage() {
                               deleteMutation.mutate(doc.id);
                             }
                           }}
-                          className="rounded p-1.5 text-zinc-400 hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950"
+                          className="rounded p-1.5 text-stone-400 hover:text-red-600 hover:bg-red-50950"
                         >
                           <Trash2 className="h-4 w-4" />
                         </button>
@@ -345,22 +345,22 @@ export default function DocumentsPage() {
 
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="flex items-center justify-between px-4 py-3 border-t dark:border-zinc-800">
-              <p className="text-xs text-zinc-500">
+            <div className="flex items-center justify-between px-4 py-3 border-t">
+              <p className="text-xs text-stone-500">
                 Page {page} of {totalPages}
               </p>
               <div className="flex gap-2">
                 <button
                   onClick={() => setPage((p) => Math.max(1, p - 1))}
                   disabled={page <= 1}
-                  className="px-3 py-1 text-xs rounded border disabled:opacity-50 dark:border-zinc-700"
+                  className="px-3 py-1 text-xs rounded border disabled:opacity-50700"
                 >
                   Previous
                 </button>
                 <button
                   onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
                   disabled={page >= totalPages}
-                  className="px-3 py-1 text-xs rounded border disabled:opacity-50 dark:border-zinc-700"
+                  className="px-3 py-1 text-xs rounded border disabled:opacity-50700"
                 >
                   Next
                 </button>

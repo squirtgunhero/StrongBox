@@ -55,14 +55,14 @@ export default function AutomationsPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-semibold">Scheduled Automations</h1>
-          <p className="text-sm text-zinc-500 mt-1">
+          <p className="text-sm text-stone-500 mt-1">
             Configure and run automated jobs for reminders and alerts
           </p>
         </div>
         <button
           onClick={() => runJob.mutate("all")}
           disabled={runJob.isPending}
-          className="flex items-center gap-2 rounded-md bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 disabled:opacity-50"
+          className="flex items-center gap-2 rounded-md bg-[#1E3A5F] px-4 py-2 text-sm font-medium text-white hover:bg-[#162D4A] disabled:opacity-50"
         >
           {runJob.isPending && runJob.variables === "all" ? (
             <Loader2 className="h-4 w-4 animate-spin" />
@@ -75,7 +75,7 @@ export default function AutomationsPage() {
 
       {isLoading ? (
         <div className="flex items-center justify-center p-20">
-          <Loader2 className="h-6 w-6 animate-spin text-zinc-400" />
+          <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
         </div>
       ) : (
         <div className="space-y-4">
@@ -87,17 +87,17 @@ export default function AutomationsPage() {
             return (
               <div
                 key={job.id}
-                className="rounded-lg border bg-white p-5 dark:bg-zinc-900 dark:border-zinc-800"
+                className="rounded-lg border bg-white p-5"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-start gap-4">
-                    <div className="rounded-lg bg-brand-50 dark:bg-brand-950/30 p-3">
-                      <Icon className="h-5 w-5 text-brand-600 dark:text-brand-400" />
+                    <div className="rounded-lg bg-[#EFF4F9] p-3">
+                      <Icon className="h-5 w-5 text-[#1E3A5F]" />
                     </div>
                     <div>
                       <h3 className="text-sm font-semibold">{job.name}</h3>
-                      <p className="text-xs text-zinc-500 mt-0.5">{job.description}</p>
-                      <div className="flex items-center gap-1 mt-2 text-[10px] text-zinc-400">
+                      <p className="text-xs text-stone-500 mt-0.5">{job.description}</p>
+                      <div className="flex items-center gap-1 mt-2 text-[10px] text-stone-400">
                         <Clock className="h-3 w-3" />
                         {job.schedule}
                       </div>
@@ -107,7 +107,7 @@ export default function AutomationsPage() {
                   <button
                     onClick={() => runJob.mutate(job.id)}
                     disabled={isRunning}
-                    className="flex items-center gap-2 rounded-md border px-3 py-1.5 text-xs font-medium text-zinc-600 hover:bg-zinc-50 dark:border-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-800 disabled:opacity-50"
+                    className="flex items-center gap-2 rounded-md border px-3 py-1.5 text-xs font-medium text-stone-600 hover:bg-stone-50 disabled:opacity-50"
                   >
                     {isRunning ? (
                       <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -119,12 +119,12 @@ export default function AutomationsPage() {
                 </div>
 
                 {result && (
-                  <div className="mt-3 rounded-md bg-emerald-50 dark:bg-emerald-950/20 p-3">
-                    <div className="flex items-center gap-2 text-xs text-emerald-700 dark:text-emerald-400">
+                  <div className="mt-3 rounded-md bg-emerald-50 p-3">
+                    <div className="flex items-center gap-2 text-xs text-emerald-700400">
                       <CheckCircle2 className="h-3.5 w-3.5" />
                       <span className="font-medium">Job completed</span>
                     </div>
-                    <pre className="text-[10px] text-zinc-500 mt-1 font-mono">
+                    <pre className="text-[10px] text-stone-500 mt-1 font-mono">
                       {JSON.stringify(result[job.id] || result, null, 2)}
                     </pre>
                   </div>

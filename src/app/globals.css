@@ -1,42 +1,55 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Core neutrals */
+  --background: #FAFAFA;
+  --surface: #FFFFFF;
+  --surface-secondary: #F5F5F4;
+  --border: #E7E5E4;
+  --border-subtle: #F0EEEC;
+  --ring: #A8A29E;
+
+  /* Text hierarchy */
+  --text-primary: #1C1917;
+  --text-secondary: #57534E;
+  --text-tertiary: #A8A29E;
+
+  /* Accent — deep navy blue */
+  --accent: #1E3A5F;
+  --accent-hover: #162D4A;
+  --accent-subtle: #EFF4F9;
+  --accent-muted: #93B4D4;
+
+  /* Status colors */
+  --status-active: #16A34A;
+  --status-active-bg: #F0FDF4;
+  --status-pipeline: #CA8A04;
+  --status-pipeline-bg: #FEFCE8;
+  --status-funded: #2563EB;
+  --status-funded-bg: #EFF6FF;
+  --status-paid-off: #57534E;
+  --status-paid-off-bg: #F5F5F4;
+  --status-distressed: #DC2626;
+  --status-distressed-bg: #FEF2F2;
 }
 
 @theme inline {
   --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-foreground: var(--text-primary);
   --font-sans: var(--font-inter);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', ui-monospace, monospace;
 
-  /* StrongBox Brand Colors */
-  --color-brand-50: #fef2f2;
-  --color-brand-100: #fee2e2;
-  --color-brand-200: #fecaca;
-  --color-brand-300: #f7a0a0;
-  --color-brand-400: #ef6b67;
-  --color-brand-500: #d94843;
-  --color-brand-600: #C33732;
-  --color-brand-700: #a32e2a;
-  --color-brand-800: #872826;
-  --color-brand-900: #6f2524;
-  --color-brand-950: #3d100f;
-
-  /* Neutral support */
-  --color-neutral-50: #F3F3F3;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  /* Accent palette for Tailwind classes */
+  --color-accent: #1E3A5F;
+  --color-accent-hover: #162D4A;
+  --color-accent-subtle: #EFF4F9;
+  --color-accent-muted: #93B4D4;
 }
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text-primary);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

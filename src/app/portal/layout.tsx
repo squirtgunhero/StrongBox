@@ -23,12 +23,12 @@ export default function PortalLayout({
   const pathname = usePathname();
 
   return (
-    <div className="min-h-screen bg-zinc-50 dark:bg-zinc-950">
-      <header className="border-b bg-white dark:bg-zinc-900 dark:border-zinc-800">
+    <div className="min-h-screen bg-stone-50">
+      <header className="border-b bg-white">
         <div className="mx-auto max-w-5xl px-4 flex items-center justify-between h-14">
           <div className="flex items-center gap-6">
             <Link href="/portal" className="text-sm font-bold">
-              StrongBox <span className="text-zinc-400 font-normal">Portal</span>
+              StrongBox <span className="text-stone-400 font-normal">Portal</span>
             </Link>
             <nav className="flex items-center gap-1">
               {NAV_ITEMS.map((item) => {
@@ -41,8 +41,8 @@ export default function PortalLayout({
                     className={cn(
                       "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors",
                       isActive
-                        ? "bg-brand-50 text-brand-700 dark:bg-brand-950 dark:text-brand-400"
-                        : "text-zinc-500 hover:text-zinc-700 hover:bg-zinc-100 dark:hover:bg-zinc-800"
+                        ? "bg-[#EFF4F9] text-[#162D4A]"
+                        : "text-stone-500 hover:text-stone-700 hover:bg-stone-100"
                     )}
                   >
                     <Icon className="h-3.5 w-3.5" />
@@ -52,7 +52,7 @@ export default function PortalLayout({
               })}
             </nav>
           </div>
-          <Link href="/login" className="flex items-center gap-1.5 text-xs text-zinc-500 hover:text-zinc-700">
+          <Link href="/login" className="flex items-center gap-1.5 text-xs text-stone-500 hover:text-stone-700">
             <LogOut className="h-3.5 w-3.5" />
             Sign Out
           </Link>

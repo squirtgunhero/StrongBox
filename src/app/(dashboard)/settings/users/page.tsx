@@ -99,13 +99,13 @@ export default function UsersSettingsPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <h1 className="text-2xl font-semibold">User Management</h1>
-          <p className="text-sm text-zinc-500 mt-1">
+          <p className="text-sm text-stone-500 mt-1">
             Manage team members and their roles
           </p>
         </div>
         <button
           onClick={() => setShowForm(true)}
-          className="flex items-center gap-2 rounded-md bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 transition-colors"
+          className="flex items-center gap-2 rounded-md bg-[#1E3A5F] px-4 py-2 text-sm font-medium text-white hover:bg-[#162D4A] transition-colors"
         >
           <Plus className="h-4 w-4" />
           Invite User
@@ -130,43 +130,43 @@ export default function UsersSettingsPage() {
         />
       )}
 
-      <div className="rounded-lg border bg-white dark:bg-zinc-900 dark:border-zinc-800">
+      <div className="rounded-lg border bg-white">
         {isLoading ? (
           <div className="flex items-center justify-center p-12">
-            <Loader2 className="h-6 w-6 animate-spin text-zinc-400" />
+            <Loader2 className="h-6 w-6 animate-spin text-stone-400" />
           </div>
         ) : !data?.users?.length ? (
           <div className="p-12 text-center">
-            <Shield className="h-10 w-10 text-zinc-300 mx-auto mb-3" />
-            <p className="text-sm text-zinc-500">No users yet</p>
-            <p className="text-xs text-zinc-400 mt-1">
+            <Shield className="h-10 w-10 text-stone-300 mx-auto mb-3" />
+            <p className="text-sm text-stone-500">No users yet</p>
+            <p className="text-xs text-stone-400 mt-1">
               Invite your first team member to get started
             </p>
           </div>
         ) : (
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b bg-zinc-50 dark:bg-zinc-800/50 dark:border-zinc-800">
-                <th className="px-4 py-3 text-left font-medium text-zinc-500">Name</th>
-                <th className="px-4 py-3 text-left font-medium text-zinc-500">Email</th>
-                <th className="px-4 py-3 text-left font-medium text-zinc-500">Role</th>
-                <th className="px-4 py-3 text-left font-medium text-zinc-500">Status</th>
-                <th className="px-4 py-3 text-left font-medium text-zinc-500">Last Login</th>
-                <th className="px-4 py-3 text-right font-medium text-zinc-500">Actions</th>
+              <tr className="border-b bg-stone-50">
+                <th className="px-4 py-3 text-left font-medium text-stone-500">Name</th>
+                <th className="px-4 py-3 text-left font-medium text-stone-500">Email</th>
+                <th className="px-4 py-3 text-left font-medium text-stone-500">Role</th>
+                <th className="px-4 py-3 text-left font-medium text-stone-500">Status</th>
+                <th className="px-4 py-3 text-left font-medium text-stone-500">Last Login</th>
+                <th className="px-4 py-3 text-right font-medium text-stone-500">Actions</th>
               </tr>
             </thead>
             <tbody>
               {data.users.map((user) => (
                 <tr
                   key={user.id}
-                  className="border-b last:border-0 dark:border-zinc-800 hover:bg-zinc-50 dark:hover:bg-zinc-800/30"
+                  className="border-b last:border-0 hover:bg-stone-50"
                 >
                   <td className="px-4 py-3 font-medium">
                     {user.firstName} {user.lastName}
                   </td>
-                  <td className="px-4 py-3 text-zinc-500">{user.email}</td>
+                  <td className="px-4 py-3 text-stone-500">{user.email}</td>
                   <td className="px-4 py-3">
-                    <span className="inline-flex items-center rounded-full bg-zinc-100 px-2 py-0.5 text-xs font-medium dark:bg-zinc-800">
+                    <span className="inline-flex items-center rounded-full bg-stone-100 px-2 py-0.5 text-xs font-medium">
                       {ROLE_LABELS[user.role] || user.role}
                     </span>
                   </td>
@@ -176,18 +176,18 @@ export default function UsersSettingsPage() {
                         <UserCheck className="h-3 w-3" /> Active
                       </span>
                     ) : (
-                      <span className="inline-flex items-center gap-1 text-xs text-zinc-400">
+                      <span className="inline-flex items-center gap-1 text-xs text-stone-400">
                         <UserX className="h-3 w-3" /> Inactive
                       </span>
                     )}
                   </td>
-                  <td className="px-4 py-3 text-zinc-500 text-xs">
+                  <td className="px-4 py-3 text-stone-500 text-xs">
                     {user.lastLoginAt ? formatDate(user.lastLoginAt) : "Never"}
                   </td>
                   <td className="px-4 py-3 text-right">
                     <button
                       onClick={() => setEditingUser(user)}
-                      className="rounded p-1 text-zinc-400 hover:bg-zinc-100 hover:text-zinc-600 dark:hover:bg-zinc-800"
+                      className="rounded p-1 text-stone-400 hover:bg-stone-100 hover:text-stone-600"
                     >
                       <MoreHorizontal className="h-4 w-4" />
                     </button>
@@ -222,11 +222,11 @@ function InviteUserForm({
   });
 
   return (
-    <div className="mb-6 rounded-lg border bg-white p-6 dark:bg-zinc-900 dark:border-zinc-800">
+    <div className="mb-6 rounded-lg border bg-white p-6">
       <h2 className="text-lg font-medium mb-4">Invite New User</h2>
 
       {error && (
-        <div className="mb-4 rounded-md bg-red-50 border border-red-200 p-3 text-sm text-red-700 dark:bg-red-950 dark:border-red-900 dark:text-red-400">
+        <div className="mb-4 rounded-md bg-red-50 border border-red-200 p-3 text-sm text-red-700">
           {error}
         </div>
       )}
@@ -239,29 +239,29 @@ function InviteUserForm({
         className="grid grid-cols-1 gap-4 sm:grid-cols-2"
       >
         <div>
-          <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+          <label className="block text-sm font-medium text-stone-700 mb-1">
             First Name
           </label>
           <input
             required
             value={formData.firstName}
             onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-            className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-zinc-800 dark:border-zinc-700"
+            className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-[#1E3A5F] focus:ring-1 focus:ring-[#1E3A5F]"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+          <label className="block text-sm font-medium text-stone-700 mb-1">
             Last Name
           </label>
           <input
             required
             value={formData.lastName}
             onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-            className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-zinc-800 dark:border-zinc-700"
+            className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-[#1E3A5F] focus:ring-1 focus:ring-[#1E3A5F]"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+          <label className="block text-sm font-medium text-stone-700 mb-1">
             Email
           </label>
           <input
@@ -269,17 +269,17 @@ function InviteUserForm({
             required
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-zinc-800 dark:border-zinc-700"
+            className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-[#1E3A5F] focus:ring-1 focus:ring-[#1E3A5F]"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+          <label className="block text-sm font-medium text-stone-700 mb-1">
             Role
           </label>
           <select
             value={formData.role}
             onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-            className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-zinc-800 dark:border-zinc-700"
+            className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-[#1E3A5F] focus:ring-1 focus:ring-[#1E3A5F]"
           >
             {ROLES.map((role) => (
               <option key={role} value={role}>
@@ -292,14 +292,14 @@ function InviteUserForm({
           <button
             type="button"
             onClick={onCancel}
-            className="rounded-md border px-4 py-2 text-sm font-medium hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-800"
+            className="rounded-md border px-4 py-2 text-sm font-medium hover:bg-stone-50"
           >
             Cancel
           </button>
           <button
             type="submit"
             disabled={isLoading}
-            className="flex items-center gap-2 rounded-md bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-md bg-[#1E3A5F] px-4 py-2 text-sm font-medium text-white hover:bg-[#162D4A] disabled:opacity-50"
           >
             {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
             Send Invite
@@ -327,21 +327,21 @@ function EditUserModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="fixed inset-0 bg-black/50" onClick={onCancel} />
-      <div className="relative z-50 w-full max-w-md rounded-lg border bg-white p-6 shadow-lg dark:bg-zinc-900 dark:border-zinc-800">
+      <div className="relative z-50 w-full max-w-md rounded-lg border bg-white p-6 shadow-lg">
         <h2 className="text-lg font-semibold mb-1">
           Edit {user.firstName} {user.lastName}
         </h2>
-        <p className="text-sm text-zinc-500 mb-4">{user.email}</p>
+        <p className="text-sm text-stone-500 mb-4">{user.email}</p>
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-zinc-700 dark:text-zinc-300 mb-1">
+            <label className="block text-sm font-medium text-stone-700 mb-1">
               Role
             </label>
             <select
               value={role}
               onChange={(e) => setRole(e.target.value)}
-              className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-zinc-800 dark:border-zinc-700"
+              className="w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-[#1E3A5F] focus:ring-1 focus:ring-[#1E3A5F]"
             >
               {ROLES.map((r) => (
                 <option key={r} value={r}>
@@ -357,9 +357,9 @@ function EditUserModal({
               id="isActive"
               checked={isActive}
               onChange={(e) => setIsActive(e.target.checked)}
-              className="rounded border-zinc-300"
+              className="rounded border-stone-300"
             />
-            <label htmlFor="isActive" className="text-sm text-zinc-700 dark:text-zinc-300">
+            <label htmlFor="isActive" className="text-sm text-stone-700">
               Active
             </label>
           </div>
@@ -368,14 +368,14 @@ function EditUserModal({
         <div className="mt-6 flex justify-end gap-3">
           <button
             onClick={onCancel}
-            className="rounded-md border px-4 py-2 text-sm font-medium hover:bg-zinc-50 dark:border-zinc-700 dark:hover:bg-zinc-800"
+            className="rounded-md border px-4 py-2 text-sm font-medium hover:bg-stone-50"
           >
             Cancel
           </button>
           <button
             onClick={() => onSubmit({ role, isActive })}
             disabled={isLoading}
-            className="flex items-center gap-2 rounded-md bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-md bg-[#1E3A5F] px-4 py-2 text-sm font-medium text-white hover:bg-[#162D4A] disabled:opacity-50"
           >
             {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
             Save Changes

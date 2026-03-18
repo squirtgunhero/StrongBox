@@ -142,13 +142,13 @@ export default function NewLoanPage() {
     step === 3;
 
   const inputClass =
-    "w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-zinc-800 dark:border-zinc-700";
+    "w-full rounded-md border bg-white px-3 py-2 text-sm outline-none focus:border-[#1E3A5F] focus:ring-1 focus:ring-[#1E3A5F]";
 
   return (
     <div>
       <Link
         href="/loans"
-        className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-700 mb-4"
+        className="inline-flex items-center gap-1 text-sm text-stone-500 hover:text-stone-700 mb-4"
       >
         <ArrowLeft className="h-4 w-4" /> Back to loans
       </Link>
@@ -163,19 +163,19 @@ export default function NewLoanPage() {
               className={cn(
                 "flex h-8 w-8 items-center justify-center rounded-full text-xs font-medium",
                 i < step
-                  ? "bg-brand-600 text-white"
+                  ? "bg-[#1E3A5F] text-white"
                   : i === step
-                  ? "bg-brand-100 text-brand-700 border-2 border-brand-600"
-                  : "bg-zinc-100 text-zinc-400"
+                  ? "bg-[#EFF4F9] text-[#162D4A] border-2 border-[#1E3A5F]"
+                  : "bg-stone-100 text-stone-400"
               )}
             >
               {i < step ? <Check className="h-4 w-4" /> : i + 1}
             </div>
-            <span className={cn("text-sm", i === step ? "font-medium" : "text-zinc-400")}>
+            <span className={cn("text-sm", i === step ? "font-medium" : "text-stone-400")}>
               {s}
             </span>
             {i < STEPS.length - 1 && (
-              <div className={cn("h-px w-8", i < step ? "bg-brand-600" : "bg-zinc-200")} />
+              <div className={cn("h-px w-8", i < step ? "bg-[#1E3A5F]" : "bg-stone-200")} />
             )}
           </div>
         ))}
@@ -187,7 +187,7 @@ export default function NewLoanPage() {
         </div>
       )}
 
-      <div className="rounded-lg border bg-white p-6 dark:bg-zinc-900 dark:border-zinc-800">
+      <div className="rounded-lg border bg-white p-6">
         {/* Step 1: Borrower */}
         {step === 0 && (
           <div className="space-y-4">
@@ -205,9 +205,9 @@ export default function NewLoanPage() {
                 </option>
               ))}
             </select>
-            <p className="text-xs text-zinc-400">
+            <p className="text-xs text-stone-400">
               Don&apos;t see the borrower?{" "}
-              <Link href="/contacts" className="text-brand-600">
+              <Link href="/contacts" className="text-[#1E3A5F]">
                 Create a new contact first
               </Link>
             </p>
@@ -218,7 +218,7 @@ export default function NewLoanPage() {
         {step === 1 && (
           <div className="space-y-4">
             <h2 className="text-lg font-medium">Property Information</h2>
-            <p className="text-sm text-zinc-500">Optional — you can add this later.</p>
+            <p className="text-sm text-stone-500">Optional — you can add this later.</p>
             <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               <div className="sm:col-span-2">
                 <label className="block text-sm font-medium mb-1">Address</label>
@@ -319,7 +319,7 @@ export default function NewLoanPage() {
             <h2 className="text-lg font-medium">Review & Create</h2>
             <dl className="grid grid-cols-2 gap-3 text-sm">
               <div>
-                <dt className="text-zinc-500">Borrower</dt>
+                <dt className="text-stone-500">Borrower</dt>
                 <dd className="font-medium">
                   {contactsData?.contacts?.find((c: any) => c.id === form.borrowerId)
                     ? `${contactsData.contacts.find((c: any) => c.id === form.borrowerId).firstName} ${contactsData.contacts.find((c: any) => c.id === form.borrowerId).lastName}`
@@ -327,24 +327,24 @@ export default function NewLoanPage() {
                 </dd>
               </div>
               <div>
-                <dt className="text-zinc-500">Loan Type</dt>
+                <dt className="text-stone-500">Loan Type</dt>
                 <dd className="font-medium">{LOAN_TYPES.find((t) => t.value === form.type)?.label}</dd>
               </div>
               <div>
-                <dt className="text-zinc-500">Amount</dt>
+                <dt className="text-stone-500">Amount</dt>
                 <dd className="font-medium">${Number(form.loanAmount).toLocaleString()}</dd>
               </div>
               <div>
-                <dt className="text-zinc-500">Rate</dt>
+                <dt className="text-stone-500">Rate</dt>
                 <dd className="font-medium">{form.interestRate}%</dd>
               </div>
               <div>
-                <dt className="text-zinc-500">Term</dt>
+                <dt className="text-stone-500">Term</dt>
                 <dd className="font-medium">{form.termMonths} months</dd>
               </div>
               {form.property.address && (
                 <div>
-                  <dt className="text-zinc-500">Property</dt>
+                  <dt className="text-stone-500">Property</dt>
                   <dd className="font-medium">
                     {form.property.address}, {form.property.city} {form.property.state}
                   </dd>
@@ -360,7 +360,7 @@ export default function NewLoanPage() {
         <button
           onClick={() => setStep(step - 1)}
           disabled={step === 0}
-          className="flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium hover:bg-zinc-50 disabled:opacity-30 dark:border-zinc-700"
+          className="flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium hover:bg-stone-50 disabled:opacity-30700"
         >
           <ArrowLeft className="h-4 w-4" /> Back
         </button>
@@ -369,7 +369,7 @@ export default function NewLoanPage() {
           <button
             onClick={() => setStep(step + 1)}
             disabled={!canProceed}
-            className="flex items-center gap-2 rounded-md bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-md bg-[#1E3A5F] px-4 py-2 text-sm font-medium text-white hover:bg-[#162D4A] disabled:opacity-50"
           >
             Next <ArrowRight className="h-4 w-4" />
           </button>
@@ -377,7 +377,7 @@ export default function NewLoanPage() {
           <button
             onClick={() => createLoan.mutate(form)}
             disabled={createLoan.isPending}
-            className="flex items-center gap-2 rounded-md bg-brand-600 px-4 py-2 text-sm font-medium text-white hover:bg-brand-700 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-md bg-[#1E3A5F] px-4 py-2 text-sm font-medium text-white hover:bg-[#162D4A] disabled:opacity-50"
           >
             {createLoan.isPending && <Loader2 className="h-4 w-4 animate-spin" />}
             Create Loan

@@ -61,7 +61,7 @@ export default function LoginPage() {
 
   if (magicLinkSent) {
     return (
-      <div className="rounded-lg rounded-xl p-8 shadow-sm">
+      <div className="rounded-xl p-8 shadow-sm">
         <div className="flex flex-col items-center gap-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/10">
             <Mail className="h-6 w-6 text-[#3B82F6]" />
@@ -83,7 +83,7 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="rounded-lg rounded-xl p-8 shadow-sm">
+    <div className="rounded-xl p-8 shadow-sm">
       <div className="flex flex-col items-center gap-2 mb-8">
         <div className="flex items-center gap-2">
           <Landmark className="h-7 w-7 text-[#3B82F6]" />
@@ -116,7 +116,7 @@ export default function LoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
           />
         </div>
 
@@ -143,7 +143,7 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
-              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
             />
           </div>
         )}

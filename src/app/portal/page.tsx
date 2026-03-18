@@ -26,7 +26,7 @@ export default function PortalPage() {
 
   if (error) {
     return (
-      <div className="rounded-lg rounded-xl p-12 text-center">
+      <div className="rounded-xl p-12 text-center">
         <p className="text-sm text-zinc-500">Unable to load portal data</p>
       </div>
     );
@@ -46,7 +46,7 @@ export default function PortalPage() {
 
       {/* KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-emerald-50 p-2">
               <Wallet className="h-4 w-4 text-emerald-500" />
@@ -57,7 +57,7 @@ export default function PortalPage() {
             </div>
           </div>
         </div>
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-blue-500/10 p-2">
               <TrendingUp className="h-4 w-4 text-[#3B82F6]" />
@@ -68,7 +68,7 @@ export default function PortalPage() {
             </div>
           </div>
         </div>
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-purple-50 p-2">
               <DollarSign className="h-4 w-4 text-purple-500" />
@@ -79,7 +79,7 @@ export default function PortalPage() {
             </div>
           </div>
         </div>
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-amber-50 p-2">
               <Building2 className="h-4 w-4 text-amber-500" />

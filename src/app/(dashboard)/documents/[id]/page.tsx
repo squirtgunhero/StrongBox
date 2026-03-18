@@ -153,7 +153,7 @@ export default function DocumentDetailPage() {
 
         {/* Details Sidebar */}
         <div className="space-y-4">
-          <div className="rounded-lg rounded-xl p-4">
+          <div className="rounded-xl p-4">
             <h3 className="text-sm font-semibold mb-3">Details</h3>
             <dl className="space-y-2 text-sm">
               <div>
@@ -191,7 +191,7 @@ export default function DocumentDetailPage() {
             </dl>
           </div>
 
-          <div className="rounded-lg rounded-xl p-4">
+          <div className="rounded-xl p-4">
             <h3 className="text-sm font-semibold mb-3">Status</h3>
             <div className="space-y-2 text-sm">
               <div className="flex items-center gap-2">
@@ -221,7 +221,7 @@ export default function DocumentDetailPage() {
           </div>
 
           {/* Association */}
-          <div className="rounded-lg rounded-xl p-4">
+          <div className="rounded-xl p-4">
             <h3 className="text-sm font-semibold mb-3">Linked To</h3>
             <div className="space-y-2 text-sm">
               {doc.loan && (

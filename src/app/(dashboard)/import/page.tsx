@@ -85,7 +85,7 @@ export default function ImportPage() {
       </div>
 
       {/* Upload Area */}
-      <div className="rounded-lg rounded-xl p-5 mb-6">
+      <div className="rounded-xl p-5 mb-6">
         <div className="flex items-start gap-6">
           <div
             className={cn(
@@ -166,7 +166,7 @@ export default function ImportPage() {
 
       {/* Results */}
       {results && (
-        <div className="rounded-lg rounded-xl p-5">
+        <div className="rounded-xl p-5">
           {results.error ? (
             <div className="flex items-center gap-2 text-red-600">
               <AlertTriangle className="h-5 w-5" />
@@ -303,7 +303,7 @@ function MigrationSection() {
         ))}
       </div>
 
-      <div className="rounded-lg rounded-xl p-5">
+      <div className="rounded-xl p-5">
         <div className="flex items-center gap-4">
           <div className="flex-1">
             <input
@@ -351,7 +351,7 @@ function MigrationSection() {
       </div>
 
       {migrationResults && (
-        <div className="mt-4 rounded-lg rounded-xl p-5">
+        <div className="mt-4 rounded-xl p-5">
           {migrationResults.error ? (
             <div className="flex items-center gap-2 text-red-600">
               <AlertTriangle className="h-5 w-5" />

@@ -68,7 +68,7 @@ export default function PropertiesPage() {
               setSearch(e.target.value);
               setPage(1);
             }}
-            className="w-full h-9 rounded-md border bg-white pl-9 pr-3 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+            className="w-full h-9 rounded-md border bg-white pl-9 pr-3 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
           />
         </div>
       </div>

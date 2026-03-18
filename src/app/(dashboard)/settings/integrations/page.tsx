@@ -80,7 +80,7 @@ export default function IntegrationsPage() {
                   {catIntegrations.map((integration: any) => (
                     <div
                       key={integration.id}
-                      className="rounded-lg rounded-xl p-5"
+                      className="rounded-xl p-5"
                     >
                       <div className="flex items-start justify-between mb-3">
                         <div>

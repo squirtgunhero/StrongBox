@@ -140,7 +140,7 @@ export default function PortalDocumentsPage() {
           <div>
             <h2 className="text-sm font-semibold mb-3">All Documents</h2>
             {allDocs.length === 0 ? (
-              <div className="rounded-lg rounded-xl p-12 text-center">
+              <div className="rounded-xl p-12 text-center">
                 <FileText className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
                 <p className="text-sm text-zinc-500">No documents yet</p>
               </div>

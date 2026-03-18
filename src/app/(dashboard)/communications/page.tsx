@@ -115,7 +115,7 @@ export default function CommunicationsPage() {
           <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
         </div>
       ) : communications.length === 0 ? (
-        <div className="rounded-lg rounded-xl p-12 text-center">
+        <div className="rounded-xl p-12 text-center">
           <Mail className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
           <p className="text-sm text-zinc-500">No communications yet</p>
         </div>
@@ -126,7 +126,7 @@ export default function CommunicationsPage() {
             return (
               <div
                 key={comm.id}
-                className="rounded-lg rounded-xl p-4"
+                className="rounded-xl p-4"
               >
                 <div className="flex items-start gap-3">
                   <div className="rounded-full bg-white/10 p-2">

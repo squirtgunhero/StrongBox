@@ -87,7 +87,7 @@ export default function AutomationsPage() {
             return (
               <div
                 key={job.id}
-                className="rounded-lg rounded-xl p-5"
+                className="rounded-xl p-5"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-start gap-4">

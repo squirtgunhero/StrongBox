@@ -141,15 +141,15 @@ function GeographicConcentration({ data }: { data: any }) {
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-3 gap-4">
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <p className="text-xs text-zinc-500">Total Loans</p>
           <p className="text-xl font-bold">{data.totalLoans}</p>
         </div>
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <p className="text-xs text-zinc-500">Total Balance</p>
           <p className="text-xl font-bold">{formatCurrency(data.totalBalance)}</p>
         </div>
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <p className="text-xs text-zinc-500">States</p>
           <p className="text-xl font-bold">{(data.byState || []).length}</p>
         </div>
@@ -157,7 +157,7 @@ function GeographicConcentration({ data }: { data: any }) {
 
       <div className="grid grid-cols-2 gap-4">
         {/* By State */}
-        <div className="rounded-lg rounded-xl p-5">
+        <div className="rounded-xl p-5">
           <h3 className="text-sm font-semibold mb-4">By State</h3>
           <div className="space-y-2">
             {(data.byState || []).map((s: any) => (
@@ -178,7 +178,7 @@ function GeographicConcentration({ data }: { data: any }) {
         </div>
 
         {/* By City */}
-        <div className="rounded-lg rounded-xl p-5">
+        <div className="rounded-xl p-5">
           <h3 className="text-sm font-semibold mb-4">Top Cities</h3>
           <div className="space-y-1.5">
             {(data.byCity || []).slice(0, 10).map((c: any) => (
@@ -205,25 +205,25 @@ function RevenueForecast({ data }: { data: any }) {
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-4 gap-4">
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <p className="text-xs text-zinc-500">Active Loans</p>
           <p className="text-xl font-bold">{portfolio.loans}</p>
         </div>
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <p className="text-xs text-zinc-500">Portfolio Balance</p>
           <p className="text-xl font-bold">{formatCurrency(portfolio.balance)}</p>
         </div>
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <p className="text-xs text-zinc-500">Avg Rate</p>
           <p className="text-xl font-bold">{portfolio.avgRate?.toFixed(2)}%</p>
         </div>
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <p className="text-xs text-zinc-500">Monthly Projected</p>
           <p className="text-xl font-bold text-emerald-600">{formatCurrency(portfolio.monthlyProjectedInterest)}</p>
         </div>
       </div>
 
-      <div className="rounded-lg rounded-xl p-5">
+      <div className="rounded-xl p-5">
         <h3 className="text-sm font-semibold mb-4">6-Month Revenue Forecast</h3>
         <div className="space-y-3">
           {forecast.map((f: any) => (
@@ -260,7 +260,7 @@ function LoanPerformance({ data }: { data: any }) {
           { label: "Total Volume", value: formatCurrency(summary.totalVolume) },
           { label: "Total Revenue", value: formatCurrency(summary.totalRevenue), color: "text-emerald-600" },
         ].map((c) => (
-          <div key={c.label} className="rounded-lg rounded-xl p-4">
+          <div key={c.label} className="rounded-xl p-4">
             <p className="text-xs text-zinc-500">{c.label}</p>
             <p className={cn("text-xl font-bold", c.color)}>{c.value}</p>
           </div>
@@ -268,15 +268,15 @@ function LoanPerformance({ data }: { data: any }) {
       </div>
 
       <div className="grid grid-cols-3 gap-4">
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <p className="text-xs text-zinc-500">Paid Off</p>
           <p className="text-xl font-bold text-emerald-600">{summary.paidOffCount}</p>
         </div>
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <p className="text-xs text-zinc-500">Defaults</p>
           <p className={cn("text-xl font-bold", summary.defaultCount > 0 ? "text-red-600" : "")}>{summary.defaultCount}</p>
         </div>
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <p className="text-xs text-zinc-500">Avg Payoff Time</p>
           <p className="text-xl font-bold">{summary.avgPayoffDays ? `${Math.round(summary.avgPayoffDays)}d` : "—"}</p>
         </div>
@@ -330,22 +330,22 @@ function DefaultProbability({ data }: { data: any }) {
   return (
     <div className="space-y-6">
       <div className="grid grid-cols-3 gap-4">
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <p className="text-xs text-zinc-500">Historical Default Rate</p>
           <p className={cn("text-xl font-bold", summary.historicalDefaultRate > 5 ? "text-red-600" : "")}>{summary.historicalDefaultRate?.toFixed(2)}%</p>
         </div>
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <p className="text-xs text-zinc-500">High Risk Loans</p>
           <p className="text-xl font-bold text-red-600">{summary.highRiskLoans}</p>
         </div>
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <p className="text-xs text-zinc-500">High Risk Exposure</p>
           <p className="text-xl font-bold text-red-600">{formatCurrency(summary.highRiskExposure)}</p>
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <div className="rounded-lg rounded-xl p-5">
+        <div className="rounded-xl p-5">
           <h3 className="text-sm font-semibold mb-3">Default Rate by LTV</h3>
           <div className="space-y-2">
             {riskByLTV.map((r: any) => (
@@ -359,7 +359,7 @@ function DefaultProbability({ data }: { data: any }) {
             ))}
           </div>
         </div>
-        <div className="rounded-lg rounded-xl p-5">
+        <div className="rounded-xl p-5">
           <h3 className="text-sm font-semibold mb-3">Default Rate by Delinquency</h3>
           <div className="space-y-2">
             {riskByDelinquency.map((r: any) => (

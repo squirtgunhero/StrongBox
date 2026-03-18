@@ -254,7 +254,7 @@ function KanbanView({
 function TableView({ loans }: { loans: any[] }) {
   if (!loans.length) {
     return (
-      <div className="rounded-lg rounded-xl p-12 text-center">
+      <div className="rounded-xl p-12 text-center">
         <FileText className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
         <p className="text-sm text-zinc-500">No loans in pipeline</p>
       </div>

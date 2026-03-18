@@ -53,19 +53,19 @@ export default function ConditionsDashboard() {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-4 gap-4 mb-6">
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <p className="text-xs text-zinc-500">Total Conditions</p>
           <p className="text-2xl font-bold">{allConditions.length}</p>
         </div>
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <p className="text-xs text-zinc-500">Outstanding</p>
           <p className="text-2xl font-bold text-amber-600">{outstanding.length}</p>
         </div>
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <p className="text-xs text-zinc-500">Cleared</p>
           <p className="text-2xl font-bold text-emerald-600">{cleared.length}</p>
         </div>
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <p className="text-xs text-zinc-500">Loans with Conditions</p>
           <p className="text-2xl font-bold">{loans.length}</p>
         </div>
@@ -76,7 +76,7 @@ export default function ConditionsDashboard() {
           <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
         </div>
       ) : outstanding.length === 0 && cleared.length === 0 ? (
-        <div className="rounded-lg rounded-xl p-12 text-center">
+        <div className="rounded-xl p-12 text-center">
           <CheckCircle2 className="h-10 w-10 text-emerald-400 mx-auto mb-3" />
           <p className="text-sm text-zinc-500">No conditions found across active loans</p>
         </div>

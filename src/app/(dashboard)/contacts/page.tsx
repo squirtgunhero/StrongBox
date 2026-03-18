@@ -119,7 +119,7 @@ export default function ContactsPage() {
               setSearch(e.target.value);
               setPage(1);
             }}
-            className="w-full h-9 rounded-md border bg-white pl-9 pr-3 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+            className="w-full h-9 rounded-md border bg-white pl-9 pr-3 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
           />
         </div>
         <div className="flex gap-1">
@@ -292,7 +292,7 @@ function ContactForm({
     setFormData((prev) => ({ ...prev, [field]: value }));
 
   return (
-    <div className="mb-6 rounded-lg rounded-xl p-6">
+    <div className="mb-6 rounded-xl p-6">
       <h2 className="text-lg font-medium mb-4">New Contact</h2>
 
       {error && (
@@ -317,7 +317,7 @@ function ContactForm({
               required
               value={formData.firstName}
               onChange={(e) => update("firstName", e.target.value)}
-              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
             />
           </div>
           <div>
@@ -328,7 +328,7 @@ function ContactForm({
               required
               value={formData.lastName}
               onChange={(e) => update("lastName", e.target.value)}
-              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
             />
           </div>
           <div>
@@ -338,7 +338,7 @@ function ContactForm({
             <input
               value={formData.companyName}
               onChange={(e) => update("companyName", e.target.value)}
-              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
             />
           </div>
         </div>
@@ -352,7 +352,7 @@ function ContactForm({
               type="email"
               value={formData.email}
               onChange={(e) => update("email", e.target.value)}
-              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
             />
           </div>
           <div>
@@ -362,7 +362,7 @@ function ContactForm({
             <input
               value={formData.phone}
               onChange={(e) => update("phone", e.target.value)}
-              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
             />
           </div>
         </div>
@@ -399,7 +399,7 @@ function ContactForm({
             <input
               value={formData.address}
               onChange={(e) => update("address", e.target.value)}
-              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
             />
           </div>
           <div>
@@ -409,7 +409,7 @@ function ContactForm({
             <input
               value={formData.city}
               onChange={(e) => update("city", e.target.value)}
-              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
             />
           </div>
           <div className="grid grid-cols-2 gap-2">
@@ -421,7 +421,7 @@ function ContactForm({
                 value={formData.state}
                 onChange={(e) => update("state", e.target.value)}
                 maxLength={2}
-                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
               />
             </div>
             <div>
@@ -431,7 +431,7 @@ function ContactForm({
               <input
                 value={formData.zip}
                 onChange={(e) => update("zip", e.target.value)}
-                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
               />
             </div>
           </div>

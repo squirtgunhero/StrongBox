@@ -238,7 +238,7 @@ function SummaryTab({ loan }: { loan: any }) {
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
       <div className="lg:col-span-2 space-y-6">
         {/* Loan Terms */}
-        <div className="rounded-lg rounded-xl p-6">
+        <div className="rounded-xl p-6">
           <h3 className="text-sm font-medium text-zinc-500 mb-4">Loan Terms</h3>
           <dl className="grid grid-cols-2 gap-3 text-sm">
             <div><dt className="text-zinc-500">Type</dt><dd className="font-medium">{loan.type.replace(/_/g, " ")}</dd></div>
@@ -255,7 +255,7 @@ function SummaryTab({ loan }: { loan: any }) {
 
         {/* Property */}
         {loan.property && (
-          <div className="rounded-lg rounded-xl p-6">
+          <div className="rounded-xl p-6">
             <h3 className="text-sm font-medium text-zinc-500 mb-4">Property</h3>
             <dl className="grid grid-cols-2 gap-3 text-sm">
               <div className="col-span-2"><dt className="text-zinc-500">Address</dt><dd className="font-medium">{loan.property.address}, {loan.property.city}, {loan.property.state} {loan.property.zip}</dd></div>
@@ -270,7 +270,7 @@ function SummaryTab({ loan }: { loan: any }) {
 
       {/* Sidebar */}
       <div className="space-y-6">
-        <div className="rounded-lg rounded-xl p-6">
+        <div className="rounded-xl p-6">
           <h3 className="text-sm font-medium text-zinc-500 mb-4">Key Dates</h3>
           <dl className="space-y-2 text-sm">
             {loan.applicationDate && <div className="flex justify-between"><dt className="text-zinc-500">Application</dt><dd>{formatDate(loan.applicationDate)}</dd></div>}
@@ -281,7 +281,7 @@ function SummaryTab({ loan }: { loan: any }) {
           </dl>
         </div>
 
-        <div className="rounded-lg rounded-xl p-6">
+        <div className="rounded-xl p-6">
           <h3 className="text-sm font-medium text-zinc-500 mb-4">Team</h3>
           <dl className="space-y-2 text-sm">
             {loan.loanOfficer && <div className="flex justify-between"><dt className="text-zinc-500">Loan Officer</dt><dd>{loan.loanOfficer.firstName} {loan.loanOfficer.lastName}</dd></div>}
@@ -291,7 +291,7 @@ function SummaryTab({ loan }: { loan: any }) {
         </div>
 
         {loan.capitalAllocations?.length > 0 && (
-          <div className="rounded-lg rounded-xl p-6">
+          <div className="rounded-xl p-6">
             <h3 className="text-sm font-medium text-zinc-500 mb-4">Capital Sources</h3>
             <div className="space-y-2">
               {loan.capitalAllocations.map((alloc: any) => (
@@ -429,7 +429,7 @@ function ConditionsTab({ conditions }: { conditions: any[] }) {
         <div
           key={cond.id}
           className={cn(
-            "rounded-lg rounded-xl p-4 flex items-start gap-3",
+            "rounded-xl p-4 flex items-start gap-3",
             cond.isCleared && "opacity-60"
           )}
         >
@@ -475,7 +475,7 @@ function ActivityTab({ history }: { history: any[] }) {
 
 function EmptyState({ text }: { text: string }) {
   return (
-    <div className="rounded-lg rounded-xl p-8 text-center">
+    <div className="rounded-xl p-8 text-center">
       <p className="text-sm text-zinc-500">{text}</p>
     </div>
   );

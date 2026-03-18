@@ -34,7 +34,7 @@ export default function ForgotPasswordPage() {
 
   if (sent) {
     return (
-      <div className="rounded-lg rounded-xl p-8 shadow-sm">
+      <div className="rounded-xl p-8 shadow-sm">
         <div className="flex flex-col items-center gap-4">
           <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/10">
             <Mail className="h-6 w-6 text-[#3B82F6]" />
@@ -55,7 +55,7 @@ export default function ForgotPasswordPage() {
   }
 
   return (
-    <div className="rounded-lg rounded-xl p-8 shadow-sm">
+    <div className="rounded-xl p-8 shadow-sm">
       <Link
         href="/login"
         className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-white mb-6"
@@ -90,7 +90,7 @@ export default function ForgotPasswordPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
           />
         </div>
 

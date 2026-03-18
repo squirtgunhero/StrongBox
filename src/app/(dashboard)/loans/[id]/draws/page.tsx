@@ -123,7 +123,7 @@ export default function LoanDrawsPage() {
 
       {/* Budget Progress */}
       {rehabBudget > 0 && (
-        <div className="rounded-lg rounded-xl p-4 mb-6">
+        <div className="rounded-xl p-4 mb-6">
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-sm font-semibold">Rehab Budget</h3>
             <span className="text-sm font-medium">{formatCurrency(rehabBudget)}</span>
@@ -146,7 +146,7 @@ export default function LoanDrawsPage() {
 
       {/* New Draw Form */}
       {showCreate && (
-        <div className="rounded-lg rounded-xl p-4 mb-4">
+        <div className="rounded-xl p-4 mb-4">
           <h3 className="text-sm font-semibold mb-3">Submit Draw Request</h3>
           <div className="grid grid-cols-3 gap-4">
             <div>
@@ -215,7 +215,7 @@ export default function LoanDrawsPage() {
           <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
         </div>
       ) : draws.length === 0 ? (
-        <div className="rounded-lg rounded-xl p-12 text-center">
+        <div className="rounded-xl p-12 text-center">
           <HardHat className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
           <p className="text-sm text-zinc-500">No draw requests yet</p>
         </div>
@@ -228,7 +228,7 @@ export default function LoanDrawsPage() {
             return (
               <div
                 key={draw.id}
-                className="rounded-lg rounded-xl p-4"
+                className="rounded-xl p-4"
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">

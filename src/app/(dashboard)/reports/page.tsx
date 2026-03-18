@@ -102,7 +102,7 @@ export default function ReportsPage() {
           <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
         </div>
       ) : !report ? (
-        <div className="rounded-lg rounded-xl p-12 text-center">
+        <div className="rounded-xl p-12 text-center">
           <BarChart3 className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
           <p className="text-sm text-zinc-500">Select a report type to generate</p>
         </div>
@@ -171,7 +171,7 @@ function ReportSummary({ type, report }: { type: ReportType; report: any }) {
   return (
     <div className={cn("grid gap-4", `grid-cols-${Math.min(cards.length, 4)}`)}>
       {cards.map((card) => (
-        <div key={card.label} className="rounded-lg rounded-xl p-4">
+        <div key={card.label} className="rounded-xl p-4">
           <p className="text-xs text-zinc-500">{card.label}</p>
           <p className={cn("text-xl font-bold mt-1", card.color)}>{card.value}</p>
         </div>

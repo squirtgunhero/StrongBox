@@ -52,7 +52,7 @@ export default function PortalPaymentsPage() {
           <div>
             <h2 className="text-sm font-semibold mb-3">Upcoming Payments</h2>
             {upcoming.length === 0 ? (
-              <div className="rounded-lg rounded-xl p-8 text-center">
+              <div className="rounded-xl p-8 text-center">
                 <CheckCircle2 className="h-8 w-8 text-emerald-400 mx-auto mb-2" />
                 <p className="text-sm text-zinc-500">No upcoming payments</p>
               </div>
@@ -66,7 +66,7 @@ export default function PortalPaymentsPage() {
                     <div
                       key={pmt.id}
                       className={cn(
-                        "rounded-lg rounded-xl p-4",
+                        "rounded-xl p-4",
                         isOverdue && "border-red-200 bg-red-50/50"
                       )}
                     >
@@ -119,7 +119,7 @@ export default function PortalPaymentsPage() {
           <div>
             <h2 className="text-sm font-semibold mb-3">Payment History</h2>
             {history.length === 0 ? (
-              <div className="rounded-lg rounded-xl p-8 text-center">
+              <div className="rounded-xl p-8 text-center">
                 <CreditCard className="h-8 w-8 text-zinc-600 mx-auto mb-2" />
                 <p className="text-sm text-zinc-500">No payment history yet</p>
               </div>

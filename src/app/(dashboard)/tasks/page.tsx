@@ -169,7 +169,7 @@ export default function TasksPage() {
 
       {/* Quick Create */}
       {showCreate && (
-        <div className="rounded-lg rounded-xl p-4 mb-4">
+        <div className="rounded-xl p-4 mb-4">
           <div className="flex items-center gap-3">
             <input
               type="text"
@@ -235,7 +235,7 @@ export default function TasksPage() {
           <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
         </div>
       ) : tasks.length === 0 ? (
-        <div className="rounded-lg rounded-xl p-12 text-center">
+        <div className="rounded-xl p-12 text-center">
           <CheckCircle2 className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
           <p className="text-sm text-zinc-500">No tasks found</p>
         </div>

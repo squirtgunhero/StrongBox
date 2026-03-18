@@ -60,7 +60,7 @@ export default function PropertyDetailPage() {
 
   const property = data?.property;
   const inputClass =
-    "w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]";
+    "w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]";
 
   if (isLoading) {
     return (
@@ -217,7 +217,7 @@ export default function PropertyDetailPage() {
         </div>
       </div>
 
-      <div className="rounded-lg rounded-xl p-6">
+      <div className="rounded-xl p-6">
         {/* Details Tab */}
         {tab === 0 && (
           <div className="space-y-6">

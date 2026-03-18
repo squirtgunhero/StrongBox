@@ -113,7 +113,7 @@ export default function StatementsPage() {
       </div>
 
       {!investorId ? (
-        <div className="rounded-lg rounded-xl p-12 text-center">
+        <div className="rounded-xl p-12 text-center">
           <FileText className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
           <p className="text-sm text-zinc-500">Select an investor to generate a statement</p>
         </div>
@@ -124,7 +124,7 @@ export default function StatementsPage() {
       ) : statement ? (
         <div className="space-y-6">
           {/* Statement Header */}
-          <div className="rounded-lg rounded-xl p-5">
+          <div className="rounded-xl p-5">
             <div className="flex items-center justify-between mb-4">
               <div>
                 <h2 className="text-lg font-semibold">Statement: {statement.period}</h2>

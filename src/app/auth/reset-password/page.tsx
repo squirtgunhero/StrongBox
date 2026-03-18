@@ -45,7 +45,7 @@ export default function ResetPasswordPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-white/5">
       <div className="w-full max-w-md px-4">
-        <div className="rounded-lg rounded-xl p-8 shadow-sm">
+        <div className="rounded-xl p-8 shadow-sm">
           <h1 className="text-xl font-semibold mb-2">Set new password</h1>
           <p className="text-sm text-zinc-500 mb-6">
             Enter your new password below.
@@ -73,7 +73,7 @@ export default function ResetPasswordPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="At least 8 characters"
-                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
               />
             </div>
 
@@ -92,7 +92,7 @@ export default function ResetPasswordPage() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm your password"
-                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
               />
             </div>
 

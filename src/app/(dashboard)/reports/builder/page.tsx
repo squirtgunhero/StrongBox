@@ -89,7 +89,7 @@ export default function ReportBuilderPage() {
         {/* Configuration Panel */}
         <div className="col-span-1 space-y-4">
           {/* Entity */}
-          <div className="rounded-lg rounded-xl p-4">
+          <div className="rounded-xl p-4">
             <h3 className="text-xs font-semibold text-zinc-500 mb-2">Data Source</h3>
             <select
               value={entity}
@@ -109,7 +109,7 @@ export default function ReportBuilderPage() {
           </div>
 
           {/* Fields */}
-          <div className="rounded-lg rounded-xl p-4">
+          <div className="rounded-xl p-4">
             <h3 className="text-xs font-semibold text-zinc-500 mb-2">Fields ({selectedFields.length})</h3>
             <div className="space-y-1 max-h-[300px] overflow-y-auto">
               {entityFields.map((f: any) => (
@@ -128,7 +128,7 @@ export default function ReportBuilderPage() {
           </div>
 
           {/* Filters */}
-          <div className="rounded-lg rounded-xl p-4">
+          <div className="rounded-xl p-4">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-xs font-semibold text-zinc-500">Filters</h3>
               <button onClick={addFilter} className="text-[#3B82F6] hover:text-blue-400">
@@ -171,7 +171,7 @@ export default function ReportBuilderPage() {
           </div>
 
           {/* Sort */}
-          <div className="rounded-lg rounded-xl p-4">
+          <div className="rounded-xl p-4">
             <h3 className="text-xs font-semibold text-zinc-500 mb-2">Sort By</h3>
             <div className="flex gap-2">
               <select

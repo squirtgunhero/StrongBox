@@ -62,7 +62,7 @@ export default function TemplatesPage() {
           {templates.map((tmpl: any) => (
             <div
               key={tmpl.id}
-              className="rounded-lg rounded-xl p-5"
+              className="rounded-xl p-5"
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-2">

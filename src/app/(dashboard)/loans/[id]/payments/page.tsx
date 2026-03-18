@@ -140,19 +140,19 @@ export default function LoanPaymentsPage() {
       {/* Summary Stats */}
       {payments.length > 0 && (
         <div className="grid grid-cols-4 gap-4 mb-6">
-          <div className="rounded-lg rounded-xl p-3">
+          <div className="rounded-xl p-3">
             <p className="text-xs text-zinc-500">Total Payments</p>
             <p className="text-lg font-bold">{payments.length}</p>
           </div>
-          <div className="rounded-lg rounded-xl p-3">
+          <div className="rounded-xl p-3">
             <p className="text-xs text-zinc-500">Paid</p>
             <p className="text-lg font-bold text-emerald-600">{paidCount}</p>
           </div>
-          <div className="rounded-lg rounded-xl p-3">
+          <div className="rounded-xl p-3">
             <p className="text-xs text-zinc-500">Total Collected</p>
             <p className="text-lg font-bold">{formatCurrency(totalPaid)}</p>
           </div>
-          <div className="rounded-lg rounded-xl p-3">
+          <div className="rounded-xl p-3">
             <p className="text-xs text-zinc-500">Overdue</p>
             <p className={cn("text-lg font-bold", overdueCount > 0 ? "text-red-600" : "")}>
               {overdueCount}
@@ -167,7 +167,7 @@ export default function LoanPaymentsPage() {
           <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
         </div>
       ) : payments.length === 0 ? (
-        <div className="rounded-lg rounded-xl p-12 text-center">
+        <div className="rounded-xl p-12 text-center">
           <Calendar className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
           <p className="text-sm text-zinc-500 mb-2">No payment schedule</p>
           <p className="text-xs text-zinc-500">

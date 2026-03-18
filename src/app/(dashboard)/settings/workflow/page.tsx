@@ -175,7 +175,7 @@ export default function WorkflowSettingsPage() {
 
       {/* Create Form */}
       {showCreate && (
-        <div className="rounded-lg rounded-xl p-5 mb-6">
+        <div className="rounded-xl p-5 mb-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-semibold">Create Workflow Rule</h3>
             <button onClick={() => { setShowCreate(false); setForm({ ...EMPTY_FORM }); }} className="text-zinc-500 hover:text-zinc-400">
@@ -341,7 +341,7 @@ export default function WorkflowSettingsPage() {
           <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
         </div>
       ) : rules.length === 0 ? (
-        <div className="rounded-lg rounded-xl p-12 text-center">
+        <div className="rounded-xl p-12 text-center">
           <Zap className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
           <p className="text-sm text-zinc-500">No workflow rules configured</p>
           <p className="text-xs text-zinc-500 mt-1">Create rules to automate tasks, notifications, and more</p>
@@ -357,7 +357,7 @@ export default function WorkflowSettingsPage() {
               <div
                 key={rule.id}
                 className={cn(
-                  "rounded-lg rounded-xl p-4",
+                  "rounded-xl p-4",
                   !rule.isActive && "opacity-60"
                 )}
               >

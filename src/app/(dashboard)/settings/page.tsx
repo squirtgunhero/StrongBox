@@ -57,7 +57,7 @@ export default function SettingsPage() {
             <Link
               key={section.href}
               href={section.href}
-              className="rounded-lg rounded-xl p-5 hover:bg-white/5 transition-colors/50"
+              className="rounded-xl p-5 hover:bg-white/5 transition-colors/50"
             >
               <div className="flex items-start gap-4">
                 <div className="rounded-lg bg-blue-500/10 p-3">

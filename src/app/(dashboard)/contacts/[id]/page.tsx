@@ -155,7 +155,7 @@ export default function ContactDetailPage() {
 function ContactInfoTab({ contact }: { contact: any }) {
   return (
     <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
-      <div className="rounded-lg rounded-xl p-6">
+      <div className="rounded-xl p-6">
         <h3 className="text-sm font-medium text-zinc-500 mb-4">Contact Information</h3>
         <dl className="space-y-3 text-sm">
           <div className="flex justify-between">
@@ -183,7 +183,7 @@ function ContactInfoTab({ contact }: { contact: any }) {
         </dl>
       </div>
 
-      <div className="rounded-lg rounded-xl p-6">
+      <div className="rounded-xl p-6">
         <h3 className="text-sm font-medium text-zinc-500 mb-4">Financial Profile</h3>
         <dl className="space-y-3 text-sm">
           <div className="flex justify-between">
@@ -219,7 +219,7 @@ function ContactInfoTab({ contact }: { contact: any }) {
 function ContactLoansTab({ loans }: { loans: any[] }) {
   if (!loans?.length) {
     return (
-      <div className="rounded-lg rounded-xl p-8 text-center">
+      <div className="rounded-xl p-8 text-center">
         <FileText className="h-8 w-8 text-zinc-600 mx-auto mb-2" />
         <p className="text-sm text-zinc-500">No loans found</p>
       </div>
@@ -268,7 +268,7 @@ function ContactLoansTab({ loans }: { loans: any[] }) {
 function ContactDocsTab({ documents }: { documents: any[] }) {
   if (!documents?.length) {
     return (
-      <div className="rounded-lg rounded-xl p-8 text-center">
+      <div className="rounded-xl p-8 text-center">
         <CreditCard className="h-8 w-8 text-zinc-600 mx-auto mb-2" />
         <p className="text-sm text-zinc-500">No documents found</p>
       </div>
@@ -302,7 +302,7 @@ function ContactDocsTab({ documents }: { documents: any[] }) {
 function ContactCommsTab({ communications }: { communications: any[] }) {
   if (!communications?.length) {
     return (
-      <div className="rounded-lg rounded-xl p-8 text-center">
+      <div className="rounded-xl p-8 text-center">
         <MessageSquare className="h-8 w-8 text-zinc-600 mx-auto mb-2" />
         <p className="text-sm text-zinc-500">No communications yet</p>
       </div>
@@ -314,7 +314,7 @@ function ContactCommsTab({ communications }: { communications: any[] }) {
       {communications.map((comm: any) => (
         <div
           key={comm.id}
-          className="rounded-lg rounded-xl p-4"
+          className="rounded-xl p-4"
         >
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-medium rounded-full bg-white/10 px-2 py-0.5800">

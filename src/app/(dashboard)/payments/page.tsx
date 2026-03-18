@@ -62,7 +62,7 @@ export default function PaymentsPage() {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-3 gap-4 mb-6">
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-red-50 p-2">
               <AlertTriangle className="h-4 w-4 text-red-500" />
@@ -73,7 +73,7 @@ export default function PaymentsPage() {
             </div>
           </div>
         </div>
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-amber-50 p-2">
               <Clock className="h-4 w-4 text-amber-500" />
@@ -84,7 +84,7 @@ export default function PaymentsPage() {
             </div>
           </div>
         </div>
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-emerald-50 p-2">
               <CheckCircle2 className="h-4 w-4 text-emerald-500" />
@@ -131,7 +131,7 @@ export default function PaymentsPage() {
           <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
         </div>
       ) : payments.length === 0 ? (
-        <div className="rounded-lg rounded-xl p-12 text-center">
+        <div className="rounded-xl p-12 text-center">
           <DollarSign className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
           <p className="text-sm text-zinc-500">No payments found</p>
         </div>

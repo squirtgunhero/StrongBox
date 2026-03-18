@@ -22,7 +22,7 @@ export function LoanCard({
   interestRate,
 }: LoanCardProps) {
   return (
-    <div className="rounded-lg rounded-xl p-4 hover:shadow-sm transition-shadow">
+    <div className="rounded-xl p-4 hover:shadow-sm transition-shadow">
       <div className="flex items-start justify-between">
         <div>
           <p className="text-sm font-medium">{loanNumber}</p>

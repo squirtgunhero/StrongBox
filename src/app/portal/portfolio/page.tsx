@@ -25,14 +25,14 @@ export default function PortfolioPage() {
           <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
         </div>
       ) : portfolio.length === 0 ? (
-        <div className="rounded-lg rounded-xl p-12 text-center">
+        <div className="rounded-xl p-12 text-center">
           <Building2 className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
           <p className="text-sm text-zinc-500">No active investments</p>
         </div>
       ) : (
         <div className="space-y-3">
           {portfolio.map((inv: any) => (
-            <div key={inv.loanNumber} className="rounded-lg rounded-xl p-4">
+            <div key={inv.loanNumber} className="rounded-xl p-4">
               <div className="flex items-start justify-between">
                 <div>
                   <h3 className="text-sm font-semibold">{inv.loanNumber}</h3>

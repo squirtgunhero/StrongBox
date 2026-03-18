@@ -37,7 +37,7 @@ export default function AccountPage() {
           { label: "Total Returned", value: formatCurrency(account.totalReturned || 0) },
           { label: "Interest Earned", value: formatCurrency(account.totalInterestEarned || 0), color: "text-emerald-600" },
         ].map((item) => (
-          <div key={item.label} className="rounded-lg rounded-xl p-4">
+          <div key={item.label} className="rounded-xl p-4">
             <p className="text-xs text-zinc-500">{item.label}</p>
             <p className={`text-xl font-bold mt-1 ${item.color || ""}`}>{item.value}</p>
           </div>
@@ -46,7 +46,7 @@ export default function AccountPage() {
 
       {/* Capital Sources */}
       {sources.length > 0 && (
-        <div className="rounded-lg rounded-xl p-5">
+        <div className="rounded-xl p-5">
           <h2 className="text-sm font-semibold mb-4">Capital Sources</h2>
           <div className="space-y-3">
             {sources.map((src: any) => {

@@ -73,7 +73,7 @@ export default function PortalDrawsPage() {
           <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
         </div>
       ) : allDraws.length === 0 ? (
-        <div className="rounded-lg rounded-xl p-12 text-center">
+        <div className="rounded-xl p-12 text-center">
           <Hammer className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
           <p className="text-sm text-zinc-500">No draw requests yet</p>
         </div>
@@ -167,7 +167,7 @@ function DrawRequestForm({
   });
 
   return (
-    <div className="rounded-lg rounded-xl p-5 mb-6">
+    <div className="rounded-xl p-5 mb-6">
       <h2 className="text-sm font-semibold mb-4">New Draw Request</h2>
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div>

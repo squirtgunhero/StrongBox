@@ -222,7 +222,7 @@ function InviteUserForm({
   });
 
   return (
-    <div className="mb-6 rounded-lg rounded-xl p-6">
+    <div className="mb-6 rounded-xl p-6">
       <h2 className="text-lg font-medium mb-4">Invite New User</h2>
 
       {error && (
@@ -246,7 +246,7 @@ function InviteUserForm({
             required
             value={formData.firstName}
             onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
           />
         </div>
         <div>
@@ -257,7 +257,7 @@ function InviteUserForm({
             required
             value={formData.lastName}
             onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
           />
         </div>
         <div>
@@ -269,7 +269,7 @@ function InviteUserForm({
             required
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
           />
         </div>
         <div>
@@ -279,7 +279,7 @@ function InviteUserForm({
           <select
             value={formData.role}
             onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
           >
             {ROLES.map((role) => (
               <option key={role} value={role}>
@@ -327,7 +327,7 @@ function EditUserModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       <div className="fixed inset-0 bg-black/50" onClick={onCancel} />
-      <div className="relative z-50 w-full max-w-md rounded-lg rounded-xl p-6 shadow-lg">
+      <div className="relative z-50 w-full max-w-md rounded-xl p-6 shadow-lg">
         <h2 className="text-lg font-semibold mb-1">
           Edit {user.firstName} {user.lastName}
         </h2>
@@ -341,7 +341,7 @@ function EditUserModal({
             <select
               value={role}
               onChange={(e) => setRole(e.target.value)}
-              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
             >
               {ROLES.map((r) => (
                 <option key={r} value={r}>

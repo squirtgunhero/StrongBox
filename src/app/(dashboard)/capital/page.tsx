@@ -79,7 +79,7 @@ export default function CapitalPage() {
 
       {/* Summary Cards */}
       <div className="grid grid-cols-3 gap-4 mb-6">
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-blue-500/10 p-2">
               <Landmark className="h-4 w-4 text-[#3B82F6]" />
@@ -90,7 +90,7 @@ export default function CapitalPage() {
             </div>
           </div>
         </div>
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-amber-50 p-2">
               <TrendingUp className="h-4 w-4 text-amber-500" />
@@ -101,7 +101,7 @@ export default function CapitalPage() {
             </div>
           </div>
         </div>
-        <div className="rounded-lg rounded-xl p-4">
+        <div className="rounded-xl p-4">
           <div className="flex items-center gap-3">
             <div className="rounded-full bg-emerald-50 p-2">
               <Wallet className="h-4 w-4 text-emerald-500" />
@@ -118,7 +118,7 @@ export default function CapitalPage() {
 
       {/* Create Form */}
       {showCreate && (
-        <div className="rounded-lg rounded-xl p-4 mb-6">
+        <div className="rounded-xl p-4 mb-6">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-semibold">Add Capital Source</h3>
             <button onClick={() => setShowCreate(false)} className="text-zinc-500 hover:text-zinc-400">
@@ -207,7 +207,7 @@ export default function CapitalPage() {
           <Loader2 className="h-6 w-6 animate-spin text-zinc-500" />
         </div>
       ) : sources.length === 0 ? (
-        <div className="rounded-lg rounded-xl p-12 text-center">
+        <div className="rounded-xl p-12 text-center">
           <Landmark className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
           <p className="text-sm text-zinc-500">No capital sources configured</p>
         </div>
@@ -223,7 +223,7 @@ export default function CapitalPage() {
             return (
               <div
                 key={source.id}
-                className="rounded-lg rounded-xl p-4"
+                className="rounded-xl p-4"
               >
                 <div className="flex items-start justify-between">
                   <div>

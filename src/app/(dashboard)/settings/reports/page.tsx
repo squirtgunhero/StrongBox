@@ -122,7 +122,7 @@ export default function ScheduledReportsPage() {
       </div>
 
       {showForm && (
-        <div className="rounded-lg rounded-xl p-5 mb-6">
+        <div className="rounded-xl p-5 mb-6">
           <h3 className="text-sm font-semibold mb-4">New Scheduled Report</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
@@ -131,7 +131,7 @@ export default function ScheduledReportsPage() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Weekly Portfolio Summary"
-                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
               />
             </div>
             <div>
@@ -139,7 +139,7 @@ export default function ScheduledReportsPage() {
               <select
                 value={reportType}
                 onChange={(e) => setReportType(e.target.value)}
-                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
               >
                 <option value="">Select report type...</option>
                 {REPORT_TYPES.map((rt) => (
@@ -152,7 +152,7 @@ export default function ScheduledReportsPage() {
               <select
                 value={schedule}
                 onChange={(e) => setSchedule(e.target.value)}
-                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
               >
                 {SCHEDULE_OPTIONS.map((s) => (
                   <option key={s.value} value={s.value}>{s.label}</option>
@@ -167,7 +167,7 @@ export default function ScheduledReportsPage() {
                 value={recipientInput}
                 onChange={(e) => setRecipientInput(e.target.value)}
                 placeholder="admin@stronginvestor.com, ops@stronginvestor.com"
-                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-1 focus:ring-[#3B82F6]"
+                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
               />
             </div>
           </div>
@@ -191,7 +191,7 @@ export default function ScheduledReportsPage() {
       )}
 
       {schedules.length === 0 ? (
-        <div className="rounded-lg rounded-xl p-12 text-center">
+        <div className="rounded-xl p-12 text-center">
           <Clock className="h-10 w-10 text-zinc-600 mx-auto mb-3" />
           <p className="text-sm text-zinc-500">No scheduled reports configured</p>
         </div>
@@ -200,7 +200,7 @@ export default function ScheduledReportsPage() {
           {schedules.map((s: any) => (
             <div
               key={s.id}
-              className="rounded-lg rounded-xl p-4"
+              className="rounded-xl p-4"
             >
               <div className="flex items-center justify-between">
                 <div>

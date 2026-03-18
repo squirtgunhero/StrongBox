@@ -30,7 +30,7 @@ export function PayoffCalculator({ loanId }: PayoffCalculatorProps) {
   const payoff = data?.payoff;
 
   return (
-    <div className="rounded-lg rounded-xl p-4">
+    <div className="rounded-xl p-4">
       <div className="flex items-center gap-2 mb-4">
         <Calculator className="h-4 w-4 text-zinc-500" />
         <h3 className="text-sm font-semibold">Payoff Calculator</h3>

@@ -14,7 +14,11 @@ import {
   DollarSign,
   AlertTriangle,
   FileText,
+  Settings,
+  LogOut,
 } from "lucide-react";
+import { createClient } from "@/lib/supabase/client";
+import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { formatRelative } from "@/lib/utils/dates";
 
@@ -52,8 +56,11 @@ const PAGE_TITLES: Record<string, string> = {
 
 export function Header() {
   const pathname = usePathname();
+  const router = useRouter();
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showUserMenu, setShowUserMenu] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const userMenuRef = useRef<HTMLDivElement>(null);
   const queryClient = useQueryClient();
 
   const pageTitle = PAGE_TITLES[pathname] || PAGE_TITLES["/" + pathname.split("/")[1]] || "";
@@ -114,12 +121,22 @@ export function Header() {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setShowDropdown(false);
       }
+      if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
+        setShowUserMenu(false);
+      }
     }
-    if (showDropdown) {
+    if (showDropdown || showUserMenu) {
       document.addEventListener("mousedown", handleClick);
       return () => document.removeEventListener("mousedown", handleClick);
     }
-  }, [showDropdown]);
+  }, [showDropdown, showUserMenu]);
+
+  async function handleSignOut() {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push("/login");
+    router.refresh();
+  }
 
   return (
     <header className="flex h-14 items-center justify-between border-b border-stone-200 bg-white px-6">
@@ -226,8 +243,34 @@ export function Header() {
           )}
         </div>
 
-        <div className="h-8 w-8 rounded-full bg-[#1E3A5F] flex items-center justify-center text-white text-sm font-medium">
-          U
+        <div className="relative" ref={userMenuRef}>
+          <button
+            onClick={() => setShowUserMenu(!showUserMenu)}
+            className="h-8 w-8 rounded-full bg-[#1E3A5F] flex items-center justify-center text-white text-sm font-medium hover:bg-[#162D4A] transition-colors"
+          >
+            U
+          </button>
+
+          {showUserMenu && (
+            <div className="absolute right-0 top-full mt-2 w-48 rounded-lg border border-stone-200 bg-white shadow-sm z-50 py-1">
+              <Link
+                href="/settings"
+                onClick={() => setShowUserMenu(false)}
+                className="flex items-center gap-2 px-4 py-2 text-sm text-stone-700 hover:bg-stone-50 transition-colors"
+              >
+                <Settings className="h-4 w-4 text-stone-400" />
+                Settings
+              </Link>
+              <div className="my-1 border-t border-stone-100" />
+              <button
+                onClick={handleSignOut}
+                className="flex w-full items-center gap-2 px-4 py-2 text-sm text-stone-700 hover:bg-stone-50 transition-colors"
+              >
+                <LogOut className="h-4 w-4 text-stone-400" />
+                Sign out
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </header>

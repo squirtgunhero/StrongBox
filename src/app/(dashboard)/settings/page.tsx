@@ -3,10 +3,7 @@ import {
   Users,
   Workflow,
   FileText,
-  Zap,
-  Clock,
   Plug,
-  BarChart3,
   Shield,
 } from "lucide-react";
 
@@ -30,28 +27,10 @@ const SETTINGS_SECTIONS = [
     description: "Email and SMS templates with merge fields",
   },
   {
-    href: "/settings/automations",
-    icon: Clock,
-    label: "Scheduled Automations",
-    description: "Maturity reminders, payment alerts, and scheduled jobs",
-  },
-  {
     href: "/settings/integrations",
     icon: Plug,
     label: "Integrations",
     description: "Connect external services (email, SMS, payments, accounting)",
-  },
-  {
-    href: "/settings/webhooks",
-    icon: Zap,
-    label: "Webhooks",
-    description: "Send real-time event notifications to external systems",
-  },
-  {
-    href: "/settings/reports",
-    icon: BarChart3,
-    label: "Scheduled Reports",
-    description: "Automated report delivery via email on a schedule",
   },
   {
     href: "/settings/audit-log",

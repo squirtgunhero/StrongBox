@@ -1,0 +1,84 @@
+"use client";
+
+import { useQuery } from "@tanstack/react-query";
+import { Loader2, TrendingUp, TrendingDown } from "lucide-react";
+import Link from "next/link";
+import { formatCurrency } from "@/lib/utils/currency";
+
+export function PortfolioMetrics() {
+  const { data, isLoading } = useQuery({
+    queryKey: ["report", "portfolio-widget"],
+    queryFn: async () => {
+      const res = await fetch("/api/reports?type=portfolio");
+      if (!res.ok) throw new Error("Failed");
+      return res.json();
+    },
+    staleTime: 60_000,
+  });
+
+  if (isLoading) {
+    return (
+      <div className="rounded-lg border bg-white p-6 dark:bg-zinc-900 dark:border-zinc-800">
+        <div className="flex items-center justify-center h-32">
+          <Loader2 className="h-5 w-5 animate-spin text-zinc-400" />
+        </div>
+      </div>
+    );
+  }
+
+  const report = data?.report;
+  if (!report) return null;
+
+  const { summary, maturityBuckets, byType } = report;
+
+  return (
+    <div className="rounded-lg border bg-white p-5 dark:bg-zinc-900 dark:border-zinc-800">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-sm font-semibold">Portfolio</h3>
+        <Link href="/reports?type=portfolio" className="text-xs text-brand-600 hover:text-brand-700 dark:text-brand-400">
+          View Report
+        </Link>
+      </div>
+
+      <div className="grid grid-cols-2 gap-3 mb-4">
+        <div>
+          <p className="text-2xl font-bold">{summary.activeLoans}</p>
+          <p className="text-xs text-zinc-500">Active Loans</p>
+        </div>
+        <div>
+          <p className="text-2xl font-bold">{formatCurrency(summary.totalBalance)}</p>
+          <p className="text-xs text-zinc-500">Outstanding Balance</p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-2 gap-2 mb-4 text-xs">
+        <div className="rounded-md bg-zinc-50 dark:bg-zinc-800 p-2">
+          <p className="text-zinc-500">Avg Loan Size</p>
+          <p className="font-semibold">{formatCurrency(summary.avgLoanSize)}</p>
+        </div>
+        <div className="rounded-md bg-zinc-50 dark:bg-zinc-800 p-2">
+          <p className="text-zinc-500">Avg Rate</p>
+          <p className="font-semibold">{summary.weightedAvgRate.toFixed(2)}%</p>
+        </div>
+      </div>
+
+      {/* Maturity warnings */}
+      {(maturityBuckets.within30.count > 0 || maturityBuckets.pastDue.count > 0) && (
+        <div className="space-y-1 text-xs">
+          {maturityBuckets.pastDue.count > 0 && (
+            <div className="flex items-center justify-between text-red-600 bg-red-50 dark:bg-red-950/30 rounded px-2 py-1.5">
+              <span>{maturityBuckets.pastDue.count} past maturity</span>
+              <span className="font-medium">{formatCurrency(maturityBuckets.pastDue.balance)}</span>
+            </div>
+          )}
+          {maturityBuckets.within30.count > 0 && (
+            <div className="flex items-center justify-between text-amber-600 bg-amber-50 dark:bg-amber-950/30 rounded px-2 py-1.5">
+              <span>{maturityBuckets.within30.count} maturing in 30 days</span>
+              <span className="font-medium">{formatCurrency(maturityBuckets.within30.balance)}</span>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}

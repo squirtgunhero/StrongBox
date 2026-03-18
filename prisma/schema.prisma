@@ -1,0 +1,881 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ─── Enums ───────────────────────────────────────────────
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  LOAN_OFFICER
+  PROCESSOR
+  UNDERWRITER
+  CLOSER
+  ACCOUNTING
+  BORROWER
+  INVESTOR
+  READ_ONLY
+}
+
+enum LoanType {
+  PURCHASE_PLUS_REHAB
+  PURCHASE_ONLY
+  BRIDGE_FUNDING
+  REHAB_ONLY
+  COMMERCIAL_BRIDGE
+  MULTIFAMILY_BRIDGE
+  FIX_AND_FLIP
+  BRRRR
+}
+
+enum LoanStatus {
+  LEAD
+  APPLICATION
+  PROCESSING
+  UNDERWRITING
+  CONDITIONAL_APPROVAL
+  APPROVED
+  CLOSING
+  FUNDED
+  ACTIVE
+  EXTENDED
+  PAYOFF_REQUESTED
+  PAID_OFF
+  DEFAULT
+  FORECLOSURE
+  REO
+  CANCELLED
+  DENIED
+}
+
+enum DrawStatus {
+  DRAFT
+  SUBMITTED
+  UNDER_REVIEW
+  APPROVED
+  REJECTED
+  FUNDED
+  CANCELLED
+}
+
+enum PaymentStatus {
+  SCHEDULED
+  PENDING
+  PAID
+  LATE
+  NSF
+  WAIVED
+  PARTIAL
+}
+
+enum DocumentCategory {
+  APPLICATION
+  IDENTITY
+  ENTITY_DOCS
+  FINANCIAL
+  PROPERTY
+  APPRAISAL
+  TITLE
+  INSURANCE
+  CONSTRUCTION
+  DRAW_REQUEST
+  CLOSING
+  SERVICING
+  CORRESPONDENCE
+  INTERNAL
+}
+
+enum ExitStrategy {
+  FIX_AND_FLIP
+  BRRRR
+  REFINANCE
+  SALE
+  WHOLETAIL
+  HOLD
+  OTHER
+}
+
+enum PropertyType {
+  SFR
+  CONDO
+  TOWNHOUSE
+  DUPLEX
+  TRIPLEX
+  FOURPLEX
+  MULTIFAMILY_5_PLUS
+  MIXED_USE
+  COMMERCIAL_RETAIL
+  COMMERCIAL_OFFICE
+  INDUSTRIAL
+  LAND
+  MOBILE_HOME
+}
+
+enum CapitalSourceType {
+  LINE_OF_CREDIT
+  PRIVATE_INVESTOR
+  FUND
+  OPERATING_CAPITAL
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+  BLOCKED
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+enum NotificationType {
+  TASK_ASSIGNED
+  DOCUMENT_UPLOADED
+  DOCUMENT_REQUESTED
+  STATUS_CHANGE
+  PAYMENT_DUE
+  PAYMENT_RECEIVED
+  PAYMENT_LATE
+  DRAW_SUBMITTED
+  DRAW_APPROVED
+  DRAW_REJECTED
+  APPROVAL_NEEDED
+  LOAN_MATURITY_WARNING
+  SYSTEM
+}
+
+enum CommunicationType {
+  EMAIL
+  SMS
+  PHONE_CALL
+  IN_APP_NOTE
+  SYSTEM_GENERATED
+}
+
+// ─── Core Models ─────────────────────────────────────────
+
+model Organization {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  settings  Json     @default("{}")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users              User[]
+  loans              Loan[]
+  contacts           Contact[]
+  properties         Property[]
+  capitalSources     CapitalSource[]
+  documentTemplates  DocumentTemplate[]
+}
+
+model User {
+  id              String       @id @default(cuid())
+  organizationId  String
+  organization    Organization @relation(fields: [organizationId], references: [id])
+  supabaseAuthId  String       @unique
+  email           String
+  firstName       String
+  lastName        String
+  phone           String?
+  role            UserRole     @default(READ_ONLY)
+  isActive        Boolean      @default(true)
+  avatarUrl       String?
+  lastLoginAt     DateTime?
+  settings        Json         @default("{}")
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+
+  assignedLoans     Loan[]          @relation("LoanOfficer")
+  processingLoans   Loan[]          @relation("Processor")
+  underwritingLoans Loan[]          @relation("Underwriter")
+  tasks             Task[]          @relation("TaskAssignee")
+  tasksCreated      Task[]          @relation("TaskCreator")
+  auditLogs         AuditLog[]
+  communications    Communication[] @relation("CommunicationAuthor")
+  notifications     Notification[]
+  scheduledReports  ScheduledReport[]
+
+  @@unique([organizationId, email])
+  @@index([organizationId, role])
+  @@index([supabaseAuthId])
+}
+
+model Contact {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+
+  firstName          String
+  lastName           String
+  email              String?
+  phone              String?
+  companyName        String?
+  entityType         String?
+  ein                String?
+  ssn                String?
+  dateOfBirth        DateTime?
+
+  creditScore        Int?
+  annualIncome       Decimal?
+  netWorth           Decimal?
+  experienceLevel    String?
+  bankruptcyHistory  Boolean  @default(false)
+  foreclosureHistory Boolean  @default(false)
+
+  address String?
+  city    String?
+  state   String?
+  zip     String?
+
+  isBorrower        Boolean @default(false)
+  isInvestor        Boolean @default(false)
+  isReferralPartner Boolean @default(false)
+  isVendor          Boolean @default(false)
+
+  source   String?
+  isActive Boolean  @default(true)
+  notes    String?
+  tags     String[] @default([])
+
+  riskScore    Int @default(50)
+  naughtyLevel Int @default(0)
+  nsfCount     Int @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  loans           Loan[]    @relation("Borrower")
+  guaranteedLoans Loan[]    @relation("Guarantor")
+  investorCapital InvestorCapitalAccount?
+  documents       Document[]
+  communications  Communication[]
+
+  @@unique([organizationId, email])
+  @@index([organizationId, isBorrower])
+  @@index([organizationId, isInvestor])
+  @@index([lastName, firstName])
+}
+
+model Loan {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  loanNumber     String       @unique
+
+  borrowerId    String
+  borrower      Contact  @relation("Borrower", fields: [borrowerId], references: [id])
+  guarantorId   String?
+  guarantor     Contact? @relation("Guarantor", fields: [guarantorId], references: [id])
+  loanOfficerId String?
+  loanOfficer   User?    @relation("LoanOfficer", fields: [loanOfficerId], references: [id])
+  processorId   String?
+  processor     User?    @relation("Processor", fields: [processorId], references: [id])
+  underwriterId String?
+  underwriter   User?    @relation("Underwriter", fields: [underwriterId], references: [id])
+
+  propertyId String?   @unique
+  property   Property? @relation(fields: [propertyId], references: [id])
+
+  type             LoanType
+  exitStrategy     ExitStrategy?
+  purchasePrice    Decimal?
+  rehabBudget      Decimal?
+  loanAmount       Decimal
+  purchaseAmount   Decimal?
+  rehabAmount      Decimal?
+  interestRate     Decimal
+  purchaseRate     Decimal?
+  rehabRate        Decimal?
+  defaultRate      Decimal?
+  termMonths       Int
+  extensionMonths  Int?
+  extensionFee     Decimal?
+  interestOnlyFlag Boolean @default(true)
+
+  originationFee     Decimal?
+  originationFeeFlat Decimal?
+  processingFee      Decimal?
+  underwritingFee    Decimal?
+  documentFee        Decimal?
+  wireFee            Decimal?
+  inspectionFee      Decimal?
+  legalFee           Decimal?
+  brokerFee          Decimal?
+  otherFees          Json?
+
+  ltv               Decimal?
+  arv               Decimal?
+  arvLtv            Decimal?
+  currentBalance    Decimal  @default(0)
+  totalInterestPaid Decimal  @default(0)
+  totalFeesPaid     Decimal  @default(0)
+  nextPaymentDue    DateTime?
+  daysDelinquent    Int      @default(0)
+
+  status                  LoanStatus @default(LEAD)
+  previousStatus          LoanStatus?
+  applicationDate         DateTime?
+  approvalDate            DateTime?
+  conditionalApprovalDate DateTime?
+  denialDate              DateTime?
+  denialReason            String?
+  closingDate             DateTime?
+  fundingDate             DateTime?
+  firstPaymentDate        DateTime?
+  maturityDate            DateTime?
+  extensionDate           DateTime?
+  extendedMaturityDate    DateTime?
+  payoffDate              DateTime?
+  defaultDate             DateTime?
+
+  underwritingNotes String?
+  conditions        Json?
+  riskScore         Int?
+
+  internalNotes     String?
+  referralSource    String?
+  referralPartnerId String?
+  tags              String[] @default([])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  draws              Draw[]
+  payments           Payment[]
+  documents          Document[]
+  tasks              Task[]
+  communications     Communication[]
+  capitalAllocations CapitalAllocation[]
+  loanConditions     LoanCondition[]
+  statusHistory      LoanStatusHistory[]
+
+  @@index([organizationId, status])
+  @@index([organizationId, borrowerId])
+  @@index([organizationId, loanOfficerId])
+  @@index([maturityDate])
+  @@index([nextPaymentDue])
+}
+
+model Property {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+
+  address      String
+  unit         String?
+  city         String
+  state        String
+  zip          String
+  county       String?
+  parcelNumber String?
+
+  propertyType    PropertyType
+  yearBuilt       Int?
+  squareFeet      Int?
+  lotSize         Decimal?
+  bedrooms        Int?
+  bathrooms       Decimal?
+  stories         Int?
+  units           Int?
+  condition       String?
+  occupancyStatus String?
+
+  purchasePrice  Decimal?
+  currentValue   Decimal?
+  appraisedValue Decimal?
+  arv            Decimal?
+  insuranceValue Decimal?
+
+  scopeOfWork    String?
+  rehabBudget    Decimal?
+  originalBudget Json?
+  contingency    Decimal?
+
+  propStreamData Json?
+  zillow         Json?
+  taxAssessment  Decimal?
+  annualTaxes    Decimal?
+  hoaMonthly     Decimal?
+
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  loan      Loan?
+  documents Document[]
+
+  @@index([organizationId])
+  @@index([state, city])
+  @@index([address])
+}
+
+model Draw {
+  id         String   @id @default(cuid())
+  loanId     String
+  loan       Loan     @relation(fields: [loanId], references: [id])
+  drawNumber Int
+
+  amountRequested Decimal
+  amountApproved  Decimal?
+  status          DrawStatus @default(DRAFT)
+
+  workCompleted     String?
+  percentComplete   Decimal?
+  remainingBudget   Decimal?
+  remainingTimeline String?
+  paymentMethod     String?
+
+  budgetComparison Json?
+  variance         Decimal?
+
+  inspectionDate   DateTime?
+  inspectionNotes  String?
+  inspectorName    String?
+  inspectionPassed Boolean?
+
+  reviewedById    String?
+  reviewNotes     String?
+  submittedAt     DateTime?
+  reviewedAt      DateTime?
+  approvedAt      DateTime?
+  fundedAt        DateTime?
+  rejectedAt      DateTime?
+  rejectionReason String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  documents Document[]
+
+  @@unique([loanId, drawNumber])
+  @@index([loanId, status])
+}
+
+model Payment {
+  id     String @id @default(cuid())
+  loanId String
+  loan   Loan   @relation(fields: [loanId], references: [id])
+
+  amount          Decimal
+  principalAmount Decimal       @default(0)
+  interestAmount  Decimal       @default(0)
+  feeAmount       Decimal       @default(0)
+  escrowAmount    Decimal       @default(0)
+  lateCharge      Decimal       @default(0)
+
+  dueDate    DateTime
+  paidDate   DateTime?
+  postedDate DateTime?
+
+  status          PaymentStatus @default(SCHEDULED)
+  paymentMethod   String?
+  referenceNumber String?
+  checkNumber     String?
+
+  isNSF   Boolean   @default(false)
+  nsfDate DateTime?
+  nsfFee  Decimal?
+
+  isCapitalized Boolean @default(false)
+
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([loanId, dueDate])
+  @@index([loanId, status])
+  @@index([dueDate, status])
+}
+
+model Document {
+  id             String @id @default(cuid())
+  organizationId String
+
+  loanId     String?
+  loan       Loan?     @relation(fields: [loanId], references: [id])
+  contactId  String?
+  contact    Contact?  @relation(fields: [contactId], references: [id])
+  propertyId String?
+  property   Property? @relation(fields: [propertyId], references: [id])
+  drawId     String?
+  draw       Draw?     @relation(fields: [drawId], references: [id])
+
+  fileName    String
+  fileType    String
+  fileSize    Int
+  storagePath String
+  storageUrl  String?
+
+  category    DocumentCategory
+  subcategory String?
+  description String?
+  tags        String[] @default([])
+
+  version           Int     @default(1)
+  previousVersionId String?
+  isLatest          Boolean @default(true)
+
+  isRequired   Boolean   @default(false)
+  isReceived   Boolean   @default(false)
+  requestedAt  DateTime?
+  receivedAt   DateTime?
+  reviewedAt   DateTime?
+  reviewedById String?
+  reviewStatus String?
+  reviewNotes  String?
+
+  requiresSignature Boolean  @default(false)
+  signatureStatus   String?
+  signatureProvider String?
+  signatureId       String?
+  signedAt          DateTime?
+
+  uploadedById String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([loanId, category])
+  @@index([contactId])
+  @@index([organizationId, category])
+}
+
+model DocumentTemplate {
+  id             String       @id @default(cuid())
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+
+  name        String
+  category    DocumentCategory
+  description String?
+  storagePath String
+  isActive    Boolean @default(true)
+  variables   Json?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([organizationId, category])
+}
+
+// ─── Capital & Investor Models ───────────────────────────
+
+model CapitalSource {
+  id             String           @id @default(cuid())
+  organizationId String
+  organization   Organization     @relation(fields: [organizationId], references: [id])
+
+  name      String
+  type      CapitalSourceType
+  contactId String?
+
+  creditLimit    Decimal?
+  currentBalance Decimal?  @default(0)
+  interestRate   Decimal?
+  expirationDate DateTime?
+  bankName       String?
+  accountNumber  String?
+
+  totalCommitted  Decimal? @default(0)
+  totalDeployed   Decimal? @default(0)
+  preferredReturn Decimal?
+
+  isActive  Boolean  @default(true)
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  allocations CapitalAllocation[]
+
+  @@index([organizationId, type])
+}
+
+model CapitalAllocation {
+  id              String        @id @default(cuid())
+  loanId          String
+  loan            Loan          @relation(fields: [loanId], references: [id])
+  capitalSourceId String
+  capitalSource   CapitalSource @relation(fields: [capitalSourceId], references: [id])
+
+  amount     Decimal
+  percentage Decimal?
+  isActive   Boolean @default(true)
+
+  deployedAt   DateTime?
+  returnedAt   DateTime?
+  returnAmount Decimal?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([loanId, capitalSourceId])
+  @@index([capitalSourceId])
+}
+
+model InvestorCapitalAccount {
+  id        String  @id @default(cuid())
+  contactId String  @unique
+  contact   Contact @relation(fields: [contactId], references: [id])
+
+  currentBalance      Decimal @default(0)
+  totalDeployed       Decimal @default(0)
+  totalReturned       Decimal @default(0)
+  totalInterestEarned Decimal @default(0)
+  activeLoanCount     Int     @default(0)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  transactions InvestorTransaction[]
+}
+
+model InvestorTransaction {
+  id        String                 @id @default(cuid())
+  accountId String
+  account   InvestorCapitalAccount @relation(fields: [accountId], references: [id])
+
+  transactionDate DateTime
+  amount          Decimal
+  type            String
+  description     String?
+  loanId          String?
+  referenceNumber String?
+
+  createdAt DateTime @default(now())
+
+  @@index([accountId, transactionDate])
+}
+
+// ─── Workflow, Communication & Audit Models ──────────────
+
+model LoanStatusHistory {
+  id     String @id @default(cuid())
+  loanId String
+  loan   Loan   @relation(fields: [loanId], references: [id])
+
+  fromStatus  LoanStatus?
+  toStatus    LoanStatus
+  changedById String?
+  reason      String?
+  metadata    Json?
+
+  createdAt DateTime @default(now())
+
+  @@index([loanId, createdAt])
+}
+
+model LoanCondition {
+  id     String @id @default(cuid())
+  loanId String
+  loan   Loan   @relation(fields: [loanId], references: [id])
+
+  text        String
+  category    String?
+  isCleared   Boolean   @default(false)
+  clearedById String?
+  clearedAt   DateTime?
+  notes       String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([loanId, isCleared])
+}
+
+model Task {
+  id     String @id @default(cuid())
+  loanId String?
+  loan   Loan?  @relation(fields: [loanId], references: [id])
+
+  title       String
+  description String?
+  status      TaskStatus   @default(PENDING)
+  priority    TaskPriority @default(MEDIUM)
+
+  assigneeId  String?
+  assignee    User?   @relation("TaskAssignee", fields: [assigneeId], references: [id])
+  createdById String
+  createdBy   User    @relation("TaskCreator", fields: [createdById], references: [id])
+
+  dueDate     DateTime?
+  completedAt DateTime?
+
+  isAutoGenerated Boolean @default(false)
+  triggerEvent    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([assigneeId, status])
+  @@index([loanId, status])
+  @@index([dueDate, status])
+}
+
+model Communication {
+  id        String   @id @default(cuid())
+  loanId    String?
+  loan      Loan?    @relation(fields: [loanId], references: [id])
+  contactId String?
+  contact   Contact? @relation(fields: [contactId], references: [id])
+
+  type      CommunicationType
+  direction String?
+  subject   String?
+  body      String
+  authorId  String?
+  author    User?   @relation("CommunicationAuthor", fields: [authorId], references: [id])
+
+  fromEmail String?
+  toEmails  String[] @default([])
+  ccEmails  String[] @default([])
+
+  fromPhone String?
+  toPhone   String?
+  twilioSid String?
+
+  callDuration Int?
+  callOutcome  String?
+
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  @@index([loanId, createdAt])
+  @@index([contactId, createdAt])
+}
+
+model Notification {
+  id     String @id @default(cuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  type      NotificationType
+  title     String
+  message   String
+  loanId    String?
+  actionUrl String?
+  isRead    Boolean   @default(false)
+  readAt    DateTime?
+
+  createdAt DateTime @default(now())
+
+  @@index([userId, isRead, createdAt])
+}
+
+model AuditLog {
+  id             String @id @default(cuid())
+  organizationId String
+
+  action      String
+  entityType  String
+  entityId    String
+  description String?
+
+  userId    String?
+  user      User?   @relation(fields: [userId], references: [id])
+  userEmail String?
+  ipAddress String?
+  userAgent String?
+
+  before Json?
+  after  Json?
+  diff   Json?
+
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  @@index([organizationId, entityType, entityId])
+  @@index([organizationId, createdAt])
+  @@index([userId, createdAt])
+}
+
+model WorkflowRule {
+  id             String @id @default(cuid())
+  organizationId String
+
+  name        String
+  description String?
+  isActive    Boolean @default(true)
+
+  triggerEntity String
+  triggerEvent  String
+
+  conditions Json
+  actions    Json
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([organizationId, triggerEntity, isActive])
+}
+
+// ─── Webhooks ─────────────────────────────────────────
+
+model WebhookEndpoint {
+  id             String @id @default(cuid())
+  organizationId String
+
+  url      String
+  secret   String
+  events   String[]
+  isActive Boolean  @default(true)
+
+  deliveries WebhookDelivery[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([organizationId, isActive])
+}
+
+model WebhookDelivery {
+  id                 String @id @default(cuid())
+  webhookEndpointId  String
+
+  event          String
+  payload        Json
+  responseStatus Int
+  responseBody   String?
+  duration       Int
+  success        Boolean
+
+  endpoint WebhookEndpoint @relation(fields: [webhookEndpointId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@index([webhookEndpointId, createdAt])
+}
+
+// ─── Scheduled Reports ────────────────────────────────
+
+model ScheduledReport {
+  id             String @id @default(cuid())
+  organizationId String
+
+  name       String
+  reportType String
+  config     Json     @default("{}")
+  schedule   String   @default("weekly") // daily, weekly, monthly
+  recipients String[]
+  isActive   Boolean  @default(true)
+
+  createdById String
+  createdBy   User   @relation(fields: [createdById], references: [id])
+
+  lastRunAt DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([organizationId, isActive])
+}

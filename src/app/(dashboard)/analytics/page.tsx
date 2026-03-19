@@ -56,11 +56,11 @@ export default function AnalyticsPage() {
               className={cn(
                 "rounded-lg border p-3 text-left transition-colors",
                 type === at.value
-                  ? "border-[#1E3A5F] bg-blue-500/10 "
+                  ? "border-[#1E3A5F] bg-[#C33732]/10 "
                   : "bg-white hover:bg-white/5"
               )}
             >
-              <Icon className={cn("h-4 w-4 mb-1.5", type === at.value ? "text-[#3B82F6]" : "text-zinc-500")} />
+              <Icon className={cn("h-4 w-4 mb-1.5", type === at.value ? "text-[#C33732]" : "text-zinc-500")} />
               <p className="text-sm font-medium">{at.label}</p>
               <p className="text-[10px] text-zinc-500 mt-0.5">{at.description}</p>
             </button>
@@ -168,7 +168,7 @@ function GeographicConcentration({ data }: { data: any }) {
                 </div>
                 <div className="w-full bg-white/10 rounded-full h-2">
                   <div
-                    className={cn("h-2 rounded-full transition-all", s.concentration > 50 ? "bg-red-500" : s.concentration > 25 ? "bg-amber-500" : "bg-[#3B82F6]")}
+                    className={cn("h-2 rounded-full transition-all", s.concentration > 50 ? "bg-red-500" : s.concentration > 25 ? "bg-amber-500" : "bg-[#C33732]")}
                     style={{ width: `${(s.balance / maxBalance) * 100}%` }}
                   />
                 </div>
@@ -323,7 +323,7 @@ function DefaultProbability({ data }: { data: any }) {
   const riskColors: Record<string, string> = {
     HIGH: "text-red-600 bg-red-50",
     MEDIUM: "text-amber-600 bg-amber-50",
-    LOW: "text-[#3B82F6] bg-blue-500/10",
+    LOW: "text-[#C33732] bg-[#C33732]/10",
     MINIMAL: "text-emerald-600 bg-emerald-50",
   };
 

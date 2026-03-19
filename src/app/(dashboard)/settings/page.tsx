@@ -60,8 +60,8 @@ export default function SettingsPage() {
               className="rounded-xl p-5 hover:bg-white/5 transition-colors/50"
             >
               <div className="flex items-start gap-4">
-                <div className="rounded-lg bg-blue-500/10 p-3">
-                  <Icon className="h-5 w-5 text-[#3B82F6]" />
+                <div className="rounded-lg bg-[#C33732]/10 p-3">
+                  <Icon className="h-5 w-5 text-[#C33732]" />
                 </div>
                 <div>
                   <h3 className="text-sm font-semibold">{section.label}</h3>

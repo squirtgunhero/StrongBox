@@ -34,31 +34,31 @@ export function PortfolioMetrics() {
   return (
     <div className="rounded-xl p-5" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-semibold text-white">Portfolio</h3>
-        <Link href="/reports?type=portfolio" className="text-xs text-[#3B82F6] hover:text-blue-400">
+        <h3 className="text-sm font-semibold text-zinc-900">Portfolio</h3>
+        <Link href="/reports?type=portfolio" className="text-xs text-[#C33732] hover:text-[#A52F2B]">
           View Report
         </Link>
       </div>
 
       <div className="grid grid-cols-2 gap-3 mb-4">
         <div>
-          <p className="text-2xl font-bold text-white">{summary.activeLoans}</p>
+          <p className="text-2xl font-bold text-zinc-900">{summary.activeLoans}</p>
           <p className="text-xs text-zinc-500">Active Loans</p>
         </div>
         <div>
-          <p className="text-2xl font-bold font-mono text-white">{formatCurrency(summary.totalBalance)}</p>
+          <p className="text-2xl font-bold font-mono text-zinc-900">{formatCurrency(summary.totalBalance)}</p>
           <p className="text-xs text-zinc-500">Outstanding Balance</p>
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-2 mb-4 text-xs">
-        <div className="rounded-md bg-white/5 p-2">
+        <div className="rounded-md bg-[#f3f3f3] p-2">
           <p className="text-zinc-500">Avg Loan Size</p>
-          <p className="font-semibold font-mono text-white">{formatCurrency(summary.avgLoanSize)}</p>
+          <p className="font-semibold font-mono text-zinc-900">{formatCurrency(summary.avgLoanSize)}</p>
         </div>
-        <div className="rounded-md bg-white/5 p-2">
+        <div className="rounded-md bg-[#f3f3f3] p-2">
           <p className="text-zinc-500">Avg Rate</p>
-          <p className="font-semibold text-white">{summary.weightedAvgRate.toFixed(2)}%</p>
+          <p className="font-semibold text-zinc-900">{summary.weightedAvgRate.toFixed(2)}%</p>
         </div>
       </div>
 

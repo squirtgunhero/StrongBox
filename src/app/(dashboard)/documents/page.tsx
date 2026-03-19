@@ -136,7 +136,7 @@ export default function DocumentsPage() {
         <button
           onClick={() => fileInputRef.current?.click()}
           disabled={uploading}
-          className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 transition-colors disabled:opacity-50"
+          className="flex items-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] transition-colors disabled:opacity-50"
         >
           {uploading ? (
             <Loader2 className="h-4 w-4 animate-spin" />
@@ -165,7 +165,7 @@ export default function DocumentsPage() {
         className={cn(
           "rounded-lg border-2 border-dashed p-8 mb-6 text-center transition-colors",
           dragOver
-            ? "border-[#93B4D4] bg-blue-500/10"
+            ? "border-[#93B4D4] bg-[#C33732]/10"
             : "border-white/[0.08]"
         )}
       >
@@ -174,7 +174,7 @@ export default function DocumentsPage() {
           Drag and drop files here, or{" "}
           <button
             onClick={() => fileInputRef.current?.click()}
-            className="text-[#3B82F6] hover:text-blue-400 font-medium"
+            className="text-[#C33732] hover:text-[#A52F2B] font-medium"
           >
             browse
           </button>
@@ -228,7 +228,7 @@ export default function DocumentsPage() {
               className={cn(
                 "px-3 py-1.5 text-xs font-medium transition-colors first:rounded-l-md last:rounded-r-md border-r last:border-r-0700",
                 receivedFilter === f.value
-                  ? "bg-blue-500/10 text-[#162D4A]"
+                  ? "bg-[#C33732]/10 text-[#162D4A]"
                   : "text-zinc-500 hover:bg-white/5"
               )}
             >
@@ -284,7 +284,7 @@ export default function DocumentsPage() {
                       </div>
                     </td>
                     <td className="px-4 py-3">
-                      <span className="inline-flex items-center rounded-full bg-white/10 px-2 py-0.5 text-xs font-medium text-zinc-300">
+                      <span className="inline-flex items-center rounded-full bg-white/10 px-2 py-0.5 text-xs font-medium text-zinc-700">
                         {doc.category.replace(/_/g, " ")}
                       </span>
                     </td>
@@ -292,7 +292,7 @@ export default function DocumentsPage() {
                       {doc.loan ? (
                         <Link
                           href={`/loans/${doc.loan.id}`}
-                          className="text-[#3B82F6] hover:text-blue-400"
+                          className="text-[#C33732] hover:text-[#A52F2B]"
                         >
                           {doc.loan.loanNumber}
                         </Link>
@@ -321,7 +321,7 @@ export default function DocumentsPage() {
                       <div className="flex items-center justify-end gap-1">
                         <Link
                           href={`/documents/${doc.id}`}
-                          className="rounded p-1.5 text-zinc-500 hover:text-zinc-400 hover:bg-white/5"
+                          className="rounded p-1.5 text-zinc-500 hover:text-zinc-600 hover:bg-white/5"
                         >
                           <Eye className="h-4 w-4" />
                         </Link>

@@ -17,7 +17,7 @@ const ACTIONS = ["", "CREATE", "UPDATE", "DELETE", "STATUS_CHANGE"];
 
 const ACTION_COLORS: Record<string, string> = {
   CREATE: "bg-green-100 text-green-700950400",
-  UPDATE: "bg-blue-500/10 text-[#162D4A]",
+  UPDATE: "bg-[#C33732]/10 text-[#162D4A]",
   DELETE: "bg-red-100 text-red-400400",
   STATUS_CHANGE: "bg-amber-100 text-amber-700950400",
 };
@@ -100,7 +100,7 @@ export default function AuditLogPage() {
                     <span
                       className={cn(
                         "inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase",
-                        ACTION_COLORS[log.action] || "bg-white/10 text-zinc-300"
+                        ACTION_COLORS[log.action] || "bg-white/10 text-zinc-700"
                       )}
                     >
                       {log.action}

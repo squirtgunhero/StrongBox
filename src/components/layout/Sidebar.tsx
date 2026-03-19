@@ -32,7 +32,7 @@ const navGroups = [
   {
     label: "OPERATIONS",
     items: [
-      { name: "Dashboard", href: "/", icon: LayoutDashboard },
+      { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
       { name: "Pipeline", href: "/pipeline", icon: Kanban },
       { name: "Loans", href: "/loans", icon: BriefcaseBusiness },
       { name: "Contacts", href: "/contacts", icon: Users },
@@ -69,27 +69,27 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        "relative flex h-screen flex-col border-r border-white/10 bg-gradient-to-b from-[#101826] via-[#0d1522] to-[#0a1018] transition-all duration-300",
+        "relative flex h-screen flex-col border-r border-black/10 bg-gradient-to-b from-white via-[#fafafa] to-[#f3f3f3] transition-all duration-300",
         collapsed ? "w-[78px]" : "w-[280px]"
       )}
     >
       <div className="px-4 pt-4 pb-3">
-        <div className="flex items-center justify-between rounded-2xl border border-white/10 bg-white/[0.03] px-3 py-2.5">
+        <div className="flex items-center justify-between rounded-2xl border border-black/10 bg-white px-3 py-2.5 shadow-sm">
           <div className="flex items-center gap-3 overflow-hidden">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 shadow-[0_8px_20px_-8px_rgba(37,99,235,0.8)]">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[#C33732] to-[#8F2521] shadow-[0_8px_20px_-8px_rgba(195,55,50,0.75)]">
               <ShieldCheck className="h-4 w-4 text-white" />
             </div>
             {!collapsed ? (
               <div className="min-w-0">
-                <p className="truncate text-[13px] font-semibold tracking-wide text-white">StrongBox</p>
-                <p className="truncate text-[11px] text-zinc-400">Lending Operations Cloud</p>
+                <p className="truncate text-[13px] font-semibold tracking-wide text-black">StrongBox</p>
+                <p className="truncate text-[11px] text-zinc-600">Lending Operations Cloud</p>
               </div>
             ) : null}
           </div>
           <button
             type="button"
             onClick={() => setCollapsed((prev) => !prev)}
-            className="rounded-lg p-1.5 text-zinc-400 transition hover:bg-white/10 hover:text-white"
+            className="rounded-lg p-1.5 text-zinc-500 transition hover:bg-black/5 hover:text-black"
             aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
             {collapsed ? <PanelLeft className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
@@ -101,7 +101,7 @@ export function Sidebar() {
         <button
           type="button"
           className={cn(
-            "flex w-full items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2 text-left text-sm text-zinc-400 transition hover:border-white/20 hover:bg-white/[0.06] hover:text-zinc-100",
+            "flex w-full items-center gap-2 rounded-xl border border-black/10 bg-white px-3 py-2 text-left text-sm text-zinc-700 transition hover:border-black/20 hover:bg-[#f8f8f8] hover:text-black",
             collapsed && "justify-center px-0"
           )}
           aria-label="Open command palette"
@@ -110,7 +110,7 @@ export function Sidebar() {
           {!collapsed ? (
             <>
               <span className="grow">Command palette</span>
-              <span className="rounded-md border border-white/10 bg-[#0b1220] px-1.5 py-0.5 text-[10px]">Cmd K</span>
+              <span className="rounded-md border border-black/10 bg-[#f3f3f3] px-1.5 py-0.5 text-[10px]">Cmd K</span>
             </>
           ) : null}
         </button>
@@ -138,18 +138,18 @@ export function Sidebar() {
                       "group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-all duration-200",
                       collapsed && "justify-center px-0",
                       isActive
-                        ? "bg-gradient-to-r from-[#245ec7]/95 to-[#2f88ff]/90 text-white shadow-[0_12px_24px_-14px_rgba(47,136,255,0.95)]"
-                        : "text-zinc-400 hover:bg-white/[0.06] hover:text-zinc-100"
+                        ? "bg-gradient-to-r from-[#C33732] to-[#A52F2B] text-white shadow-[0_12px_24px_-14px_rgba(195,55,50,0.8)]"
+                        : "text-zinc-700 hover:bg-black/[0.05] hover:text-black"
                     )}
                   >
                     <item.icon
                       className={cn(
                         "h-4 w-4 shrink-0",
-                        isActive ? "text-white" : "text-zinc-500 group-hover:text-zinc-200"
+                        isActive ? "text-white" : "text-zinc-500 group-hover:text-black"
                       )}
                     />
                     {!collapsed ? (
-                      <span className={cn("truncate font-medium", isActive ? "text-white" : "text-zinc-300")}>{item.name}</span>
+                      <span className={cn("truncate font-medium", isActive ? "text-white" : "text-zinc-800")}>{item.name}</span>
                     ) : null}
                   </Link>
                 );
@@ -159,19 +159,19 @@ export function Sidebar() {
         ))}
       </nav>
 
-      <div className="border-t border-white/10 p-3">
+      <div className="border-t border-black/10 p-3">
         <div
           className={cn(
-            "rounded-xl border border-white/10 bg-gradient-to-r from-white/[0.03] to-transparent px-3 py-2.5",
+            "rounded-xl border border-black/10 bg-gradient-to-r from-white to-[#f8f8f8] px-3 py-2.5",
             collapsed && "px-2"
           )}
         >
           <div className={cn("flex items-center gap-2", collapsed && "justify-center")}>
-            <Sparkles className="h-4 w-4 text-blue-300" />
+            <Sparkles className="h-4 w-4 text-[#C33732]" />
             {!collapsed ? (
               <>
-                <p className="text-xs text-zinc-300">Ops Health</p>
-                <span className="ml-auto rounded-full bg-emerald-400/20 px-2 py-0.5 text-[10px] font-medium text-emerald-300">
+                <p className="text-xs text-zinc-700">Ops Health</p>
+                <span className="ml-auto rounded-full bg-emerald-500/15 px-2 py-0.5 text-[10px] font-medium text-emerald-700">
                   Stable
                 </span>
               </>

@@ -61,7 +61,7 @@ export default function ResetPasswordPage() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-zinc-300 mb-1"
+                className="block text-sm font-medium text-zinc-700 mb-1"
               >
                 New password
               </label>
@@ -73,14 +73,14 @@ export default function ResetPasswordPage() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="At least 8 characters"
-                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
               />
             </div>
 
             <div>
               <label
                 htmlFor="confirm-password"
-                className="block text-sm font-medium text-zinc-300 mb-1"
+                className="block text-sm font-medium text-zinc-700 mb-1"
               >
                 Confirm password
               </label>
@@ -92,14 +92,14 @@ export default function ResetPasswordPage() {
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm your password"
-                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
               />
             </div>
 
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="w-full flex items-center justify-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               {loading && <Loader2 className="h-4 w-4 animate-spin" />}
               Update password

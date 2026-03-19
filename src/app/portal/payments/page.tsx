@@ -95,7 +95,7 @@ export default function PortalPaymentsPage() {
                               href={process.env.NEXT_PUBLIC_STRIPE_PAYMENT_LINK}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-xs font-medium text-white hover:bg-blue-600"
+                              className="flex items-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-xs font-medium text-white hover:bg-[#A52F2B]"
                             >
                               <CreditCard className="h-3.5 w-3.5" /> Pay Now
                               <ExternalLink className="h-3 w-3" />
@@ -171,7 +171,7 @@ function PaymentStatusBadge({ status }: { status: string }) {
   };
 
   return (
-    <span className={cn("text-xs font-medium rounded-full px-2 py-0.5", styles[status] || "bg-white/10 text-zinc-400")}>
+    <span className={cn("text-xs font-medium rounded-full px-2 py-0.5", styles[status] || "bg-white/10 text-zinc-600")}>
       {status}
     </span>
   );

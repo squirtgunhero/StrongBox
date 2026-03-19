@@ -99,23 +99,23 @@ export default function PipelinePage() {
 
   return (
     <div className="elevate-in space-y-4 pb-8">
-      <section className="rounded-2xl border border-white/10 bg-gradient-to-br from-[#111b2b] to-[#0f1623] p-4 sm:p-5">
+      <section className="rounded-2xl border border-black/10 bg-gradient-to-br from-white to-[#f3f3f3] p-4 sm:p-5">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <p className="text-xs uppercase tracking-[0.18em] text-blue-300/90">Origination Workflow</p>
-            <h2 className="mt-1 text-2xl font-semibold tracking-tight text-white">Pipeline</h2>
-            <p className="mt-1 text-sm text-zinc-400">Move deals from intake to funding with drag-and-drop status management.</p>
+            <p className="text-xs uppercase tracking-[0.18em] text-[#C33732]">Origination Workflow</p>
+            <h2 className="mt-1 text-2xl font-semibold tracking-tight text-black">Pipeline</h2>
+            <p className="mt-1 text-sm text-zinc-600">Move deals from intake to funding with drag-and-drop status management.</p>
           </div>
           <div className="flex items-center gap-2">
-            <div className="inline-flex rounded-lg border border-white/10 bg-[#0e1523] p-1">
-              <button onClick={() => setView("kanban")} className={cn("inline-flex items-center gap-1 rounded-md px-3 py-1.5 text-xs", view === "kanban" ? "bg-blue-500/25 text-blue-100" : "text-zinc-400 hover:text-zinc-200")}>
+            <div className="inline-flex rounded-lg border border-black/10 bg-white p-1">
+              <button onClick={() => setView("kanban")} className={cn("inline-flex items-center gap-1 rounded-md px-3 py-1.5 text-xs", view === "kanban" ? "bg-[#C33732]/12 text-[#7D2320]" : "text-zinc-600 hover:text-zinc-900")}>
                 <Kanban className="h-3.5 w-3.5" />Board
               </button>
-              <button onClick={() => setView("table")} className={cn("inline-flex items-center gap-1 rounded-md px-3 py-1.5 text-xs", view === "table" ? "bg-blue-500/25 text-blue-100" : "text-zinc-400 hover:text-zinc-200")}>
+              <button onClick={() => setView("table")} className={cn("inline-flex items-center gap-1 rounded-md px-3 py-1.5 text-xs", view === "table" ? "bg-[#C33732]/12 text-[#7D2320]" : "text-zinc-600 hover:text-zinc-900")}>
                 <List className="h-3.5 w-3.5" />Table
               </button>
             </div>
-            <button className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-[#1f5bd6] to-[#2f88ff] px-3 py-2 text-xs font-semibold text-white transition hover:from-[#2d68df] hover:to-[#4493ff]"><Plus className="h-3.5 w-3.5" />New Loan</button>
+            <button className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-[#A52F2B] to-[#C33732] px-3 py-2 text-xs font-semibold text-white transition hover:from-[#B0332E] hover:to-[#BD5A56]"><Plus className="h-3.5 w-3.5" />New Loan</button>
           </div>
         </div>
       </section>
@@ -126,20 +126,20 @@ export default function PipelinePage() {
         <SummaryCard label="Funded Conversion" value={`${summary.conversion.toFixed(1)}%`} />
       </section>
 
-      <section className="rounded-xl border border-white/10 bg-[#101926]/95 p-4">
+      <section className="rounded-xl border border-black/10 bg-white p-4">
         <div className="mb-3 flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-zinc-100">Stage Distribution</h3>
+          <h3 className="text-sm font-semibold text-zinc-900">Stage Distribution</h3>
           <TrendingUp className="h-4 w-4 text-zinc-500" />
         </div>
         <div className="h-52 w-full">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={chartData}>
-              <CartesianGrid stroke="#1f2a3f" vertical={false} />
-              <XAxis dataKey="stage" tick={{ fill: "#6f7f99", fontSize: 10 }} axisLine={false} tickLine={false} />
-              <YAxis yAxisId="left" tick={{ fill: "#6f7f99", fontSize: 10 }} axisLine={false} tickLine={false} />
-              <YAxis yAxisId="right" orientation="right" tick={{ fill: "#6f7f99", fontSize: 10 }} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={{ background: "#111b2b", border: "1px solid #26344d", borderRadius: 10 }} />
-              <Bar yAxisId="left" dataKey="loans" fill="#2f88ff" radius={[4, 4, 0, 0]} />
+              <CartesianGrid stroke="#e2e2e2" vertical={false} />
+              <XAxis dataKey="stage" tick={{ fill: "#6b6b6b", fontSize: 10 }} axisLine={false} tickLine={false} />
+              <YAxis yAxisId="left" tick={{ fill: "#6b6b6b", fontSize: 10 }} axisLine={false} tickLine={false} />
+              <YAxis yAxisId="right" orientation="right" tick={{ fill: "#6b6b6b", fontSize: 10 }} axisLine={false} tickLine={false} />
+              <Tooltip contentStyle={{ background: "#ffffff", border: "1px solid #d9d9d9", borderRadius: 10 }} />
+              <Bar yAxisId="left" dataKey="loans" fill="#C33732" radius={[4, 4, 0, 0]} />
               <Bar yAxisId="right" dataKey="volume" fill="#34d399" radius={[4, 4, 0, 0]} />
             </BarChart>
           </ResponsiveContainer>
@@ -147,11 +147,11 @@ export default function PipelinePage() {
       </section>
 
       {isLoading ? (
-        <div className="rounded-xl border border-white/10 bg-[#101926]/95 p-8 text-center"><Loader2 className="mx-auto h-5 w-5 animate-spin text-zinc-500" /></div>
+        <div className="rounded-xl border border-black/10 bg-white p-8 text-center"><Loader2 className="mx-auto h-5 w-5 animate-spin text-zinc-500" /></div>
       ) : isError ? (
         <div className="rounded-xl border border-red-300/25 bg-red-500/10 p-6 text-center">
-          <p className="text-sm text-zinc-100">Unable to load pipeline</p>
-          <button onClick={() => void refetch()} className="mt-3 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-xs text-zinc-200">Retry</button>
+          <p className="text-sm text-zinc-900">Unable to load pipeline</p>
+          <button onClick={() => void refetch()} className="mt-3 rounded-lg border border-black/15 bg-white px-3 py-2 text-xs text-zinc-700">Retry</button>
         </div>
       ) : view === "kanban" ? (
         <KanbanView columns={loansByStatus} onStatusChange={(loanId, status) => updateStatus.mutate({ loanId, status })} />
@@ -164,9 +164,9 @@ export default function PipelinePage() {
 
 function SummaryCard({ label, value }: { label: string; value: string }) {
   return (
-    <article className="rounded-xl border border-white/10 bg-[#101926]/95 p-3.5">
+    <article className="rounded-xl border border-black/10 bg-white p-3.5">
       <p className="text-[11px] uppercase tracking-[0.15em] text-zinc-500">{label}</p>
-      <p className="mt-2 text-xl font-semibold text-zinc-100">{value}</p>
+      <p className="mt-2 text-xl font-semibold text-zinc-900">{value}</p>
     </article>
   );
 }
@@ -186,7 +186,7 @@ function KanbanView({
       {columns.map((column) => (
         <div
           key={column.status}
-          className={cn("w-72 shrink-0 rounded-xl border border-white/10 bg-[#101926]/95", dragOverCol === column.status && "ring-2 ring-blue-400/40")}
+          className={cn("w-72 shrink-0 rounded-xl border border-black/10 bg-white", dragOverCol === column.status && "ring-2 ring-[#C33732]/40")}
           onDragOver={(event) => {
             event.preventDefault();
             setDragOverCol(column.status);
@@ -199,10 +199,10 @@ function KanbanView({
             setDragLoanId(null);
           }}
         >
-          <div className="border-b border-white/10 px-3 py-2.5">
+          <div className="border-b border-black/10 px-3 py-2.5">
             <div className="flex items-center justify-between">
-              <p className="text-xs font-semibold uppercase tracking-[0.15em] text-zinc-400">{column.label}</p>
-              <span className="rounded-full border border-white/10 bg-white/[0.04] px-2 py-0.5 text-[10px] text-zinc-300">{column.loans.length}</span>
+              <p className="text-xs font-semibold uppercase tracking-[0.15em] text-zinc-600">{column.label}</p>
+              <span className="rounded-full border border-black/10 bg-[#f3f3f3] px-2 py-0.5 text-[10px] text-zinc-700">{column.loans.length}</span>
             </div>
             <p className="mt-1 text-[11px] text-zinc-500">{formatCurrencyCompact(column.total)}</p>
           </div>
@@ -215,17 +215,17 @@ function KanbanView({
                 draggable
                 onDragStart={() => setDragLoanId(loan.id)}
                 onDragEnd={() => setDragLoanId(null)}
-                className={cn("block rounded-lg border border-white/10 bg-white/[0.02] p-3 transition hover:bg-white/[0.06]", dragLoanId === loan.id && "opacity-60")}
+                className={cn("block rounded-lg border border-black/10 bg-[#f8f8f8] p-3 transition hover:bg-[#f3f3f3]", dragLoanId === loan.id && "opacity-60")}
               >
                 <div className="flex items-start justify-between gap-2">
-                  <p className="text-xs font-semibold text-blue-200">{loan.loanNumber}</p>
+                  <p className="text-xs font-semibold text-[#7D2320]">{loan.loanNumber}</p>
                   <GripVertical className="mt-0.5 h-3.5 w-3.5 text-zinc-600" />
                 </div>
-                <p className="mt-1 text-sm text-zinc-100">{loan.borrower?.lastName}, {loan.borrower?.firstName}</p>
+                <p className="mt-1 text-sm text-zinc-900">{loan.borrower?.lastName}, {loan.borrower?.firstName}</p>
                 <p className="mt-0.5 truncate text-[11px] text-zinc-500">{loan.property?.address}, {loan.property?.city}</p>
                 <div className="mt-2 flex items-center justify-between text-xs">
-                  <span className="font-semibold text-zinc-100">{formatCurrency(loan.loanAmount)}</span>
-                  <span className="text-zinc-400">{Number(loan.interestRate).toFixed(2)}%</span>
+                  <span className="font-semibold text-zinc-900">{formatCurrency(loan.loanAmount)}</span>
+                  <span className="text-zinc-600">{Number(loan.interestRate).toFixed(2)}%</span>
                 </div>
               </Link>
             ))}
@@ -238,10 +238,10 @@ function KanbanView({
 
 function TableView({ loans }: { loans: LoanRow[] }) {
   return (
-    <section className="overflow-hidden rounded-xl border border-white/10 bg-[#101926]/95">
+    <section className="overflow-hidden rounded-xl border border-black/10 bg-white">
       <table className="w-full text-sm">
         <thead>
-          <tr className="border-b border-white/10 bg-[#0f1724]">
+          <tr className="border-b border-black/10 bg-[#f3f3f3]">
             <th className="px-4 py-3 text-left text-xs uppercase tracking-[0.15em] text-zinc-500">Loan</th>
             <th className="px-4 py-3 text-left text-xs uppercase tracking-[0.15em] text-zinc-500">Borrower</th>
             <th className="px-4 py-3 text-left text-xs uppercase tracking-[0.15em] text-zinc-500">Property</th>
@@ -253,14 +253,14 @@ function TableView({ loans }: { loans: LoanRow[] }) {
         </thead>
         <tbody>
           {loans.map((loan) => (
-            <tr key={loan.id} className="border-b border-white/10 text-xs text-zinc-300 transition hover:bg-white/[0.04]">
-              <td className="px-4 py-3 text-zinc-100">{loan.loanNumber}</td>
+            <tr key={loan.id} className="border-b border-black/10 text-xs text-zinc-700 transition hover:bg-[#f8f8f8]">
+              <td className="px-4 py-3 text-zinc-900">{loan.loanNumber}</td>
               <td className="px-4 py-3">{loan.borrower?.lastName}, {loan.borrower?.firstName}</td>
               <td className="px-4 py-3 text-zinc-500">{loan.property?.address}, {loan.property?.city}</td>
-              <td className="px-4 py-3 text-zinc-100">{formatCurrency(loan.loanAmount)}</td>
+              <td className="px-4 py-3 text-zinc-900">{formatCurrency(loan.loanAmount)}</td>
               <td className="px-4 py-3">{loan.status.replaceAll("_", " ")}</td>
               <td className="px-4 py-3">{loan.loanOfficer?.firstName} {loan.loanOfficer?.lastName}</td>
-              <td className="px-4 py-3 text-right"><Link href={`/loans/${loan.id}`} className="inline-flex items-center gap-1 text-blue-200 hover:text-blue-100">Open <ArrowRight className="h-3.5 w-3.5" /></Link></td>
+              <td className="px-4 py-3 text-right"><Link href={`/loans/${loan.id}`} className="inline-flex items-center gap-1 text-[#7D2320] hover:text-[#A52F2B]">Open <ArrowRight className="h-3.5 w-3.5" /></Link></td>
             </tr>
           ))}
         </tbody>

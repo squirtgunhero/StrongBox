@@ -41,8 +41,8 @@ export default function PortalLayout({
                     className={cn(
                       "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium transition-colors",
                       isActive
-                        ? "bg-blue-500/10 text-[#162D4A]"
-                        : "text-zinc-500 hover:text-white hover:bg-white/5"
+                        ? "bg-[#C33732]/10 text-[#162D4A]"
+                        : "text-zinc-500 hover:text-black hover:bg-white/5"
                     )}
                   >
                     <Icon className="h-3.5 w-3.5" />
@@ -52,7 +52,7 @@ export default function PortalLayout({
               })}
             </nav>
           </div>
-          <Link href="/login" className="flex items-center gap-1.5 text-xs text-zinc-500 hover:text-white">
+          <Link href="/login" className="flex items-center gap-1.5 text-xs text-zinc-500 hover:text-black">
             <LogOut className="h-3.5 w-3.5" />
             Sign Out
           </Link>

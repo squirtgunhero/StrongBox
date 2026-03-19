@@ -50,7 +50,7 @@ export default function PortalDrawsPage() {
         {drawEligibleLoans.length > 0 && (
           <button
             onClick={() => setShowRequest(true)}
-            className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600"
+            className="flex items-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B]"
           >
             <Plus className="h-4 w-4" /> New Draw Request
           </button>
@@ -118,7 +118,7 @@ export default function PortalDrawsPage() {
 function DrawStatusBadge({ status }: { status: string }) {
   const config: Record<string, { icon: typeof CheckCircle2; color: string }> = {
     SUBMITTED: { icon: Clock, color: "text-amber-600 bg-amber-50" },
-    UNDER_REVIEW: { icon: Clock, color: "text-[#3B82F6] bg-blue-500/10" },
+    UNDER_REVIEW: { icon: Clock, color: "text-[#C33732] bg-[#C33732]/10" },
     APPROVED: { icon: CheckCircle2, color: "text-emerald-600 bg-emerald-50" },
     FUNDED: { icon: CheckCircle2, color: "text-emerald-600 bg-emerald-50" },
     REJECTED: { icon: XCircle, color: "text-red-600 bg-red-50" },
@@ -211,14 +211,14 @@ function DrawRequestForm({
       <div className="flex justify-end gap-3">
         <button
           onClick={onClose}
-          className="px-4 py-2 text-sm font-medium text-zinc-400 hover:bg-white/5 rounded-md"
+          className="px-4 py-2 text-sm font-medium text-zinc-600 hover:bg-white/5 rounded-md"
         >
           Cancel
         </button>
         <button
           onClick={() => submitDraw.mutate()}
           disabled={!amount || submitDraw.isPending}
-          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[#3B82F6] hover:bg-blue-600 rounded-md disabled:opacity-50"
+          className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[#C33732] hover:bg-[#A52F2B] rounded-md disabled:opacity-50"
         >
           {submitDraw.isPending ? (
             <Loader2 className="h-4 w-4 animate-spin" />

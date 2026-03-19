@@ -74,7 +74,7 @@ export default function LoanDetailPage() {
     return (
       <div className="p-12 text-center">
         <p className="text-sm text-red-500">Loan not found</p>
-        <Link href="/loans" className="text-sm text-[#3B82F6] mt-2 inline-block">
+        <Link href="/loans" className="text-sm text-[#C33732] mt-2 inline-block">
           Back to loans
         </Link>
       </div>
@@ -87,7 +87,7 @@ export default function LoanDetailPage() {
     <div>
       <Link
         href="/loans"
-        className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-white mb-4"
+        className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-black mb-4"
       >
         <ArrowLeft className="h-4 w-4" /> Back to loans
       </Link>
@@ -167,8 +167,8 @@ export default function LoanDetailPage() {
               className={cn(
                 "pb-3 text-sm font-medium border-b-2 -mb-px transition-colors",
                 activeTab === tab
-                  ? "border-[#1E3A5F] text-[#3B82F6]"
-                  : "border-transparent text-zinc-500 hover:text-white"
+                  ? "border-[#1E3A5F] text-[#C33732]"
+                  : "border-transparent text-zinc-500 hover:text-black"
               )}
             >
               {tab}
@@ -329,7 +329,7 @@ function DocsTab({ documents }: { documents: any[] }) {
               <td className="px-4 py-3 font-medium">{doc.fileName}</td>
               <td className="px-4 py-3 text-zinc-500">{doc.category}</td>
               <td className="px-4 py-3">
-                <span className={cn("text-xs rounded-full px-2 py-0.5", doc.reviewStatus === "ACCEPTED" ? "bg-green-100 text-green-700" : "bg-white/10 text-zinc-400")}>
+                <span className={cn("text-xs rounded-full px-2 py-0.5", doc.reviewStatus === "ACCEPTED" ? "bg-green-100 text-green-700" : "bg-white/10 text-zinc-600")}>
                   {doc.reviewStatus || "Pending"}
                 </span>
               </td>
@@ -371,7 +371,7 @@ function PaymentsTab({ payments }: { payments: any[] }) {
                   "bg-green-100 text-green-700": pmt.status === "PAID",
                   "bg-yellow-100 text-yellow-700": pmt.status === "PENDING",
                   "bg-red-100 text-red-400": pmt.status === "LATE" || pmt.status === "NSF",
-                  "bg-white/10 text-zinc-400": pmt.status === "SCHEDULED",
+                  "bg-white/10 text-zinc-600": pmt.status === "SCHEDULED",
                 })}>
                   {pmt.status}
                 </span>
@@ -408,7 +408,7 @@ function DrawsTab({ draws }: { draws: any[] }) {
               <td className="px-4 py-3">{formatCurrency(draw.amountRequested)}</td>
               <td className="px-4 py-3">{draw.amountApproved ? formatCurrency(draw.amountApproved) : "-"}</td>
               <td className="px-4 py-3">
-                <span className="text-xs rounded-full px-2 py-0.5 bg-white/10 text-zinc-400">{draw.status}</span>
+                <span className="text-xs rounded-full px-2 py-0.5 bg-white/10 text-zinc-600">{draw.status}</span>
               </td>
               <td className="px-4 py-3 text-zinc-500 text-xs">{draw.submittedAt ? formatDate(draw.submittedAt) : "-"}</td>
             </tr>
@@ -453,7 +453,7 @@ function ActivityTab({ history }: { history: any[] }) {
     <div className="space-y-3">
       {history.map((entry: any) => (
         <div key={entry.id} className="flex items-start gap-3">
-          <div className="mt-1 h-2 w-2 rounded-full bg-[#3B82F6] shrink-0" />
+          <div className="mt-1 h-2 w-2 rounded-full bg-[#C33732] shrink-0" />
           <div>
             <p className="text-sm">
               {entry.fromStatus && (

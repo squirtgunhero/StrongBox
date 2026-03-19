@@ -118,7 +118,7 @@ export default function IntegrationsPage() {
                         <button
                           onClick={() => testMutation.mutate(integration.id)}
                           disabled={testMutation.isPending}
-                          className="text-xs text-[#3B82F6] hover:text-blue-400 font-medium"
+                          className="text-xs text-[#C33732] hover:text-[#A52F2B] font-medium"
                         >
                           {testMutation.isPending && testMutation.variables === integration.id
                             ? "Testing..."

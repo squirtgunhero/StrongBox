@@ -43,19 +43,19 @@ export function PipelineSummary() {
   return (
     <div className="rounded-xl p-5" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
       <div className="flex items-center justify-between mb-4">
-        <h3 className="text-sm font-semibold text-white">Pipeline</h3>
-        <Link href="/reports?type=pipeline" className="text-xs text-[#3B82F6] hover:text-blue-400">
+        <h3 className="text-sm font-semibold text-zinc-900">Pipeline</h3>
+        <Link href="/reports?type=pipeline" className="text-xs text-[#C33732] hover:text-[#A52F2B]">
           View Report
         </Link>
       </div>
 
       <div className="grid grid-cols-2 gap-3 mb-4">
         <div>
-          <p className="text-2xl font-bold text-white">{report.summary.totalDeals}</p>
+          <p className="text-2xl font-bold text-zinc-900">{report.summary.totalDeals}</p>
           <p className="text-xs text-zinc-500">Active Deals</p>
         </div>
         <div>
-          <p className="text-2xl font-bold font-mono text-white">{formatCurrency(report.summary.totalAmount)}</p>
+          <p className="text-2xl font-bold font-mono text-zinc-900">{formatCurrency(report.summary.totalAmount)}</p>
           <p className="text-xs text-zinc-500">Pipeline Value</p>
         </div>
       </div>
@@ -70,13 +70,13 @@ export function PipelineSummary() {
             return (
               <div key={s.status} className="flex items-center gap-2">
                 <span className="text-[10px] text-zinc-500 w-10 text-right">{cfg.label}</span>
-                <div className="flex-1 bg-white/10 rounded-full h-2">
+                <div className="flex-1 bg-[#ececec] rounded-full h-2">
                   <div
                     className={cn("h-2 rounded-full transition-all", cfg.color)}
                     style={{ width: `${Math.max(4, pct)}%` }}
                   />
                 </div>
-                <span className="text-[10px] font-medium text-zinc-400 w-5 text-right">{s.count}</span>
+                <span className="text-[10px] font-medium text-zinc-600 w-5 text-right">{s.count}</span>
               </div>
             );
           })}

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { QueryProvider } from "@/components/providers/QueryProvider";
@@ -19,18 +19,20 @@ export const metadata: Metadata = {
   description:
     "Multi-user real estate lending platform for loan origination, execution, and servicing.",
   manifest: "/manifest.json",
-  themeColor: "#1E3A5F",
+  themeColor: "#C33732",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
     title: "StrongBox",
   },
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-    maximumScale: 1,
-    userScalable: false,
-  },
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  themeColor: "#C33732",
 };
 
 export default function RootLayout({

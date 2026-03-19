@@ -110,7 +110,7 @@ export default function WebhooksPage() {
         </div>
         <button
           onClick={() => setShowForm(!showForm)}
-          className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 transition-colors"
+          className="flex items-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] transition-colors"
         >
           <Plus className="h-4 w-4" /> Add Endpoint
         </button>
@@ -121,7 +121,7 @@ export default function WebhooksPage() {
           <h3 className="text-sm font-semibold mb-4">New Webhook Endpoint</h3>
           <div className="space-y-4">
             <div>
-              <label className="block text-sm font-medium text-zinc-300 mb-1">
+              <label className="block text-sm font-medium text-zinc-700 mb-1">
                 Endpoint URL
               </label>
               <input
@@ -129,11 +129,11 @@ export default function WebhooksPage() {
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
                 placeholder="https://your-app.com/webhooks/strongbox"
-                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-zinc-300 mb-2">
+              <label className="block text-sm font-medium text-zinc-700 mb-2">
                 Events
               </label>
               <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
@@ -160,7 +160,7 @@ export default function WebhooksPage() {
               <button
                 onClick={() => createEndpoint.mutate()}
                 disabled={!url || !selectedEvents.length || createEndpoint.isPending}
-                className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50 transition-colors"
+                className="flex items-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] disabled:opacity-50 transition-colors"
               >
                 {createEndpoint.isPending && <Loader2 className="h-4 w-4 animate-spin" />}
                 Register Endpoint
@@ -202,7 +202,7 @@ export default function WebhooksPage() {
                       {ep.events?.map((ev: string) => (
                         <span
                           key={ev}
-                          className="inline-flex items-center rounded-full bg-white/10 px-2 py-0.5 text-[10px] text-zinc-400"
+                          className="inline-flex items-center rounded-full bg-white/10 px-2 py-0.5 text-[10px] text-zinc-600"
                         >
                           {ev}
                         </span>

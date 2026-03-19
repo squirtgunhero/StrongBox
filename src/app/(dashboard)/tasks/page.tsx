@@ -22,13 +22,13 @@ type ViewTab = "my" | "team";
 const PRIORITY_CONFIG: Record<string, { label: string; color: string }> = {
   URGENT: { label: "Urgent", color: "text-red-600 bg-red-50950" },
   HIGH: { label: "High", color: "text-orange-600 bg-orange-50950" },
-  MEDIUM: { label: "Medium", color: "text-[#3B82F6] bg-blue-500/10" },
+  MEDIUM: { label: "Medium", color: "text-[#C33732] bg-[#C33732]/10" },
   LOW: { label: "Low", color: "text-zinc-500 bg-white/10" },
 };
 
 const STATUS_ICONS: Record<string, { icon: typeof Circle; color: string }> = {
   PENDING: { icon: Circle, color: "text-zinc-500" },
-  IN_PROGRESS: { icon: Clock, color: "text-[#3B82F6]" },
+  IN_PROGRESS: { icon: Clock, color: "text-[#C33732]" },
   COMPLETED: { icon: CheckCircle2, color: "text-emerald-500" },
   CANCELLED: { icon: X, color: "text-zinc-500" },
   BLOCKED: { icon: AlertTriangle, color: "text-red-500" },
@@ -125,7 +125,7 @@ export default function TasksPage() {
         </div>
         <button
           onClick={() => setShowCreate(true)}
-          className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 transition-colors"
+          className="flex items-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] transition-colors"
         >
           <Plus className="h-4 w-4" /> New Task
         </button>
@@ -144,7 +144,7 @@ export default function TasksPage() {
               className={cn(
                 "flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium transition-colors border-r last:border-r-0700 first:rounded-l-md last:rounded-r-md",
                 view === tab.key
-                  ? "bg-blue-500/10 text-[#162D4A]"
+                  ? "bg-[#C33732]/10 text-[#162D4A]"
                   : "text-zinc-500 hover:bg-white/5"
               )}
             >
@@ -215,13 +215,13 @@ export default function TasksPage() {
                 }
               }}
               disabled={!newTitle.trim() || createTask.isPending}
-              className="rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
+              className="rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] disabled:opacity-50"
             >
               Add
             </button>
             <button
               onClick={() => setShowCreate(false)}
-              className="rounded p-2 text-zinc-500 hover:text-zinc-400 hover:bg-white/5"
+              className="rounded p-2 text-zinc-500 hover:text-zinc-600 hover:bg-white/5"
             >
               <X className="h-4 w-4" />
             </button>
@@ -287,7 +287,7 @@ export default function TasksPage() {
                     {task.loan && (
                       <Link
                         href={`/loans/${task.loan.id}`}
-                        className="text-[11px] text-[#3B82F6] hover:text-blue-400"
+                        className="text-[11px] text-[#C33732] hover:text-[#A52F2B]"
                       >
                         {task.loan.loanNumber}
                       </Link>

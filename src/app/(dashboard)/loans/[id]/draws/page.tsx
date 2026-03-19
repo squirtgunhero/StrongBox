@@ -23,7 +23,7 @@ import { formatDate, formatRelative } from "@/lib/utils/dates";
 
 const DRAW_STATUS: Record<string, { label: string; color: string; icon: typeof Clock }> = {
   DRAFT: { label: "Draft", color: "text-zinc-500 bg-white/10", icon: Clock },
-  SUBMITTED: { label: "Submitted", color: "text-[#3B82F6] bg-blue-500/10", icon: Clock },
+  SUBMITTED: { label: "Submitted", color: "text-[#C33732] bg-[#C33732]/10", icon: Clock },
   UNDER_REVIEW: { label: "Under Review", color: "text-purple-600 bg-purple-50950", icon: Eye },
   APPROVED: { label: "Approved", color: "text-emerald-600 bg-emerald-50950", icon: CheckCircle2 },
   REJECTED: { label: "Rejected", color: "text-red-600 bg-red-50950", icon: XCircle },
@@ -103,7 +103,7 @@ export default function LoanDrawsPage() {
       <div className="flex items-center gap-3 mb-6">
         <Link
           href={`/loans/${id}`}
-          className="rounded-md p-2 text-zinc-500 hover:text-zinc-400 hover:bg-white/5"
+          className="rounded-md p-2 text-zinc-500 hover:text-zinc-600 hover:bg-white/5"
         >
           <ArrowLeft className="h-5 w-5" />
         </Link>
@@ -115,7 +115,7 @@ export default function LoanDrawsPage() {
         </div>
         <button
           onClick={() => setShowCreate(true)}
-          className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600"
+          className="flex items-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B]"
         >
           <Plus className="h-4 w-4" /> New Draw
         </button>
@@ -195,7 +195,7 @@ export default function LoanDrawsPage() {
                 })
               }
               disabled={!amount || createDraw.isPending}
-              className="rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
+              className="rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] disabled:opacity-50"
             >
               Submit Draw
             </button>
@@ -285,7 +285,7 @@ export default function LoanDrawsPage() {
                     </div>
                     <div className="w-full bg-stone-200 rounded-full h-1.5700">
                       <div
-                        className="h-1.5 rounded-full bg-[#3B82F6]"
+                        className="h-1.5 rounded-full bg-[#C33732]"
                         style={{ width: `${Math.min(100, Number(draw.percentComplete))}%` }}
                       />
                     </div>

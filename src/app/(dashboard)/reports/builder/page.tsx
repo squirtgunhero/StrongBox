@@ -131,7 +131,7 @@ export default function ReportBuilderPage() {
           <div className="rounded-xl p-4">
             <div className="flex items-center justify-between mb-2">
               <h3 className="text-xs font-semibold text-zinc-500">Filters</h3>
-              <button onClick={addFilter} className="text-[#3B82F6] hover:text-blue-400">
+              <button onClick={addFilter} className="text-[#C33732] hover:text-[#A52F2B]">
                 <Plus className="h-3.5 w-3.5" />
               </button>
             </div>
@@ -200,7 +200,7 @@ export default function ReportBuilderPage() {
             <button
               onClick={() => runReport.mutate()}
               disabled={selectedFields.length === 0 || runReport.isPending}
-              className="flex-1 flex items-center justify-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
+              className="flex-1 flex items-center justify-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] disabled:opacity-50"
             >
               {runReport.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Play className="h-4 w-4" />}
               Run
@@ -208,7 +208,7 @@ export default function ReportBuilderPage() {
             {reportData && (
               <button
                 onClick={exportCSV}
-                className="flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium text-zinc-400 hover:bg-white/5"
+                className="flex items-center gap-2 rounded-md border px-3 py-2 text-sm font-medium text-zinc-600 hover:bg-white/5"
               >
                 <Download className="h-4 w-4" /> CSV
               </button>

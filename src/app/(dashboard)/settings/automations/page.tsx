@@ -62,7 +62,7 @@ export default function AutomationsPage() {
         <button
           onClick={() => runJob.mutate("all")}
           disabled={runJob.isPending}
-          className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
+          className="flex items-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] disabled:opacity-50"
         >
           {runJob.isPending && runJob.variables === "all" ? (
             <Loader2 className="h-4 w-4 animate-spin" />
@@ -91,8 +91,8 @@ export default function AutomationsPage() {
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-start gap-4">
-                    <div className="rounded-lg bg-blue-500/10 p-3">
-                      <Icon className="h-5 w-5 text-[#3B82F6]" />
+                    <div className="rounded-lg bg-[#C33732]/10 p-3">
+                      <Icon className="h-5 w-5 text-[#C33732]" />
                     </div>
                     <div>
                       <h3 className="text-sm font-semibold">{job.name}</h3>
@@ -107,7 +107,7 @@ export default function AutomationsPage() {
                   <button
                     onClick={() => runJob.mutate(job.id)}
                     disabled={isRunning}
-                    className="flex items-center gap-2 rounded-md border px-3 py-1.5 text-xs font-medium text-zinc-400 hover:bg-white/5 disabled:opacity-50"
+                    className="flex items-center gap-2 rounded-md border px-3 py-1.5 text-xs font-medium text-zinc-600 hover:bg-white/5 disabled:opacity-50"
                   >
                     {isRunning ? (
                       <Loader2 className="h-3.5 w-3.5 animate-spin" />

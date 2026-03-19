@@ -68,7 +68,7 @@ export default function PropertiesPage() {
               setSearch(e.target.value);
               setPage(1);
             }}
-            className="w-full h-9 rounded-md border bg-white pl-9 pr-3 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+            className="w-full h-9 rounded-md border bg-white pl-9 pr-3 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
           />
         </div>
       </div>
@@ -120,7 +120,7 @@ export default function PropertiesPage() {
                     <td className="px-4 py-3">
                       <Link
                         href={`/properties/${p.id}`}
-                        className="font-medium text-[#3B82F6] hover:text-blue-400"
+                        className="font-medium text-[#C33732] hover:text-[#A52F2B]"
                       >
                         <div className="flex items-start gap-2">
                           <MapPin className="h-3.5 w-3.5 mt-0.5 flex-shrink-0 text-zinc-500" />
@@ -146,7 +146,7 @@ export default function PropertiesPage() {
                       {p.loan ? (
                         <Link
                           href={`/loans/${p.loan.id}`}
-                          className="text-[#3B82F6] hover:text-blue-400 text-xs"
+                          className="text-[#C33732] hover:text-[#A52F2B] text-xs"
                         >
                           {p.loan.loanNumber}
                         </Link>

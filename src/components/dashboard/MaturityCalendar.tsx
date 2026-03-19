@@ -42,9 +42,9 @@ export function MaturityCalendar() {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <Calendar className="h-4 w-4 text-zinc-500" />
-          <h3 className="text-sm font-semibold text-white">Maturity Calendar</h3>
+          <h3 className="text-sm font-semibold text-zinc-900">Maturity Calendar</h3>
         </div>
-        <Link href="/reports?type=portfolio" className="text-xs text-[#3B82F6] hover:text-blue-400">
+        <Link href="/reports?type=portfolio" className="text-xs text-[#C33732] hover:text-[#A52F2B]">
           View All
         </Link>
       </div>
@@ -54,11 +54,11 @@ export function MaturityCalendar() {
         {[
           { label: "Past Due", data: maturityBuckets.pastDue, color: "text-red-400" },
           { label: "< 30d", data: maturityBuckets.within30, color: "text-amber-400" },
-          { label: "< 60d", data: maturityBuckets.within60, color: "text-[#3B82F6]" },
-          { label: "< 90d", data: maturityBuckets.within90, color: "text-zinc-400" },
+          { label: "< 60d", data: maturityBuckets.within60, color: "text-[#C33732]" },
+          { label: "< 90d", data: maturityBuckets.within90, color: "text-zinc-600" },
         ].map((b) => (
           <div key={b.label} className="text-center">
-            <p className={cn("text-lg font-bold font-mono", b.data.count > 0 ? b.color : "text-zinc-600")}>{b.data.count}</p>
+            <p className={cn("text-lg font-bold font-mono", b.data.count > 0 ? b.color : "text-zinc-700")}>{b.data.count}</p>
             <p className="text-[10px] text-zinc-500">{b.label}</p>
           </div>
         ))}
@@ -77,15 +77,15 @@ export function MaturityCalendar() {
                 key={loan.loanNumber}
                 className={cn(
                   "flex items-center justify-between text-xs rounded px-2 py-1.5",
-                  isPast && "bg-red-500/10"
+                  isPast ? "bg-red-500/10" : "bg-[#f3f3f3]"
                 )}
               >
                 <div className="flex items-center gap-2">
-                  {isPast && <AlertTriangle className="h-3 w-3 text-red-400" />}
-                  <span className="font-medium text-white">{loan.loanNumber}</span>
+                  {isPast && <AlertTriangle className="h-3 w-3 text-red-500" />}
+                  <span className="font-medium text-zinc-900">{loan.loanNumber}</span>
                   <span className="text-zinc-500">{loan.borrower}</span>
                 </div>
-                <span className={cn("font-medium", isPast ? "text-red-400" : isUrgent ? "text-amber-400" : "text-zinc-400")}>
+                <span className={cn("font-medium", isPast ? "text-red-500" : isUrgent ? "text-amber-600" : "text-zinc-700")}>
                   {isPast ? `${Math.abs(loan.daysToMaturity)}d past` : `${loan.daysToMaturity}d`}
                 </span>
               </div>

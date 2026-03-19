@@ -91,7 +91,7 @@ export default function ContactsPage() {
         <h1 className="text-2xl font-semibold">Contacts</h1>
         <button
           onClick={() => setShowForm(true)}
-          className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 transition-colors"
+          className="flex items-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] transition-colors"
         >
           <Plus className="h-4 w-4" />
           New Contact
@@ -119,7 +119,7 @@ export default function ContactsPage() {
               setSearch(e.target.value);
               setPage(1);
             }}
-            className="w-full h-9 rounded-md border bg-white pl-9 pr-3 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+            className="w-full h-9 rounded-md border bg-white pl-9 pr-3 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
           />
         </div>
         <div className="flex gap-1">
@@ -133,7 +133,7 @@ export default function ContactsPage() {
               className={cn(
                 "px-3 py-1.5 rounded-md text-xs font-medium transition-colors",
                 type === tab.key
-                  ? "bg-blue-500/10 text-[#162D4A]"
+                  ? "bg-[#C33732]/10 text-[#162D4A]"
                   : "text-zinc-500 hover:bg-white/5"
               )}
             >
@@ -179,7 +179,7 @@ export default function ContactsPage() {
                     <td className="px-4 py-3">
                       <Link
                         href={`/contacts/${contact.id}`}
-                        className="font-medium text-[#3B82F6] hover:text-blue-400"
+                        className="font-medium text-[#C33732] hover:text-[#A52F2B]"
                       >
                         {contact.lastName}, {contact.firstName}
                       </Link>
@@ -192,7 +192,7 @@ export default function ContactsPage() {
                     <td className="px-4 py-3">
                       <div className="flex gap-1 flex-wrap">
                         {contact.isBorrower && (
-                          <span className="rounded-full bg-blue-500/10 px-2 py-0.5 text-xs text-[#162D4A]">
+                          <span className="rounded-full bg-[#C33732]/10 px-2 py-0.5 text-xs text-[#162D4A]">
                             Borrower
                           </span>
                         )}
@@ -310,65 +310,65 @@ function ContactForm({
       >
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">
+            <label className="block text-sm font-medium text-zinc-700 mb-1">
               First Name *
             </label>
             <input
               required
               value={formData.firstName}
               onChange={(e) => update("firstName", e.target.value)}
-              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">
+            <label className="block text-sm font-medium text-zinc-700 mb-1">
               Last Name *
             </label>
             <input
               required
               value={formData.lastName}
               onChange={(e) => update("lastName", e.target.value)}
-              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">
+            <label className="block text-sm font-medium text-zinc-700 mb-1">
               Company / Entity
             </label>
             <input
               value={formData.companyName}
               onChange={(e) => update("companyName", e.target.value)}
-              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
             />
           </div>
         </div>
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">
+            <label className="block text-sm font-medium text-zinc-700 mb-1">
               Email
             </label>
             <input
               type="email"
               value={formData.email}
               onChange={(e) => update("email", e.target.value)}
-              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">
+            <label className="block text-sm font-medium text-zinc-700 mb-1">
               Phone
             </label>
             <input
               value={formData.phone}
               onChange={(e) => update("phone", e.target.value)}
-              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
             />
           </div>
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-zinc-300 mb-2">
+          <label className="block text-sm font-medium text-zinc-700 mb-2">
             Contact Type
           </label>
           <div className="flex gap-4">
@@ -393,45 +393,45 @@ function ContactForm({
 
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-4">
           <div className="sm:col-span-2">
-            <label className="block text-sm font-medium text-zinc-300 mb-1">
+            <label className="block text-sm font-medium text-zinc-700 mb-1">
               Address
             </label>
             <input
               value={formData.address}
               onChange={(e) => update("address", e.target.value)}
-              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">
+            <label className="block text-sm font-medium text-zinc-700 mb-1">
               City
             </label>
             <input
               value={formData.city}
               onChange={(e) => update("city", e.target.value)}
-              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
             />
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div>
-              <label className="block text-sm font-medium text-zinc-300 mb-1">
+              <label className="block text-sm font-medium text-zinc-700 mb-1">
                 State
               </label>
               <input
                 value={formData.state}
                 onChange={(e) => update("state", e.target.value)}
                 maxLength={2}
-                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-zinc-300 mb-1">
+              <label className="block text-sm font-medium text-zinc-700 mb-1">
                 ZIP
               </label>
               <input
                 value={formData.zip}
                 onChange={(e) => update("zip", e.target.value)}
-                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
               />
             </div>
           </div>
@@ -448,7 +448,7 @@ function ContactForm({
           <button
             type="submit"
             disabled={isLoading}
-            className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] disabled:opacity-50"
           >
             {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
             Create Contact

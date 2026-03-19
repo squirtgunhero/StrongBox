@@ -61,7 +61,7 @@ export default function AccountPage() {
                   </div>
                   <div className="w-full bg-stone-200 rounded-full h-2">
                     <div
-                      className="h-2 rounded-full bg-[#3B82F6] transition-all"
+                      className="h-2 rounded-full bg-[#C33732] transition-all"
                       style={{ width: `${Math.min(100, utilization)}%` }}
                     />
                   </div>

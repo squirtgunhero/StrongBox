@@ -60,7 +60,7 @@ export default function PropertyDetailPage() {
 
   const property = data?.property;
   const inputClass =
-    "w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]";
+    "w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]";
 
   if (isLoading) {
     return (
@@ -119,7 +119,7 @@ export default function PropertyDetailPage() {
     <div>
       <Link
         href="/properties"
-        className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-white mb-4"
+        className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-black mb-4"
       >
         <ArrowLeft className="h-4 w-4" /> Back to properties
       </Link>
@@ -127,8 +127,8 @@ export default function PropertyDetailPage() {
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div className="flex items-start gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-blue-500/10">
-            <Home className="h-5 w-5 text-[#3B82F6]" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#C33732]/10">
+            <Home className="h-5 w-5 text-[#C33732]" />
           </div>
           <div>
             <h1 className="text-xl font-semibold">{property.address}</h1>
@@ -150,7 +150,7 @@ export default function PropertyDetailPage() {
               <button
                 onClick={saveEdits}
                 disabled={updateProperty.isPending}
-                className="flex items-center gap-1.5 rounded-md bg-[#3B82F6] px-3 py-1.5 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
+                className="flex items-center gap-1.5 rounded-md bg-[#C33732] px-3 py-1.5 text-sm font-medium text-white hover:bg-[#A52F2B] disabled:opacity-50"
               >
                 {updateProperty.isPending ? (
                   <Loader2 className="h-3.5 w-3.5 animate-spin" />
@@ -207,8 +207,8 @@ export default function PropertyDetailPage() {
               className={cn(
                 "pb-2 text-sm font-medium border-b-2 -mb-px transition-colors",
                 i === tab
-                  ? "border-[#1E3A5F] text-[#3B82F6]"
-                  : "border-transparent text-zinc-500 hover:text-white"
+                  ? "border-[#1E3A5F] text-[#C33732]"
+                  : "border-transparent text-zinc-500 hover:text-black"
               )}
             >
               {t}
@@ -221,7 +221,7 @@ export default function PropertyDetailPage() {
         {/* Details Tab */}
         {tab === 0 && (
           <div className="space-y-6">
-            <h3 className="text-sm font-semibold text-zinc-300">
+            <h3 className="text-sm font-semibold text-zinc-700">
               Property Details
             </h3>
             {editing ? (
@@ -332,7 +332,7 @@ export default function PropertyDetailPage() {
         {/* Valuation Tab */}
         {tab === 1 && (
           <div className="space-y-6">
-            <h3 className="text-sm font-semibold text-zinc-300">
+            <h3 className="text-sm font-semibold text-zinc-700">
               Valuation & Financials
             </h3>
             {editing ? (
@@ -376,7 +376,7 @@ export default function PropertyDetailPage() {
         {/* Loan Tab */}
         {tab === 2 && (
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-zinc-300">
+            <h3 className="text-sm font-semibold text-zinc-700">
               Associated Loan
             </h3>
             {property.loan ? (
@@ -384,7 +384,7 @@ export default function PropertyDetailPage() {
                 <div className="flex items-center justify-between">
                   <Link
                     href={`/loans/${property.loan.id}`}
-                    className="text-[#3B82F6] font-medium hover:text-blue-400"
+                    className="text-[#C33732] font-medium hover:text-[#A52F2B]"
                   >
                     {property.loan.loanNumber}
                   </Link>
@@ -427,7 +427,7 @@ export default function PropertyDetailPage() {
         {/* Documents Tab */}
         {tab === 3 && (
           <div className="space-y-4">
-            <h3 className="text-sm font-semibold text-zinc-300">
+            <h3 className="text-sm font-semibold text-zinc-700">
               Documents
             </h3>
             {property.documents?.length ? (

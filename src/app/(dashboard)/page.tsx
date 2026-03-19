@@ -131,7 +131,7 @@ export default function DashboardPage() {
   });
 
   const isLoading = dashboardQuery.isLoading || loansQuery.isLoading || paymentsQuery.isLoading;
-  const isError = dashboardQuery.isError;
+  const usingFallback = dashboardQuery.isError || loansQuery.isError || paymentsQuery.isError;
 
   const data = useMemo(() => {
     const dashboardData = dashboardQuery.data;
@@ -214,7 +214,7 @@ export default function DashboardPage() {
           .map((entry, index) => ({
             label: STATUS_LABELS[entry.status] || entry.status,
             value: entry.count,
-            color: ["#2f88ff", "#34d399", "#f4b45f", "#7c93ff", "#f97373", "#86b4ff"][index],
+            color: ["#C33732", "#34d399", "#f4b45f", "#7c93ff", "#f97373", "#86b4ff"][index],
           }))
       : statusDistribution;
 
@@ -316,39 +316,40 @@ export default function DashboardPage() {
     return <DashboardLoadingState />;
   }
 
-  if (isError) {
-    return (
-      <div className="rounded-2xl border border-red-400/30 bg-red-500/10 p-7">
-        <div className="flex items-start gap-3">
-          <ShieldAlert className="mt-0.5 h-5 w-5 text-red-300" />
-          <div>
-            <h2 className="text-lg font-semibold text-white">Dashboard data unavailable</h2>
-            <p className="mt-1 text-sm text-zinc-300">StrongBox could not load live operational metrics.</p>
-            <button
-              type="button"
-              onClick={() => void dashboardQuery.refetch()}
-              className="mt-4 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-sm text-zinc-200 transition hover:bg-white/10"
-            >
-              Retry
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="elevate-in space-y-4 pb-6">
-      <section className="rounded-2xl border border-white/10 bg-gradient-to-br from-[#111b2b] to-[#0f1623] p-4 sm:p-5">
+      {usingFallback ? (
+        <section className="rounded-xl border border-[#C33732]/30 bg-[#C33732]/8 px-4 py-3">
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex items-center gap-2 text-xs text-[#5B1A18]">
+              <ShieldAlert className="h-4 w-4 text-[#C33732]" />
+              Live metrics are temporarily unavailable. Showing fallback dashboard data.
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                void dashboardQuery.refetch();
+                void loansQuery.refetch();
+                void paymentsQuery.refetch();
+              }}
+              className="rounded-lg border border-[#C33732]/35 bg-white px-3 py-1.5 text-xs font-medium text-[#7D2320] transition hover:bg-[#fff6f6]"
+            >
+              Retry live sync
+            </button>
+          </div>
+        </section>
+      ) : null}
+
+      <section className="rounded-2xl border border-black/10 bg-gradient-to-br from-white to-[#f3f3f3] p-4 sm:p-5">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <p className="text-xs uppercase tracking-[0.2em] text-blue-300/90">Lending Operations</p>
-            <h2 className="mt-1 text-2xl font-semibold tracking-tight text-white">Dashboard</h2>
-            <p className="mt-1 text-sm text-zinc-400">Portfolio health, risk posture, and workflow momentum.</p>
+            <p className="text-xs uppercase tracking-[0.2em] text-[#C33732]">Lending Operations</p>
+            <h2 className="mt-1 text-2xl font-semibold tracking-tight text-black">Dashboard</h2>
+            <p className="mt-1 text-sm text-zinc-600">Portfolio health, risk posture, and workflow momentum.</p>
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            <div className="inline-flex rounded-lg border border-white/10 bg-[#0d1421] p-1">
+            <div className="inline-flex rounded-lg border border-black/10 bg-white p-1">
               {rangeOptions.map((range) => (
                 <button
                   key={range}
@@ -356,8 +357,8 @@ export default function DashboardPage() {
                   onClick={() => setSelectedRange(range)}
                   className={
                     selectedRange === range
-                      ? "rounded-md bg-[#2f88ff] px-3 py-1.5 text-xs font-semibold text-white"
-                      : "rounded-md px-3 py-1.5 text-xs font-medium text-zinc-400 transition hover:text-zinc-200"
+                      ? "rounded-md bg-[#C33732] px-3 py-1.5 text-xs font-semibold text-white"
+                      : "rounded-md px-3 py-1.5 text-xs font-medium text-zinc-600 transition hover:text-zinc-900"
                   }
                 >
                   {range}
@@ -368,7 +369,7 @@ export default function DashboardPage() {
             <select
               value={selectedTeam}
               onChange={(event) => setSelectedTeam(event.target.value as TeamOption)}
-              className="h-9 rounded-lg border border-white/10 bg-[#0d1421] px-3 text-xs text-zinc-200 outline-none transition focus:border-blue-400"
+              className="h-9 rounded-lg border border-black/10 bg-white px-3 text-xs text-zinc-700 outline-none transition focus:border-[#C33732]"
             >
               {teamOptions.map((team) => (
                 <option key={team} value={team}>
@@ -379,7 +380,7 @@ export default function DashboardPage() {
 
             <button
               type="button"
-              className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#1f5bd6] to-[#2f88ff] px-3 py-2 text-xs font-semibold text-white transition hover:from-[#2d68df] hover:to-[#4493ff]"
+              className="inline-flex items-center gap-2 rounded-lg bg-gradient-to-r from-[#C33732] to-[#A52F2B] px-3 py-2 text-xs font-semibold text-white transition hover:from-[#B0332E] hover:to-[#8E2824]"
             >
               <Sparkles className="h-3.5 w-3.5" />
               New Briefing
@@ -390,14 +391,14 @@ export default function DashboardPage() {
 
       <section className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
         {data.kpis.map((kpi) => (
-          <article key={kpi.label} className="rounded-xl border border-white/10 bg-[#101926]/95 p-4">
+          <article key={kpi.label} className="rounded-xl border border-black/10 bg-white p-4">
             <p className="text-[11px] uppercase tracking-[0.16em] text-zinc-500">{kpi.label}</p>
-            <p className="mt-2 text-2xl font-semibold tracking-tight text-white">{kpi.value}</p>
+            <p className="mt-2 text-2xl font-semibold tracking-tight text-black">{kpi.value}</p>
             <div className="mt-2 inline-flex items-center gap-1 text-xs">
               {kpi.trendDirection === "up" ? <ArrowUpRight className="h-3.5 w-3.5 text-emerald-300" /> : null}
               {kpi.trendDirection === "down" ? <ArrowDownRight className="h-3.5 w-3.5 text-red-300" /> : null}
-              {kpi.trendDirection === "flat" ? <Clock3 className="h-3.5 w-3.5 text-zinc-400" /> : null}
-              <span className={kpi.trendDirection === "up" ? "text-emerald-300" : kpi.trendDirection === "down" ? "text-red-300" : "text-zinc-400"}>
+              {kpi.trendDirection === "flat" ? <Clock3 className="h-3.5 w-3.5 text-zinc-600" /> : null}
+              <span className={kpi.trendDirection === "up" ? "text-emerald-300" : kpi.trendDirection === "down" ? "text-red-300" : "text-zinc-600"}>
                 {kpi.trend}
               </span>
             </div>
@@ -412,15 +413,15 @@ export default function DashboardPage() {
               <AreaChart data={data.monthlySeries}>
                 <defs>
                   <linearGradient id="portfolioGradient" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#2f88ff" stopOpacity={0.4} />
-                    <stop offset="95%" stopColor="#2f88ff" stopOpacity={0.03} />
+                    <stop offset="5%" stopColor="#C33732" stopOpacity={0.4} />
+                    <stop offset="95%" stopColor="#C33732" stopOpacity={0.03} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid stroke="#1f2a3f" vertical={false} />
-                <XAxis dataKey="label" tick={{ fill: "#6f7f99", fontSize: 11 }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fill: "#6f7f99", fontSize: 11 }} axisLine={false} tickLine={false} width={65} tickFormatter={(v) => formatCurrencyCompact(v)} />
-                <Tooltip contentStyle={{ background: "#111b2b", border: "1px solid #26344d", borderRadius: 10 }} />
-                <Area type="monotone" dataKey="value" stroke="#69a7ff" strokeWidth={2} fill="url(#portfolioGradient)" />
+                <CartesianGrid stroke="#e2e2e2" vertical={false} />
+                <XAxis dataKey="label" tick={{ fill: "#6b6b6b", fontSize: 11 }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fill: "#6b6b6b", fontSize: 11 }} axisLine={false} tickLine={false} width={65} tickFormatter={(v) => formatCurrencyCompact(v)} />
+                <Tooltip contentStyle={{ background: "#ffffff", border: "1px solid #d9d9d9", borderRadius: 10 }} />
+                <Area type="monotone" dataKey="value" stroke="#D95A55" strokeWidth={2} fill="url(#portfolioGradient)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -435,14 +436,14 @@ export default function DashboardPage() {
                     <Cell key={entry.label} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip contentStyle={{ background: "#111b2b", border: "1px solid #26344d", borderRadius: 10 }} />
+                <Tooltip contentStyle={{ background: "#ffffff", border: "1px solid #d9d9d9", borderRadius: 10 }} />
               </PieChart>
             </ResponsiveContainer>
           </div>
           <div className="mt-2 grid grid-cols-2 gap-2 text-xs">
             {data.distribution.map((item) => (
-              <div key={item.label} className="flex items-center justify-between rounded-md border border-white/10 bg-white/[0.02] px-2 py-1">
-                <span className="flex items-center gap-1.5 text-zinc-300"><span className="h-2 w-2 rounded-full" style={{ background: item.color }} />{item.label}</span>
+              <div key={item.label} className="flex items-center justify-between rounded-md border border-black/10 bg-[#f8f8f8] px-2 py-1">
+                <span className="flex items-center gap-1.5 text-zinc-700"><span className="h-2 w-2 rounded-full" style={{ background: item.color }} />{item.label}</span>
                 <span className="text-zinc-500">{item.value}</span>
               </div>
             ))}
@@ -453,11 +454,11 @@ export default function DashboardPage() {
           <div className="h-48 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={capitalFlow.map((point, index) => ({ label: point.label, deployed: point.value, repaid: repaymentFlow[index]?.value ?? 0 }))}>
-                <CartesianGrid stroke="#1f2a3f" vertical={false} />
-                <XAxis dataKey="label" tick={{ fill: "#6f7f99", fontSize: 11 }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fill: "#6f7f99", fontSize: 11 }} axisLine={false} tickLine={false} />
-                <Tooltip contentStyle={{ background: "#111b2b", border: "1px solid #26344d", borderRadius: 10 }} />
-                <Bar dataKey="deployed" radius={[4, 4, 0, 0]} fill="#2f88ff" />
+                <CartesianGrid stroke="#e2e2e2" vertical={false} />
+                <XAxis dataKey="label" tick={{ fill: "#6b6b6b", fontSize: 11 }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fill: "#6b6b6b", fontSize: 11 }} axisLine={false} tickLine={false} />
+                <Tooltip contentStyle={{ background: "#ffffff", border: "1px solid #d9d9d9", borderRadius: 10 }} />
+                <Bar dataKey="deployed" radius={[4, 4, 0, 0]} fill="#C33732" />
                 <Bar dataKey="repaid" radius={[4, 4, 0, 0]} fill="#34d399" />
               </BarChart>
             </ResponsiveContainer>
@@ -473,13 +474,13 @@ export default function DashboardPage() {
         <Panel className="xl:col-span-4" title="Loans Requiring Attention" subtitle="Priority follow-up">
           <div className="space-y-2.5">
             {data.attention.map((loan) => (
-              <div key={loan.id} className="rounded-lg border border-white/10 bg-white/[0.02] p-3">
+              <div key={loan.id} className="rounded-lg border border-black/10 bg-[#f8f8f8] p-3">
                 <div className="flex items-center justify-between gap-2">
-                  <p className="text-sm font-medium text-white">{loan.loanId}</p>
+                  <p className="text-sm font-medium text-zinc-900">{loan.loanId}</p>
                   <span className={severityClassName(loan.severity)}>{loan.severity.toUpperCase()}</span>
                 </div>
-                <p className="mt-1 text-xs text-zinc-300">{loan.borrower}</p>
-                <p className="mt-1 text-xs text-zinc-400">{loan.issue}</p>
+                <p className="mt-1 text-xs text-zinc-700">{loan.borrower}</p>
+                <p className="mt-1 text-xs text-zinc-600">{loan.issue}</p>
                 <p className="mt-2 text-[11px] text-zinc-500">Due {loan.due}</p>
               </div>
             ))}
@@ -490,20 +491,20 @@ export default function DashboardPage() {
           {data.tasks.length ? (
             <div className="space-y-2.5">
               {data.tasks.map((task) => (
-                <div key={task.id} className="rounded-lg border border-white/10 bg-white/[0.02] p-3">
+                <div key={task.id} className="rounded-lg border border-black/10 bg-[#f8f8f8] p-3">
                   <div className="flex items-center justify-between gap-2">
-                    <p className="text-sm font-medium text-white">{task.title}</p>
+                    <p className="text-sm font-medium text-zinc-900">{task.title}</p>
                     <span className={severityClassName(task.priority)}>{task.priority}</span>
                   </div>
-                  <p className="mt-1 text-xs text-zinc-400">{task.owner}</p>
+                  <p className="mt-1 text-xs text-zinc-600">{task.owner}</p>
                   <p className="mt-1 text-[11px] text-zinc-500">Due {task.due}</p>
                 </div>
               ))}
             </div>
           ) : (
-            <div className="rounded-lg border border-white/10 bg-white/[0.02] p-4 text-center">
+            <div className="rounded-lg border border-black/10 bg-[#f8f8f8] p-4 text-center">
               <CheckCircle2 className="mx-auto h-6 w-6 text-emerald-300" />
-              <p className="mt-2 text-sm font-medium text-zinc-200">No tasks due today</p>
+              <p className="mt-2 text-sm font-medium text-zinc-700">No tasks due today</p>
             </div>
           )}
         </Panel>
@@ -511,13 +512,13 @@ export default function DashboardPage() {
         <Panel className="xl:col-span-4" title="Recent Payments" subtitle="Cash movement and servicing status">
           <div className="space-y-2.5">
             {data.payments.map((payment) => (
-              <div key={payment.id} className="rounded-lg border border-white/10 bg-white/[0.02] p-3">
+              <div key={payment.id} className="rounded-lg border border-black/10 bg-[#f8f8f8] p-3">
                 <div className="flex items-center justify-between gap-2">
-                  <p className="text-sm font-medium text-white">{payment.loan}</p>
-                  <span className="rounded-full border border-white/10 bg-white/[0.03] px-2 py-0.5 text-[10px] text-zinc-300">{payment.status}</span>
+                  <p className="text-sm font-medium text-zinc-900">{payment.loan}</p>
+                  <span className="rounded-full border border-black/10 bg-white px-2 py-0.5 text-[10px] text-zinc-700">{payment.status}</span>
                 </div>
-                <p className="mt-1 text-xs text-zinc-400">{payment.borrower}</p>
-                <p className="mt-2 text-sm font-semibold text-blue-200">{formatCurrencyCompact(payment.amount)}</p>
+                <p className="mt-1 text-xs text-zinc-600">{payment.borrower}</p>
+                <p className="mt-2 text-sm font-semibold text-[#7D2320]">{formatCurrencyCompact(payment.amount)}</p>
               </div>
             ))}
           </div>
@@ -528,17 +529,17 @@ export default function DashboardPage() {
         <Panel className="xl:col-span-5" title="Portfolio Risk Snapshot" subtitle="Exposure and concentration signals">
           <div className="space-y-3">
             {data.risk.map((row) => (
-              <div key={row.label} className="rounded-lg border border-white/10 bg-white/[0.02] p-3">
+              <div key={row.label} className="rounded-lg border border-black/10 bg-[#f8f8f8] p-3">
                 <div className="flex items-center justify-between gap-2">
-                  <p className="text-sm text-zinc-200">{row.label}</p>
+                  <p className="text-sm text-zinc-800">{row.label}</p>
                   <span className={severityClassName(row.riskLevel)}>{row.riskLevel}</span>
                 </div>
-                <div className="mt-2 flex items-center justify-between text-xs text-zinc-400">
+                <div className="mt-2 flex items-center justify-between text-xs text-zinc-600">
                   <span>{formatCurrencyCompact(row.exposure * 1_000_000)} exposure</span>
                   <span>{row.share}% of portfolio</span>
                 </div>
-                <div className="mt-2 h-1.5 rounded-full bg-white/10">
-                  <div className="h-1.5 rounded-full bg-gradient-to-r from-[#2f88ff] to-[#7cb8ff]" style={{ width: `${Math.min(row.share * 2, 100)}%` }} />
+                <div className="mt-2 h-1.5 rounded-full bg-[#ececec]">
+                  <div className="h-1.5 rounded-full bg-gradient-to-r from-[#C33732] to-[#E3726E]" style={{ width: `${Math.min(row.share * 2, 100)}%` }} />
                 </div>
               </div>
             ))}
@@ -548,14 +549,14 @@ export default function DashboardPage() {
         <Panel className="xl:col-span-7" title="Recent Activity" subtitle="Live operational timeline">
           <div className="space-y-2.5">
             {data.activity.map((event) => (
-              <div key={event.id} className="flex items-start gap-3 rounded-lg border border-white/10 bg-white/[0.02] p-3">
-                <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-blue-400" />
+              <div key={event.id} className="flex items-start gap-3 rounded-lg border border-black/10 bg-[#f8f8f8] p-3">
+                <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-[#C33732]" />
                 <div className="min-w-0 grow">
                   <div className="flex flex-wrap items-center justify-between gap-2">
-                    <p className="text-sm font-medium text-zinc-100">{event.title}</p>
+                    <p className="text-sm font-medium text-zinc-900">{event.title}</p>
                     <span className="text-[11px] text-zinc-500">{event.when}</span>
                   </div>
-                  <p className="mt-0.5 text-xs text-zinc-400">{event.detail}</p>
+                  <p className="mt-0.5 text-xs text-zinc-600">{event.detail}</p>
                   <p className="mt-1 text-[11px] text-zinc-500">by {event.actor}</p>
                 </div>
               </div>
@@ -564,8 +565,8 @@ export default function DashboardPage() {
         </Panel>
       </section>
 
-      <div className="flex items-center justify-between rounded-xl border border-white/10 bg-[#0f1826] px-4 py-3 text-xs text-zinc-400">
-        <p>Source: Live API | Team view: {selectedTeam} | Range: {selectedRange}</p>
+      <div className="flex items-center justify-between rounded-xl border border-black/10 bg-white px-4 py-3 text-xs text-zinc-600">
+        <p>Source: {usingFallback ? "Fallback (mock)" : "Live API"} | Team view: {selectedTeam} | Range: {selectedRange}</p>
         <button
           type="button"
           onClick={() => {
@@ -573,7 +574,7 @@ export default function DashboardPage() {
             void loansQuery.refetch();
             void paymentsQuery.refetch();
           }}
-          className="inline-flex items-center gap-1.5 text-zinc-300 transition hover:text-white"
+          className="inline-flex items-center gap-1.5 text-zinc-700 transition hover:text-black"
         >
           <RefreshCw className={(dashboardQuery.isFetching || loansQuery.isFetching || paymentsQuery.isFetching) ? "h-3.5 w-3.5 animate-spin" : "h-3.5 w-3.5"} />
           Refresh metrics
@@ -586,15 +587,15 @@ export default function DashboardPage() {
 function DashboardLoadingState() {
   return (
     <div className="space-y-4">
-      <div className="h-28 animate-pulse rounded-2xl border border-white/10 bg-white/[0.04]" />
+      <div className="h-28 animate-pulse rounded-2xl border border-black/10 bg-[#f3f3f3]" />
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
         {Array.from({ length: 8 }).map((_, index) => (
-          <div key={index} className="h-28 animate-pulse rounded-xl border border-white/10 bg-white/[0.04]" />
+          <div key={index} className="h-28 animate-pulse rounded-xl border border-black/10 bg-[#f3f3f3]" />
         ))}
       </div>
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-12">
-        <div className="h-64 animate-pulse rounded-xl border border-white/10 bg-white/[0.04] xl:col-span-7" />
-        <div className="h-64 animate-pulse rounded-xl border border-white/10 bg-white/[0.04] xl:col-span-5" />
+        <div className="h-64 animate-pulse rounded-xl border border-black/10 bg-[#f3f3f3] xl:col-span-7" />
+        <div className="h-64 animate-pulse rounded-xl border border-black/10 bg-[#f3f3f3] xl:col-span-5" />
       </div>
     </div>
   );
@@ -602,10 +603,10 @@ function DashboardLoadingState() {
 
 function ChartCard({ title, subtitle, className, children }: { title: string; subtitle: string; className?: string; children: React.ReactNode }) {
   return (
-    <article className={`rounded-xl border border-white/10 bg-[#101926]/95 p-4 ${className ?? ""}`}>
+    <article className={`rounded-xl border border-black/10 bg-white p-4 ${className ?? ""}`}>
       <div className="mb-3 flex items-start justify-between gap-2">
         <div>
-          <h3 className="text-sm font-semibold text-zinc-100">{title}</h3>
+          <h3 className="text-sm font-semibold text-zinc-900">{title}</h3>
           <p className="text-xs text-zinc-500">{subtitle}</p>
         </div>
         <TrendingUp className="h-4 w-4 text-zinc-500" />
@@ -617,10 +618,10 @@ function ChartCard({ title, subtitle, className, children }: { title: string; su
 
 function Panel({ title, subtitle, className, children }: { title: string; subtitle: string; className?: string; children: React.ReactNode }) {
   return (
-    <article className={`rounded-xl border border-white/10 bg-[#101926]/95 p-4 ${className ?? ""}`}>
+    <article className={`rounded-xl border border-black/10 bg-white p-4 ${className ?? ""}`}>
       <div className="mb-3 flex items-center justify-between">
         <div>
-          <h3 className="text-sm font-semibold text-zinc-100">{title}</h3>
+          <h3 className="text-sm font-semibold text-zinc-900">{title}</h3>
           <p className="text-xs text-zinc-500">{subtitle}</p>
         </div>
         <Filter className="h-4 w-4 text-zinc-600" />
@@ -637,22 +638,22 @@ function PipelineStages({ stages }: { stages: Array<{ stage: string; count: numb
     <div className="space-y-3">
       {stages.map((stage) => (
         <div key={stage.stage}>
-          <div className="flex items-center justify-between text-xs text-zinc-300">
+          <div className="flex items-center justify-between text-xs text-zinc-700">
             <span>{stage.stage}</span>
             <span className="text-zinc-500">{stage.count} deals · {formatCurrencyCompact(stage.amount * 1_000_000)}</span>
           </div>
-          <div className="mt-1.5 h-2 rounded-full bg-white/10">
-            <div className="h-2 rounded-full bg-gradient-to-r from-[#2f88ff] to-[#7cb8ff]" style={{ width: `${Math.max((stage.count / maxCount) * 100, 8)}%` }} />
+          <div className="mt-1.5 h-2 rounded-full bg-[#f3f3f3]">
+            <div className="h-2 rounded-full bg-gradient-to-r from-[#C33732] to-[#E3726E]" style={{ width: `${Math.max((stage.count / maxCount) * 100, 8)}%` }} />
           </div>
         </div>
       ))}
-      <div className="rounded-lg border border-amber-300/20 bg-amber-500/10 p-2 text-xs text-amber-200">
+      <div className="rounded-lg border border-[#C33732]/25 bg-[#C33732]/8 p-2 text-xs text-[#7D2320]">
         <div className="flex items-center gap-1.5">
           <AlertTriangle className="h-3.5 w-3.5" />
           Approval bottleneck detected in underwriting and docs pending.
         </div>
       </div>
-      <div className="rounded-lg border border-white/10 bg-white/[0.02] p-2 text-xs text-zinc-400">
+      <div className="rounded-lg border border-black/10 bg-[#f8f8f8] p-2 text-xs text-zinc-600">
         <div className="flex items-center gap-1.5">
           <CalendarClock className="h-3.5 w-3.5" />
           Funding queue updates reflected in real time.

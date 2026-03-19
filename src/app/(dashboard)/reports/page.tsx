@@ -84,11 +84,11 @@ export default function ReportsPage() {
               className={cn(
                 "rounded-lg border p-3 text-left transition-colors",
                 reportType === rt.value
-                  ? "border-[#1E3A5F] bg-blue-500/10 "
+                  ? "border-[#1E3A5F] bg-[#C33732]/10 "
                   : "bg-white hover:bg-white/5"
               )}
             >
-              <Icon className={cn("h-4 w-4 mb-1.5", reportType === rt.value ? "text-[#3B82F6]" : "text-zinc-500")} />
+              <Icon className={cn("h-4 w-4 mb-1.5", reportType === rt.value ? "text-[#C33732]" : "text-zinc-500")} />
               <p className={cn("text-sm font-medium", reportType === rt.value ? "text-[#162D4A]" : "")}>{rt.label}</p>
               <p className="text-[10px] text-zinc-500 mt-0.5">{rt.description}</p>
             </button>
@@ -199,12 +199,12 @@ function ReportTable({ type, report }: { type: ReportType; report: any }) {
           <tbody>
             {report.loans.map((l: any) => (
               <tr key={l.loanNumber} className="border-b last:border-0">
-                <td className="px-4 py-3 font-medium text-[#3B82F6]">{l.loanNumber}</td>
+                <td className="px-4 py-3 font-medium text-[#C33732]">{l.loanNumber}</td>
                 <td className="px-4 py-3">{l.borrower}</td>
                 <td className="px-4 py-3 text-xs text-zinc-500">{l.property}</td>
                 <td className="px-4 py-3 text-right font-medium">{formatCurrency(l.loanAmount)}</td>
                 <td className="px-4 py-3">
-                  <span className="inline-flex items-center rounded-full bg-blue-500/10 px-2 py-0.5 text-[10px] font-medium text-[#3B82F6]">
+                  <span className="inline-flex items-center rounded-full bg-[#C33732]/10 px-2 py-0.5 text-[10px] font-medium text-[#C33732]">
                     {l.status.replace("_", " ")}
                   </span>
                 </td>
@@ -233,7 +233,7 @@ function ReportTable({ type, report }: { type: ReportType; report: any }) {
           <tbody>
             {report.loans.map((l: any) => (
               <tr key={l.loanNumber} className={cn("border-b last:border-0", l.daysToMaturity !== null && l.daysToMaturity < 0 && "bg-red-50/50950/20")}>
-                <td className="px-4 py-3 font-medium text-[#3B82F6]">{l.loanNumber}</td>
+                <td className="px-4 py-3 font-medium text-[#C33732]">{l.loanNumber}</td>
                 <td className="px-4 py-3">{l.borrower}</td>
                 <td className="px-4 py-3 text-right font-medium">{formatCurrency(l.currentBalance)}</td>
                 <td className="px-4 py-3 text-right text-xs">{l.interestRate.toFixed(2)}%</td>
@@ -277,7 +277,7 @@ function ReportTable({ type, report }: { type: ReportType; report: any }) {
           <tbody>
             {report.loans.map((l: any) => (
               <tr key={l.loanNumber} className="border-b last:border-0">
-                <td className="px-4 py-3 font-medium text-[#3B82F6]">{l.loanNumber}</td>
+                <td className="px-4 py-3 font-medium text-[#C33732]">{l.loanNumber}</td>
                 <td className="px-4 py-3">{l.borrower}</td>
                 <td className="px-4 py-3 text-right font-medium">{formatCurrency(l.currentBalance)}</td>
                 <td className="px-4 py-3 text-right text-red-600 font-medium">{l.daysDelinquent}</td>

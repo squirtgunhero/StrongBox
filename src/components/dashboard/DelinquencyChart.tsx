@@ -39,15 +39,15 @@ export function DelinquencyChart() {
     <div className="rounded-xl p-5" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <h3 className="text-sm font-semibold text-white">Delinquency</h3>
+          <h3 className="text-sm font-semibold text-zinc-900">Delinquency</h3>
           {summary.delinquentLoans > 0 && (
-            <span className="inline-flex items-center gap-1 rounded-full bg-red-500/10 px-2 py-0.5 text-[10px] font-medium text-red-400">
+            <span className="inline-flex items-center gap-1 rounded-full bg-red-500/10 px-2 py-0.5 text-[10px] font-medium text-red-500">
               <AlertTriangle className="h-3 w-3" />
               {summary.delinquentLoans}
             </span>
           )}
         </div>
-        <Link href="/reports?type=delinquency" className="text-xs text-[#3B82F6] hover:text-blue-400">
+        <Link href="/reports?type=delinquency" className="text-xs text-[#C33732] hover:text-[#A52F2B]">
           View Report
         </Link>
       </div>
@@ -61,11 +61,11 @@ export function DelinquencyChart() {
         <>
           <div className="grid grid-cols-2 gap-3 mb-4">
             <div>
-              <p className="text-2xl font-bold font-mono text-red-400">{summary.delinquencyRate.toFixed(1)}%</p>
+              <p className="text-2xl font-bold font-mono text-red-500">{summary.delinquencyRate.toFixed(1)}%</p>
               <p className="text-xs text-zinc-500">Delinquency Rate</p>
             </div>
             <div>
-              <p className="text-2xl font-bold font-mono text-white">{formatCurrency(summary.delinquentBalance)}</p>
+              <p className="text-2xl font-bold font-mono text-zinc-900">{formatCurrency(summary.delinquentBalance)}</p>
               <p className="text-xs text-zinc-500">Delinquent Balance</p>
             </div>
           </div>
@@ -76,11 +76,11 @@ export function DelinquencyChart() {
               <div key={bucket.range}>
                 <div className="flex items-center justify-between text-xs mb-0.5">
                   <span className="text-zinc-500">{bucket.range}</span>
-                  <span className="font-medium font-mono text-zinc-400">
+                  <span className="font-medium font-mono text-zinc-700">
                     {bucket.count} — {formatCurrency(bucket.balance)}
                   </span>
                 </div>
-                <div className="w-full bg-white/10 rounded-full h-2">
+                <div className="w-full bg-[#f3f3f3] rounded-full h-2">
                   <div
                     className={cn("h-2 rounded-full transition-all", BUCKET_COLORS[i])}
                     style={{ width: `${(bucket.balance / maxBalance) * 100}%` }}

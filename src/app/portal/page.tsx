@@ -59,8 +59,8 @@ export default function PortalPage() {
         </div>
         <div className="rounded-xl p-4">
           <div className="flex items-center gap-3">
-            <div className="rounded-full bg-blue-500/10 p-2">
-              <TrendingUp className="h-4 w-4 text-[#3B82F6]" />
+            <div className="rounded-full bg-[#C33732]/10 p-2">
+              <TrendingUp className="h-4 w-4 text-[#C33732]" />
             </div>
             <div>
               <p className="text-xs text-zinc-500">Total Deployed</p>
@@ -96,7 +96,7 @@ export default function PortalPage() {
       <div className="rounded-lg border bg-white">
         <div className="flex items-center justify-between px-4 py-3 border-b">
           <h2 className="text-sm font-semibold">Active Investments</h2>
-          <Link href="/portal/portfolio" className="text-xs text-[#3B82F6] hover:text-blue-400">
+          <Link href="/portal/portfolio" className="text-xs text-[#C33732] hover:text-[#A52F2B]">
             View All
           </Link>
         </div>
@@ -140,7 +140,7 @@ export default function PortalPage() {
         <div className="mt-6 rounded-lg border bg-white">
           <div className="flex items-center justify-between px-4 py-3 border-b">
             <h2 className="text-sm font-semibold">Recent Transactions</h2>
-            <Link href="/portal/transactions" className="text-xs text-[#3B82F6] hover:text-blue-400">
+            <Link href="/portal/transactions" className="text-xs text-[#C33732] hover:text-[#A52F2B]">
               View All
             </Link>
           </div>

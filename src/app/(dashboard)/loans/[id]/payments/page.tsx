@@ -20,7 +20,7 @@ import { formatCurrency } from "@/lib/utils/currency";
 import { formatDate, isOverdue } from "@/lib/utils/dates";
 
 const STATUS_COLORS: Record<string, string> = {
-  SCHEDULED: "text-[#3B82F6] bg-blue-500/10",
+  SCHEDULED: "text-[#C33732] bg-[#C33732]/10",
   PENDING: "text-amber-600 bg-amber-50950",
   PAID: "text-emerald-600 bg-emerald-50950",
   LATE: "text-red-600 bg-red-50950",
@@ -105,7 +105,7 @@ export default function LoanPaymentsPage() {
       <div className="flex items-center gap-3 mb-6">
         <Link
           href={`/loans/${id}`}
-          className="rounded-md p-2 text-zinc-500 hover:text-zinc-400 hover:bg-white/5"
+          className="rounded-md p-2 text-zinc-500 hover:text-zinc-600 hover:bg-white/5"
         >
           <ArrowLeft className="h-5 w-5" />
         </Link>
@@ -125,7 +125,7 @@ export default function LoanPaymentsPage() {
           <button
             onClick={() => generateSchedule.mutate()}
             disabled={generateSchedule.isPending}
-            className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] disabled:opacity-50"
           >
             {generateSchedule.isPending ? (
               <Loader2 className="h-4 w-4 animate-spin" />
@@ -275,7 +275,7 @@ export default function LoanPaymentsPage() {
                               </button>
                               <button
                                 onClick={() => setShowRecord(null)}
-                                className="text-zinc-500 hover:text-zinc-400"
+                                className="text-zinc-500 hover:text-zinc-600"
                               >
                                 <X className="h-3.5 w-3.5" />
                               </button>
@@ -286,7 +286,7 @@ export default function LoanPaymentsPage() {
                                 setShowRecord(payment.id);
                                 setRecordAmount(Number(payment.amount).toFixed(2));
                               }}
-                              className="text-xs text-[#3B82F6] hover:text-blue-400"
+                              className="text-xs text-[#C33732] hover:text-[#A52F2B]"
                             >
                               Record Payment
                             </button>

@@ -44,7 +44,7 @@ export default function TemplatesPage() {
             className={cn(
               "px-3 py-1.5 text-xs font-medium rounded-md transition-colors",
               typeFilter === f.value
-                ? "bg-blue-500/10 text-[#162D4A]"
+                ? "bg-[#C33732]/10 text-[#162D4A]"
                 : "text-zinc-500 hover:bg-white/5"
             )}
           >
@@ -67,7 +67,7 @@ export default function TemplatesPage() {
               <div className="flex items-start justify-between mb-3">
                 <div className="flex items-center gap-2">
                   {tmpl.type === "EMAIL" ? (
-                    <Mail className="h-4 w-4 text-[#3B82F6]" />
+                    <Mail className="h-4 w-4 text-[#C33732]" />
                   ) : (
                     <MessageSquare className="h-4 w-4 text-green-500" />
                   )}
@@ -101,7 +101,7 @@ export default function TemplatesPage() {
                 </div>
                 <button
                   onClick={() => setViewTemplate(tmpl)}
-                  className="text-xs text-[#3B82F6] hover:text-blue-400 font-medium flex items-center gap-1"
+                  className="text-xs text-[#C33732] hover:text-[#A52F2B] font-medium flex items-center gap-1"
                 >
                   <Eye className="h-3 w-3" /> Preview
                 </button>
@@ -123,7 +123,7 @@ export default function TemplatesPage() {
               <h2 className="text-lg font-semibold">{viewTemplate.name}</h2>
               <button
                 onClick={() => setViewTemplate(null)}
-                className="text-zinc-500 hover:text-zinc-400 text-xl"
+                className="text-zinc-500 hover:text-zinc-600 text-xl"
               >
                 &times;
               </button>
@@ -146,7 +146,7 @@ export default function TemplatesPage() {
               </div>
               <div>
                 <p className="text-xs font-medium text-zinc-500 mb-1">Source</p>
-                <pre className="text-xs bg-white/5 p-4 rounded-md overflow-x-auto font-mono text-zinc-400">
+                <pre className="text-xs bg-white/5 p-4 rounded-md overflow-x-auto font-mono text-zinc-600">
                   {viewTemplate.body}
                 </pre>
               </div>

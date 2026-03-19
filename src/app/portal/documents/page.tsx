@@ -117,7 +117,7 @@ export default function PortalDocumentsPage() {
                         <label
                           htmlFor={`upload-${doc.id}`}
                           className={cn(
-                            "flex items-center gap-2 rounded-md bg-[#3B82F6] px-3 py-1.5 text-xs font-medium text-white cursor-pointer hover:bg-blue-600",
+                            "flex items-center gap-2 rounded-md bg-[#C33732] px-3 py-1.5 text-xs font-medium text-white cursor-pointer hover:bg-[#A52F2B]",
                             uploading && "opacity-50 pointer-events-none"
                           )}
                         >

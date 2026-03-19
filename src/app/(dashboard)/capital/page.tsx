@@ -15,7 +15,7 @@ import { cn } from "@/lib/utils";
 import { formatCurrency } from "@/lib/utils/currency";
 
 const TYPE_CONFIG: Record<string, { label: string; color: string }> = {
-  LINE_OF_CREDIT: { label: "Line of Credit", color: "text-[#3B82F6] bg-blue-500/10" },
+  LINE_OF_CREDIT: { label: "Line of Credit", color: "text-[#C33732] bg-[#C33732]/10" },
   PRIVATE_INVESTOR: { label: "Private Investor", color: "text-purple-600 bg-purple-50950" },
   FUND: { label: "Fund", color: "text-emerald-600 bg-emerald-50950" },
   OPERATING_CAPITAL: { label: "Operating", color: "text-amber-600 bg-amber-50950" },
@@ -71,7 +71,7 @@ export default function CapitalPage() {
         </div>
         <button
           onClick={() => setShowCreate(true)}
-          className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600"
+          className="flex items-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B]"
         >
           <Plus className="h-4 w-4" /> Add Source
         </button>
@@ -81,8 +81,8 @@ export default function CapitalPage() {
       <div className="grid grid-cols-3 gap-4 mb-6">
         <div className="rounded-xl p-4">
           <div className="flex items-center gap-3">
-            <div className="rounded-full bg-blue-500/10 p-2">
-              <Landmark className="h-4 w-4 text-[#3B82F6]" />
+            <div className="rounded-full bg-[#C33732]/10 p-2">
+              <Landmark className="h-4 w-4 text-[#C33732]" />
             </div>
             <div>
               <p className="text-xs text-zinc-500">Total Capacity</p>
@@ -121,7 +121,7 @@ export default function CapitalPage() {
         <div className="rounded-xl p-4 mb-6">
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-sm font-semibold">Add Capital Source</h3>
-            <button onClick={() => setShowCreate(false)} className="text-zinc-500 hover:text-zinc-400">
+            <button onClick={() => setShowCreate(false)} className="text-zinc-500 hover:text-zinc-600">
               <X className="h-4 w-4" />
             </button>
           </div>
@@ -193,7 +193,7 @@ export default function CapitalPage() {
             <button
               onClick={() => createSource.mutate(form)}
               disabled={!form.name || createSource.isPending}
-              className="rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
+              className="rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] disabled:opacity-50"
             >
               Create
             </button>
@@ -272,7 +272,7 @@ export default function CapitalPage() {
                             ? "bg-red-500"
                             : utilization > 70
                             ? "bg-amber-500"
-                            : "bg-[#3B82F6]"
+                            : "bg-[#C33732]"
                         )}
                         style={{ width: `${Math.min(100, utilization)}%` }}
                       />
@@ -295,7 +295,7 @@ export default function CapitalPage() {
                           key={alloc.id}
                           className="flex items-center justify-between text-xs"
                         >
-                          <span className="text-[#3B82F6]">
+                          <span className="text-[#C33732]">
                             {alloc.loan.loanNumber}
                           </span>
                           <span className="font-medium">

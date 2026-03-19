@@ -70,7 +70,7 @@ export default function CommunicationsPage() {
         </div>
         <button
           onClick={() => setShowCompose(true)}
-          className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600"
+          className="flex items-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B]"
         >
           <Send className="h-4 w-4" /> Compose
         </button>
@@ -87,7 +87,7 @@ export default function CommunicationsPage() {
               className={cn(
                 "flex items-center gap-2 rounded-md px-3 py-1.5 text-xs font-medium transition-colors",
                 typeFilter === opt.value
-                  ? "bg-blue-500/10 text-[#162D4A]"
+                  ? "bg-[#C33732]/10 text-[#162D4A]"
                   : "text-zinc-500 hover:bg-white/5"
               )}
             >
@@ -148,7 +148,7 @@ export default function CommunicationsPage() {
                           : "—"}
                       </span>
                       {comm.loan && (
-                        <span className="text-xs text-[#3B82F6]">
+                        <span className="text-xs text-[#C33732]">
                           {comm.loan.loanNumber}
                         </span>
                       )}
@@ -231,7 +231,7 @@ function ComposeModal({
       <div className="fixed inset-y-0 right-0 z-50 w-[500px] bg-white border-l shadow-2xl flex flex-col">
         <div className="flex items-center justify-between px-6 py-4 border-b">
           <h2 className="text-lg font-semibold">Compose</h2>
-          <button onClick={onClose} className="text-zinc-500 hover:text-zinc-400 text-xl">
+          <button onClick={onClose} className="text-zinc-500 hover:text-zinc-600 text-xl">
             &times;
           </button>
         </div>
@@ -246,7 +246,7 @@ function ComposeModal({
                 className={cn(
                   "px-3 py-1.5 text-xs font-medium rounded-md transition-colors",
                   type === t
-                    ? "bg-blue-500/10 text-[#162D4A]"
+                    ? "bg-[#C33732]/10 text-[#162D4A]"
                     : "text-zinc-500 hover:bg-white/5"
                 )}
               >
@@ -319,14 +319,14 @@ function ComposeModal({
         <div className="border-t px-6 py-4 flex justify-end gap-3">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-sm font-medium text-zinc-400 hover:bg-white/5 rounded-md"
+            className="px-4 py-2 text-sm font-medium text-zinc-600 hover:bg-white/5 rounded-md"
           >
             Cancel
           </button>
           <button
             onClick={() => sendMutation.mutate()}
             disabled={!to || !body || sendMutation.isPending}
-            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[#3B82F6] hover:bg-blue-600 rounded-md disabled:opacity-50"
+            className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-white bg-[#C33732] hover:bg-[#A52F2B] rounded-md disabled:opacity-50"
           >
             {sendMutation.isPending ? (
               <Loader2 className="h-4 w-4 animate-spin" />

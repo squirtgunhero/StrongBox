@@ -105,7 +105,7 @@ export default function UsersSettingsPage() {
         </div>
         <button
           onClick={() => setShowForm(true)}
-          className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 transition-colors"
+          className="flex items-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] transition-colors"
         >
           <Plus className="h-4 w-4" />
           Invite User
@@ -187,7 +187,7 @@ export default function UsersSettingsPage() {
                   <td className="px-4 py-3 text-right">
                     <button
                       onClick={() => setEditingUser(user)}
-                      className="rounded p-1 text-zinc-500 hover:bg-white/5 hover:text-zinc-400"
+                      className="rounded p-1 text-zinc-500 hover:bg-white/5 hover:text-zinc-600"
                     >
                       <MoreHorizontal className="h-4 w-4" />
                     </button>
@@ -239,29 +239,29 @@ function InviteUserForm({
         className="grid grid-cols-1 gap-4 sm:grid-cols-2"
       >
         <div>
-          <label className="block text-sm font-medium text-zinc-300 mb-1">
+          <label className="block text-sm font-medium text-zinc-700 mb-1">
             First Name
           </label>
           <input
             required
             value={formData.firstName}
             onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-zinc-300 mb-1">
+          <label className="block text-sm font-medium text-zinc-700 mb-1">
             Last Name
           </label>
           <input
             required
             value={formData.lastName}
             onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-zinc-300 mb-1">
+          <label className="block text-sm font-medium text-zinc-700 mb-1">
             Email
           </label>
           <input
@@ -269,17 +269,17 @@ function InviteUserForm({
             required
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-zinc-300 mb-1">
+          <label className="block text-sm font-medium text-zinc-700 mb-1">
             Role
           </label>
           <select
             value={formData.role}
             onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
           >
             {ROLES.map((role) => (
               <option key={role} value={role}>
@@ -299,7 +299,7 @@ function InviteUserForm({
           <button
             type="submit"
             disabled={isLoading}
-            className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] disabled:opacity-50"
           >
             {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
             Send Invite
@@ -335,13 +335,13 @@ function EditUserModal({
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-zinc-300 mb-1">
+            <label className="block text-sm font-medium text-zinc-700 mb-1">
               Role
             </label>
             <select
               value={role}
               onChange={(e) => setRole(e.target.value)}
-              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
             >
               {ROLES.map((r) => (
                 <option key={r} value={r}>
@@ -359,7 +359,7 @@ function EditUserModal({
               onChange={(e) => setIsActive(e.target.checked)}
               className="rounded border-white/[0.12]"
             />
-            <label htmlFor="isActive" className="text-sm text-zinc-300">
+            <label htmlFor="isActive" className="text-sm text-zinc-700">
               Active
             </label>
           </div>
@@ -375,7 +375,7 @@ function EditUserModal({
           <button
             onClick={() => onSubmit({ role, isActive })}
             disabled={isLoading}
-            className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] disabled:opacity-50"
           >
             {isLoading && <Loader2 className="h-4 w-4 animate-spin" />}
             Save Changes

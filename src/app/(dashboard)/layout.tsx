@@ -7,8 +7,8 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative flex h-screen overflow-hidden bg-[#070b12] text-white">
-      <div className="pointer-events-none absolute inset-0 opacity-60 [background:radial-gradient(circle_at_12%_18%,rgba(40,96,194,0.28),transparent_28%),radial-gradient(circle_at_80%_0%,rgba(20,74,155,0.2),transparent_26%),linear-gradient(180deg,#090f1b_0%,#070b12_100%)]" />
+    <div className="relative flex h-screen overflow-hidden bg-white text-black">
+      <div className="pointer-events-none absolute inset-0 opacity-50 [background:radial-gradient(circle_at_12%_18%,rgba(195,55,50,0.12),transparent_30%),radial-gradient(circle_at_80%_0%,rgba(0,0,0,0.05),transparent_28%),linear-gradient(180deg,#ffffff_0%,#f8f8f8_100%)]" />
       <Sidebar />
       <div className="relative z-10 flex flex-1 flex-col overflow-hidden">
         <Header />

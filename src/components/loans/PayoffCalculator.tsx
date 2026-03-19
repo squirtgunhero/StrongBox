@@ -49,7 +49,7 @@ export function PayoffCalculator({ loanId }: PayoffCalculatorProps) {
         <button
           onClick={() => refetch()}
           disabled={isLoading}
-          className="mt-5 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
+          className="mt-5 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] disabled:opacity-50"
         >
           {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Calculate"}
         </button>

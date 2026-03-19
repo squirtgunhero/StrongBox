@@ -115,7 +115,7 @@ export default function ScheduledReportsPage() {
         </div>
         <button
           onClick={() => setShowForm(!showForm)}
-          className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 transition-colors"
+          className="flex items-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] transition-colors"
         >
           <Plus className="h-4 w-4" /> New Schedule
         </button>
@@ -126,20 +126,20 @@ export default function ScheduledReportsPage() {
           <h3 className="text-sm font-semibold mb-4">New Scheduled Report</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-zinc-300 mb-1">Name</label>
+              <label className="block text-sm font-medium text-zinc-700 mb-1">Name</label>
               <input
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Weekly Portfolio Summary"
-                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-zinc-300 mb-1">Report Type</label>
+              <label className="block text-sm font-medium text-zinc-700 mb-1">Report Type</label>
               <select
                 value={reportType}
                 onChange={(e) => setReportType(e.target.value)}
-                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
               >
                 <option value="">Select report type...</option>
                 {REPORT_TYPES.map((rt) => (
@@ -148,11 +148,11 @@ export default function ScheduledReportsPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-zinc-300 mb-1">Schedule</label>
+              <label className="block text-sm font-medium text-zinc-700 mb-1">Schedule</label>
               <select
                 value={schedule}
                 onChange={(e) => setSchedule(e.target.value)}
-                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
               >
                 {SCHEDULE_OPTIONS.map((s) => (
                   <option key={s.value} value={s.value}>{s.label}</option>
@@ -160,14 +160,14 @@ export default function ScheduledReportsPage() {
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-zinc-300 mb-1">
+              <label className="block text-sm font-medium text-zinc-700 mb-1">
                 Recipients (comma-separated emails)
               </label>
               <input
                 value={recipientInput}
                 onChange={(e) => setRecipientInput(e.target.value)}
                 placeholder="admin@stronginvestor.com, ops@stronginvestor.com"
-                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+                className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
               />
             </div>
           </div>
@@ -175,7 +175,7 @@ export default function ScheduledReportsPage() {
             <button
               onClick={() => createSchedule.mutate()}
               disabled={!name || !reportType || !recipientInput || createSchedule.isPending}
-              className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50 transition-colors"
+              className="flex items-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] disabled:opacity-50 transition-colors"
             >
               {createSchedule.isPending && <Loader2 className="h-4 w-4 animate-spin" />}
               Create Schedule
@@ -212,7 +212,7 @@ export default function ScheduledReportsPage() {
                       )}
                     />
                     <p className="text-sm font-semibold">{s.name}</p>
-                    <span className="inline-flex items-center rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-medium text-zinc-400">
+                    <span className="inline-flex items-center rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-medium text-zinc-600">
                       {s.schedule}
                     </span>
                   </div>

@@ -121,6 +121,7 @@ export default function LoansPage() {
   });
 
   const loans = data?.length ? data : sampleLoans;
+  const usingFallback = isError;
 
   const selectedLoan = useMemo(() => {
     const local = loans.find((loan) => loan.id === selectedLoanId) ?? null;
@@ -177,19 +178,19 @@ export default function LoansPage() {
 
   return (
     <div className="elevate-in space-y-4 pb-8">
-      <section className="rounded-2xl border border-white/10 bg-gradient-to-br from-[#111b2b] to-[#0f1623] p-4 sm:p-5">
+      <section className="rounded-2xl border border-black/10 bg-gradient-to-br from-white to-[#f3f3f3] p-4 sm:p-5">
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <p className="text-xs uppercase tracking-[0.18em] text-blue-300/90">Portfolio Workspace</p>
-            <h2 className="mt-1 text-2xl font-semibold tracking-tight text-white">Loans</h2>
-            <p className="mt-1 text-sm text-zinc-400">Live record management with underwriting and servicing controls.</p>
+            <p className="text-xs uppercase tracking-[0.18em] text-[#C33732]">Portfolio Workspace</p>
+            <h2 className="mt-1 text-2xl font-semibold tracking-tight text-black">Loans</h2>
+            <p className="mt-1 text-sm text-zinc-600">Live record management with underwriting and servicing controls.</p>
           </div>
           <div className="flex items-center gap-2">
-            <button className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2 text-xs text-zinc-300 transition hover:bg-white/[0.08]">
+            <button className="inline-flex items-center gap-1.5 rounded-lg border border-black/10 bg-white px-3 py-2 text-xs text-zinc-700 transition hover:bg-[#f3f3f3]">
               <Sparkles className="h-3.5 w-3.5" />
               Smart View
             </button>
-            <button className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-[#1f5bd6] to-[#2f88ff] px-3 py-2 text-xs font-semibold text-white transition hover:from-[#2d68df] hover:to-[#4493ff]">
+            <button className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-[#C33732] to-[#A52F2B] px-3 py-2 text-xs font-semibold text-white transition hover:from-[#B0332E] hover:to-[#8E2824]">
               <Plus className="h-3.5 w-3.5" />
               New Loan
             </button>
@@ -204,7 +205,7 @@ export default function LoansPage() {
         <StatPill label="Average LTV" value={formatPercent(summary.avgLtv)} />
       </section>
 
-      <section className="rounded-xl border border-white/10 bg-[#101926]/95 p-3">
+      <section className="rounded-xl border border-black/10 bg-white p-3">
         <div className="flex flex-wrap items-center gap-2">
           <div className="relative min-w-[280px] grow">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-500" />
@@ -212,7 +213,7 @@ export default function LoansPage() {
               value={search}
               onChange={(event) => setSearch(event.target.value)}
               placeholder="Search Loan ID, borrower, property, manager"
-              className="h-10 w-full rounded-lg border border-white/10 bg-[#0e1523] pl-9 pr-3 text-sm text-zinc-100 outline-none transition focus:border-blue-400"
+              className="h-10 w-full rounded-lg border border-black/10 bg-[#f8f8f8] pl-9 pr-3 text-sm text-zinc-900 outline-none transition focus:border-[#C33732]"
             />
           </div>
 
@@ -233,7 +234,7 @@ export default function LoansPage() {
           <button
             type="button"
             onClick={() => setShowFilterDrawer(true)}
-            className="inline-flex h-10 items-center gap-2 rounded-lg border border-white/10 bg-[#0e1523] px-3 text-xs font-medium text-zinc-300 transition hover:bg-white/[0.08]"
+            className="inline-flex h-10 items-center gap-2 rounded-lg border border-black/10 bg-[#f8f8f8] px-3 text-xs font-medium text-zinc-700 transition hover:bg-[#f3f3f3]"
           >
             <SlidersHorizontal className="h-3.5 w-3.5" />
             Filters
@@ -248,8 +249,8 @@ export default function LoansPage() {
               onClick={() => setStatusFilter(stage)}
               className={
                 statusFilter === stage
-                  ? "rounded-full border border-blue-300/40 bg-blue-500/20 px-3 py-1.5 text-xs font-medium text-blue-200"
-                  : "rounded-full border border-white/10 bg-white/[0.02] px-3 py-1.5 text-xs font-medium text-zinc-400 transition hover:text-zinc-200"
+                  ? "rounded-full border border-[#C33732]/45 bg-[#C33732]/12 px-3 py-1.5 text-xs font-medium text-[#7D2320]"
+                  : "rounded-full border border-black/10 bg-[#f8f8f8] px-3 py-1.5 text-xs font-medium text-zinc-600 transition hover:text-zinc-900"
               }
             >
               {stage}
@@ -259,35 +260,38 @@ export default function LoansPage() {
       </section>
 
       {selectedIds.length > 0 ? (
-        <section className="flex items-center justify-between rounded-xl border border-blue-300/25 bg-blue-500/10 px-4 py-2.5 text-xs text-blue-100">
+        <section className="flex items-center justify-between rounded-xl border border-[#C33732]/25 bg-[#C33732]/10 px-4 py-2.5 text-xs text-[#7D2320]">
           <p>{selectedIds.length} selected</p>
           <div className="flex items-center gap-2">
-            <button className="rounded-lg border border-white/15 bg-white/5 px-2.5 py-1.5 transition hover:bg-white/10">Assign manager</button>
-            <button className="rounded-lg border border-white/15 bg-white/5 px-2.5 py-1.5 transition hover:bg-white/10">Request docs</button>
-            <button className="rounded-lg border border-white/15 bg-white/5 px-2.5 py-1.5 transition hover:bg-white/10">Move stage</button>
+            <button className="rounded-lg border border-black/15 bg-white px-2.5 py-1.5 transition hover:bg-[#f3f3f3]">Assign manager</button>
+            <button className="rounded-lg border border-black/15 bg-white px-2.5 py-1.5 transition hover:bg-[#f3f3f3]">Request docs</button>
+            <button className="rounded-lg border border-black/15 bg-white px-2.5 py-1.5 transition hover:bg-[#f3f3f3]">Move stage</button>
           </div>
         </section>
       ) : null}
 
-      <section className="overflow-hidden rounded-xl border border-white/10 bg-[#101926]/95">
+      {usingFallback ? (
+        <section className="rounded-xl border border-[#C33732]/30 bg-[#C33732]/8 px-4 py-3">
+          <div className="flex items-center gap-2 text-xs text-[#5B1A18]">
+            <CircleAlert className="h-4 w-4 text-[#C33732]" />
+            Live data is temporarily unavailable. Showing demo data while connection recovers.
+          </div>
+        </section>
+      ) : null}
+
+      <section className="overflow-hidden rounded-xl border border-black/10 bg-white">
         {isLoading ? (
           <LoansLoadingState />
-        ) : isError ? (
-          <div className="p-10 text-center">
-            <CircleAlert className="mx-auto h-8 w-8 text-red-300" />
-            <p className="mt-2 text-sm font-medium text-zinc-100">Unable to load loans</p>
-            <button type="button" onClick={() => void refetch()} className="mt-4 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-xs text-zinc-200 transition hover:bg-white/[0.1]">Retry</button>
-          </div>
         ) : !loans.length ? (
           <div className="p-10 text-center">
             <Filter className="mx-auto h-8 w-8 text-zinc-500" />
-            <p className="mt-2 text-sm font-medium text-zinc-100">No results for this view</p>
-            <button type="button" onClick={clearFilters} className="mt-4 rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-xs text-zinc-200 transition hover:bg-white/[0.1]">Reset filters</button>
+            <p className="mt-2 text-sm font-medium text-zinc-900">No results for this view</p>
+            <button type="button" onClick={clearFilters} className="mt-4 rounded-lg border border-black/10 bg-[#f3f3f3] px-3 py-2 text-xs text-zinc-700 transition hover:bg-[#e8e8e8]">Reset filters</button>
           </div>
         ) : (
           <div className="max-h-[680px] overflow-auto">
             <table className="min-w-[1320px] w-full border-separate border-spacing-0 text-sm">
-              <thead className="sticky top-0 z-10 bg-[#0f1724]">
+              <thead className="sticky top-0 z-10 bg-[#f3f3f3]">
                 <tr>
                   <HeaderCell className="w-10">
                     <input type="checkbox" checked={allSelected} onChange={toggleSelectAll} className="h-3.5 w-3.5" />
@@ -311,39 +315,39 @@ export default function LoansPage() {
                 {loans.map((loan) => {
                   const selected = selectedIds.includes(loan.id);
                   return (
-                    <tr key={loan.id} className={selected ? "bg-blue-500/10" : "bg-transparent transition-colors hover:bg-white/[0.04]"}>
+                    <tr key={loan.id} className={selected ? "bg-[#C33732]/10" : "bg-transparent transition-colors hover:bg-[#f8f8f8]"}>
                       <BodyCell>
                         <input type="checkbox" checked={selected} onChange={() => toggleSelectOne(loan.id)} className="h-3.5 w-3.5" />
                       </BodyCell>
                       <BodyCell>
-                        <button type="button" onClick={() => setSelectedLoanId(loan.id)} className="font-semibold text-blue-200 transition hover:text-blue-100">{loan.loanId}</button>
+                        <button type="button" onClick={() => setSelectedLoanId(loan.id)} className="font-semibold text-[#8F2521] transition hover:text-[#C33732]">{loan.loanId}</button>
                       </BodyCell>
                       <BodyCell>
-                        <p className="text-zinc-100">{loan.borrower}</p>
+                        <p className="text-zinc-900">{loan.borrower}</p>
                         <p className="text-xs text-zinc-500">{loan.borrowerEntity}</p>
                       </BodyCell>
                       <BodyCell>{loan.property}</BodyCell>
                       <BodyCell>
-                        <p className="text-zinc-200">{loan.loanType}</p>
+                        <p className="text-zinc-800">{loan.loanType}</p>
                         <p className="text-xs text-zinc-500">{loan.propertyType}</p>
                       </BodyCell>
                       <BodyCell><span className={stageClassName(loan.stage)}>{loan.stage}</span></BodyCell>
-                      <BodyCell className="font-medium text-zinc-100">{formatCurrency(loan.principal)}</BodyCell>
+                      <BodyCell className="font-medium text-zinc-900">{formatCurrency(loan.principal)}</BodyCell>
                       <BodyCell>{formatPercent(loan.interestRate)}</BodyCell>
-                      <BodyCell><span className={loan.ltv >= 72 ? "text-amber-200" : "text-zinc-200"}>{loan.ltv}%</span></BodyCell>
+                      <BodyCell><span className={loan.ltv >= 72 ? "text-amber-700" : "text-zinc-700"}>{loan.ltv}%</span></BodyCell>
                       <BodyCell>{formatDate(loan.maturityDate)}</BodyCell>
                       <BodyCell><span className={paymentClassName(loan.paymentStatus)}>{loan.paymentStatus}</span></BodyCell>
                       <BodyCell>{loan.lastActivity}</BodyCell>
                       <BodyCell>{loan.manager}</BodyCell>
                       <BodyCell className="text-right">
                         <div className="relative inline-flex items-center gap-1">
-                          <button type="button" onClick={() => setSelectedLoanId(loan.id)} className="rounded-md border border-white/10 bg-white/[0.03] px-2 py-1 text-[11px] text-zinc-200 transition hover:bg-white/[0.08]">Open</button>
-                          <button type="button" onClick={() => setOpenMenuId((current) => (current === loan.id ? null : loan.id))} className="rounded-md border border-white/10 bg-white/[0.03] p-1 text-zinc-400 transition hover:bg-white/[0.08] hover:text-zinc-200"><MoreHorizontal className="h-3.5 w-3.5" /></button>
+                          <button type="button" onClick={() => setSelectedLoanId(loan.id)} className="rounded-md border border-black/10 bg-white px-2 py-1 text-[11px] text-zinc-700 transition hover:bg-[#f3f3f3]">Open</button>
+                          <button type="button" onClick={() => setOpenMenuId((current) => (current === loan.id ? null : loan.id))} className="rounded-md border border-black/10 bg-white p-1 text-zinc-500 transition hover:bg-[#f3f3f3] hover:text-zinc-700"><MoreHorizontal className="h-3.5 w-3.5" /></button>
                           {openMenuId === loan.id ? (
-                            <div className="absolute right-0 top-8 z-20 w-36 rounded-lg border border-white/10 bg-[#121d2e] p-1 text-left shadow-2xl">
-                              <button className="block w-full rounded-md px-2.5 py-1.5 text-xs text-zinc-300 transition hover:bg-white/[0.08]">Edit</button>
-                              <button className="block w-full rounded-md px-2.5 py-1.5 text-xs text-zinc-300 transition hover:bg-white/[0.08]">Request docs</button>
-                              <button className="block w-full rounded-md px-2.5 py-1.5 text-xs text-zinc-300 transition hover:bg-white/[0.08]">Change stage</button>
+                            <div className="absolute right-0 top-8 z-20 w-36 rounded-lg border border-black/10 bg-white p-1 text-left shadow-2xl">
+                              <button className="block w-full rounded-md px-2.5 py-1.5 text-xs text-zinc-700 transition hover:bg-[#f3f3f3]">Edit</button>
+                              <button className="block w-full rounded-md px-2.5 py-1.5 text-xs text-zinc-700 transition hover:bg-[#f3f3f3]">Request docs</button>
+                              <button className="block w-full rounded-md px-2.5 py-1.5 text-xs text-zinc-700 transition hover:bg-[#f3f3f3]">Change stage</button>
                             </div>
                           ) : null}
                         </div>
@@ -367,33 +371,33 @@ function LoansLoadingState() {
   return (
     <div className="p-4">
       <div className="mb-3 flex items-center gap-2 text-xs text-zinc-500"><Loader2 className="h-3.5 w-3.5 animate-spin" />Loading loans workspace</div>
-      <div className="space-y-2">{Array.from({ length: 10 }).map((_, index) => <div key={index} className="h-10 animate-pulse rounded bg-white/[0.04]" />)}</div>
+      <div className="space-y-2">{Array.from({ length: 10 }).map((_, index) => <div key={index} className="h-10 animate-pulse rounded bg-[#f3f3f3]" />)}</div>
     </div>
   );
 }
 
 function HeaderCell({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <th className={`border-b border-white/10 px-3 py-2.5 text-left text-[11px] font-semibold uppercase tracking-[0.15em] text-zinc-500 ${className ?? ""}`}>{children}</th>;
+  return <th className={`border-b border-black/10 px-3 py-2.5 text-left text-[11px] font-semibold uppercase tracking-[0.15em] text-zinc-600 ${className ?? ""}`}>{children}</th>;
 }
 
 function BodyCell({ children, className }: { children: React.ReactNode; className?: string }) {
-  return <td className={`border-b border-white/10 px-3 py-2.5 text-xs text-zinc-400 ${className ?? ""}`}>{children}</td>;
+  return <td className={`border-b border-black/10 px-3 py-2.5 text-xs text-zinc-700 ${className ?? ""}`}>{children}</td>;
 }
 
 function StatPill({ label, value, tone = "neutral" }: { label: string; value: string; tone?: "neutral" | "danger" }) {
   return (
-    <article className="rounded-xl border border-white/10 bg-[#101926]/95 p-3.5">
+    <article className="rounded-xl border border-black/10 bg-white p-3.5">
       <p className="text-[11px] uppercase tracking-[0.15em] text-zinc-500">{label}</p>
-      <p className={tone === "danger" ? "mt-2 text-xl font-semibold text-red-200" : "mt-2 text-xl font-semibold text-zinc-100"}>{value}</p>
+      <p className={tone === "danger" ? "mt-2 text-xl font-semibold text-[#9D2C28]" : "mt-2 text-xl font-semibold text-zinc-900"}>{value}</p>
     </article>
   );
 }
 
 function SelectControl({ label, value, options, onChange }: { label: string; value: string; options: Array<string | { label: string; value: string }>; onChange: (value: string) => void }) {
   return (
-    <label className="inline-flex h-10 items-center gap-1.5 rounded-lg border border-white/10 bg-[#0e1523] px-2.5 text-xs text-zinc-300">
+    <label className="inline-flex h-10 items-center gap-1.5 rounded-lg border border-black/10 bg-[#f8f8f8] px-2.5 text-xs text-zinc-700">
       <span className="text-zinc-500">{label}</span>
-      <select value={value} onChange={(event) => onChange(event.target.value)} className="h-full bg-transparent pr-5 text-zinc-200 outline-none">
+      <select value={value} onChange={(event) => onChange(event.target.value)} className="h-full bg-transparent pr-5 text-zinc-800 outline-none">
         {options.map((option) => {
           const normalized = typeof option === "string" ? { label: option, value: option } : option;
           return <option key={normalized.value} value={normalized.value}>{normalized.label}</option>;
@@ -422,40 +426,40 @@ function AdvancedFilterDrawer({
   return (
     <>
       <button type="button" onClick={onClose} className="fixed inset-0 z-30 bg-black/50" aria-label="Close filters" />
-      <aside className="fixed right-0 top-0 z-40 h-screen w-full max-w-md border-l border-white/10 bg-[#101926] p-4 shadow-2xl">
+      <aside className="fixed right-0 top-0 z-40 h-screen w-full max-w-md border-l border-black/10 bg-white p-4 shadow-2xl">
         <div className="flex items-center justify-between">
-          <h3 className="text-sm font-semibold text-zinc-100">Advanced Filters</h3>
-          <button type="button" onClick={onClose} className="rounded-md border border-white/10 p-1.5 text-zinc-400 transition hover:bg-white/[0.08] hover:text-zinc-200"><X className="h-4 w-4" /></button>
+          <h3 className="text-sm font-semibold text-zinc-900">Advanced Filters</h3>
+          <button type="button" onClick={onClose} className="rounded-md border border-black/10 p-1.5 text-zinc-500 transition hover:bg-[#f3f3f3] hover:text-zinc-800"><X className="h-4 w-4" /></button>
         </div>
 
         <div className="mt-4 space-y-4 text-sm">
           <FilterField label="Manager">
-            <select value={filters.manager} onChange={(event) => setFilters((current) => ({ ...current, manager: event.target.value }))} className="h-10 w-full rounded-lg border border-white/10 bg-[#0f1724] px-3 text-zinc-200 outline-none">
+            <select value={filters.manager} onChange={(event) => setFilters((current) => ({ ...current, manager: event.target.value }))} className="h-10 w-full rounded-lg border border-black/10 bg-[#f8f8f8] px-3 text-zinc-800 outline-none">
               <option value="All">All</option>
               {managers.map((manager) => <option key={manager} value={manager}>{manager}</option>)}
             </select>
           </FilterField>
 
           <FilterField label="Payment Status">
-            <select value={filters.paymentStatus} onChange={(event) => setFilters((current) => ({ ...current, paymentStatus: event.target.value as PaymentFilter }))} className="h-10 w-full rounded-lg border border-white/10 bg-[#0f1724] px-3 text-zinc-200 outline-none">
+            <select value={filters.paymentStatus} onChange={(event) => setFilters((current) => ({ ...current, paymentStatus: event.target.value as PaymentFilter }))} className="h-10 w-full rounded-lg border border-black/10 bg-[#f8f8f8] px-3 text-zinc-800 outline-none">
               {paymentFilters.map((status) => <option key={status} value={status}>{status}</option>)}
             </select>
           </FilterField>
 
           <div className="grid grid-cols-2 gap-2">
-            <FilterField label="Min Principal"><input value={filters.minPrincipal} onChange={(event) => setFilters((current) => ({ ...current, minPrincipal: event.target.value }))} placeholder="0" className="h-10 w-full rounded-lg border border-white/10 bg-[#0f1724] px-3 text-zinc-200 outline-none" /></FilterField>
-            <FilterField label="Max Principal"><input value={filters.maxPrincipal} onChange={(event) => setFilters((current) => ({ ...current, maxPrincipal: event.target.value }))} placeholder="10000000" className="h-10 w-full rounded-lg border border-white/10 bg-[#0f1724] px-3 text-zinc-200 outline-none" /></FilterField>
+            <FilterField label="Min Principal"><input value={filters.minPrincipal} onChange={(event) => setFilters((current) => ({ ...current, minPrincipal: event.target.value }))} placeholder="0" className="h-10 w-full rounded-lg border border-black/10 bg-[#f8f8f8] px-3 text-zinc-800 outline-none" /></FilterField>
+            <FilterField label="Max Principal"><input value={filters.maxPrincipal} onChange={(event) => setFilters((current) => ({ ...current, maxPrincipal: event.target.value }))} placeholder="10000000" className="h-10 w-full rounded-lg border border-black/10 bg-[#f8f8f8] px-3 text-zinc-800 outline-none" /></FilterField>
           </div>
 
           <div className="grid grid-cols-2 gap-2">
-            <FilterField label="Min LTV"><input value={filters.minLtv} onChange={(event) => setFilters((current) => ({ ...current, minLtv: event.target.value }))} placeholder="0" className="h-10 w-full rounded-lg border border-white/10 bg-[#0f1724] px-3 text-zinc-200 outline-none" /></FilterField>
-            <FilterField label="Max LTV"><input value={filters.maxLtv} onChange={(event) => setFilters((current) => ({ ...current, maxLtv: event.target.value }))} placeholder="100" className="h-10 w-full rounded-lg border border-white/10 bg-[#0f1724] px-3 text-zinc-200 outline-none" /></FilterField>
+            <FilterField label="Min LTV"><input value={filters.minLtv} onChange={(event) => setFilters((current) => ({ ...current, minLtv: event.target.value }))} placeholder="0" className="h-10 w-full rounded-lg border border-black/10 bg-[#f8f8f8] px-3 text-zinc-800 outline-none" /></FilterField>
+            <FilterField label="Max LTV"><input value={filters.maxLtv} onChange={(event) => setFilters((current) => ({ ...current, maxLtv: event.target.value }))} placeholder="100" className="h-10 w-full rounded-lg border border-black/10 bg-[#f8f8f8] px-3 text-zinc-800 outline-none" /></FilterField>
           </div>
         </div>
 
         <div className="mt-6 flex items-center gap-2">
-          <button type="button" onClick={() => setFilters(defaultAdvancedFilters)} className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-xs text-zinc-200 transition hover:bg-white/[0.1]">Reset</button>
-          <button type="button" onClick={onClose} className="rounded-lg bg-[#2f88ff] px-3 py-2 text-xs font-semibold text-white transition hover:bg-[#4a98ff]">Apply filters</button>
+          <button type="button" onClick={() => setFilters(defaultAdvancedFilters)} className="rounded-lg border border-black/10 bg-[#f3f3f3] px-3 py-2 text-xs text-zinc-800 transition hover:bg-[#e8e8e8]">Reset</button>
+          <button type="button" onClick={onClose} className="rounded-lg bg-[#C33732] px-3 py-2 text-xs font-semibold text-white transition hover:bg-[#A52F2B]">Apply filters</button>
         </div>
       </aside>
     </>
@@ -470,14 +474,14 @@ function LoanDetailDrawer({ loan, loadingDetail, onClose }: { loan: LoanRecord; 
   return (
     <>
       <button type="button" onClick={onClose} className="fixed inset-0 z-30 bg-black/40" aria-label="Close loan details" />
-      <aside className="fixed right-0 top-0 z-40 h-screen w-full max-w-xl overflow-y-auto border-l border-white/10 bg-[#101926] p-4 shadow-2xl">
+      <aside className="fixed right-0 top-0 z-40 h-screen w-full max-w-xl overflow-y-auto border-l border-black/10 bg-white p-4 shadow-2xl">
         <div className="flex items-start justify-between gap-3">
           <div>
-            <p className="text-xs uppercase tracking-[0.15em] text-blue-300">Loan Preview</p>
-            <h3 className="mt-1 text-xl font-semibold text-white">{loan.loanId}</h3>
-            <p className="text-sm text-zinc-400">{loan.borrower}</p>
+            <p className="text-xs uppercase tracking-[0.15em] text-[#C33732]">Loan Preview</p>
+            <h3 className="mt-1 text-xl font-semibold text-zinc-900">{loan.loanId}</h3>
+            <p className="text-sm text-zinc-600">{loan.borrower}</p>
           </div>
-          <button type="button" onClick={onClose} className="rounded-md border border-white/10 p-1.5 text-zinc-400 transition hover:bg-white/[0.08] hover:text-zinc-200"><X className="h-4 w-4" /></button>
+          <button type="button" onClick={onClose} className="rounded-md border border-black/10 p-1.5 text-zinc-500 transition hover:bg-[#f3f3f3] hover:text-zinc-800"><X className="h-4 w-4" /></button>
         </div>
 
         {loadingDetail ? <p className="mt-4 text-xs text-zinc-500">Loading live detail...</p> : null}
@@ -489,25 +493,25 @@ function LoanDetailDrawer({ loan, loadingDetail, onClose }: { loan: LoanRecord; 
           <PreviewPill label="Maturity" value={formatDate(loan.maturityDate)} />
         </div>
 
-        <div className="mt-5 rounded-xl border border-white/10 bg-white/[0.02] p-3">
-          <h4 className="text-sm font-semibold text-zinc-100">Borrower and Property</h4>
-          <p className="mt-2 text-sm text-zinc-300">{loan.borrowerEntity}</p>
+        <div className="mt-5 rounded-xl border border-black/10 bg-[#f8f8f8] p-3">
+          <h4 className="text-sm font-semibold text-zinc-900">Borrower and Property</h4>
+          <p className="mt-2 text-sm text-zinc-700">{loan.borrowerEntity}</p>
           <p className="mt-1 text-xs text-zinc-500">{loan.property}</p>
-          <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-zinc-400">
+          <div className="mt-2 flex flex-wrap items-center gap-2 text-xs text-zinc-600">
             <span className={stageClassName(loan.stage)}>{loan.stage}</span>
             <span className={paymentClassName(loan.paymentStatus)}>{loan.paymentStatus}</span>
-            <span className="rounded-full border border-white/10 bg-white/[0.03] px-2 py-0.5">Risk {loan.riskGrade}</span>
+            <span className="rounded-full border border-black/10 bg-white px-2 py-0.5">Risk {loan.riskGrade}</span>
           </div>
         </div>
 
-        <div className="mt-5 rounded-xl border border-white/10 bg-white/[0.02] p-3">
-          <h4 className="text-sm font-semibold text-zinc-100">Timeline</h4>
+        <div className="mt-5 rounded-xl border border-black/10 bg-[#f8f8f8] p-3">
+          <h4 className="text-sm font-semibold text-zinc-900">Timeline</h4>
           <div className="mt-3 space-y-2.5">
             {loan.timeline.map((event) => (
               <div key={`${loan.id}-${event.date}-${event.event}`} className="flex items-start gap-2 text-xs">
-                <div className="mt-1 h-2 w-2 rounded-full bg-blue-400" />
+                <div className="mt-1 h-2 w-2 rounded-full bg-[#C33732]" />
                 <div>
-                  <p className="text-zinc-200">{event.event}</p>
+                  <p className="text-zinc-800">{event.event}</p>
                   <p className="text-zinc-500">{event.date} · {event.by}</p>
                 </div>
               </div>
@@ -515,23 +519,23 @@ function LoanDetailDrawer({ loan, loadingDetail, onClose }: { loan: LoanRecord; 
           </div>
         </div>
 
-        <div className="mt-5 rounded-xl border border-white/10 bg-white/[0.02] p-3">
-          <h4 className="text-sm font-semibold text-zinc-100">Docs and Payment Summary</h4>
-          <div className="mt-2 space-y-1.5 text-xs text-zinc-400">
+        <div className="mt-5 rounded-xl border border-black/10 bg-[#f8f8f8] p-3">
+          <h4 className="text-sm font-semibold text-zinc-900">Docs and Payment Summary</h4>
+          <div className="mt-2 space-y-1.5 text-xs text-zinc-600">
             <p className="flex items-center justify-between"><span>Pending documents</span><span>{loan.docsPending}</span></p>
             <p className="flex items-center justify-between"><span>Next payment</span><span>{formatCurrency(loan.nextPaymentAmount)}</span></p>
             <p className="flex items-center justify-between"><span>Manager</span><span>{loan.manager}</span></p>
           </div>
         </div>
 
-        <div className="mt-5 rounded-xl border border-white/10 bg-white/[0.02] p-3">
-          <h4 className="text-sm font-semibold text-zinc-100">Internal Notes</h4>
-          <p className="mt-2 text-xs leading-relaxed text-zinc-400">{loan.notes}</p>
+        <div className="mt-5 rounded-xl border border-black/10 bg-[#f8f8f8] p-3">
+          <h4 className="text-sm font-semibold text-zinc-900">Internal Notes</h4>
+          <p className="mt-2 text-xs leading-relaxed text-zinc-600">{loan.notes}</p>
         </div>
 
         <div className="mt-6 flex items-center gap-2">
-          <button className="rounded-lg border border-white/10 bg-white/[0.04] px-3 py-2 text-xs text-zinc-200 transition hover:bg-white/[0.1]">Open full profile</button>
-          <button className="inline-flex items-center gap-1.5 rounded-lg bg-[#2f88ff] px-3 py-2 text-xs font-semibold text-white transition hover:bg-[#4a98ff]">Next action <ChevronRight className="h-3.5 w-3.5" /></button>
+          <button className="rounded-lg border border-black/10 bg-[#f3f3f3] px-3 py-2 text-xs text-zinc-700 transition hover:bg-[#e8e8e8]">Open full profile</button>
+          <button className="inline-flex items-center gap-1.5 rounded-lg bg-[#C33732] px-3 py-2 text-xs font-semibold text-white transition hover:bg-[#B64742]">Next action <ChevronRight className="h-3.5 w-3.5" /></button>
         </div>
       </aside>
     </>
@@ -539,7 +543,7 @@ function LoanDetailDrawer({ loan, loadingDetail, onClose }: { loan: LoanRecord; 
 }
 
 function PreviewPill({ label, value }: { label: string; value: string }) {
-  return <div className="rounded-lg border border-white/10 bg-white/[0.03] p-2.5"><p className="text-[11px] uppercase tracking-[0.12em] text-zinc-500">{label}</p><p className="mt-1 text-sm font-semibold text-zinc-100">{value}</p></div>;
+  return <div className="rounded-lg border border-black/10 bg-[#f8f8f8] p-2.5"><p className="text-[11px] uppercase tracking-[0.12em] text-zinc-500">{label}</p><p className="mt-1 text-sm font-semibold text-zinc-900">{value}</p></div>;
 }
 
 function stageFilterToApiStatus(filter: StageFilter) {
@@ -649,8 +653,8 @@ function mapLoanStage(status: string): LoanRecord["stage"] {
 function stageClassName(stage: LoanRecord["stage"]) {
   if (stage === "Delinquent") return "rounded-full border border-red-300/30 bg-red-500/15 px-2 py-0.5 text-[11px] text-red-200";
   if (stage === "Funded" || stage === "Active") return "rounded-full border border-emerald-300/30 bg-emerald-500/15 px-2 py-0.5 text-[11px] text-emerald-200";
-  if (stage === "Matured") return "rounded-full border border-zinc-300/20 bg-zinc-500/15 px-2 py-0.5 text-[11px] text-zinc-300";
-  return "rounded-full border border-blue-300/30 bg-blue-500/15 px-2 py-0.5 text-[11px] text-blue-200";
+  if (stage === "Matured") return "rounded-full border border-zinc-300/20 bg-zinc-500/15 px-2 py-0.5 text-[11px] text-zinc-700";
+  return "rounded-full border border-[#C33732]/30 bg-[#C33732]/12 px-2 py-0.5 text-[11px] text-[#7D2320]";
 }
 
 function paymentClassName(paymentStatus: LoanRecord["paymentStatus"]) {

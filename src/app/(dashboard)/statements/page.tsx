@@ -82,7 +82,7 @@ export default function StatementsPage() {
                 className={cn(
                   "px-3 py-2 text-xs font-medium capitalize first:rounded-l-md last:rounded-r-md",
                   period === p
-                    ? "bg-blue-500/10 text-[#162D4A]"
+                    ? "bg-[#C33732]/10 text-[#162D4A]"
                     : "text-zinc-500 hover:bg-white/5"
                 )}
               >
@@ -105,7 +105,7 @@ export default function StatementsPage() {
         {investorId && (
           <a
             href={`/api/statements?investorId=${investorId}&period=${period}&date=${date}&format=csv`}
-            className="flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium text-zinc-400 hover:bg-white/5"
+            className="flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium text-zinc-600 hover:bg-white/5"
           >
             <Download className="h-4 w-4" /> Export CSV
           </a>
@@ -137,9 +137,9 @@ export default function StatementsPage() {
                 <p className="text-xs text-zinc-500">Total Committed</p>
                 <p className="text-lg font-bold">{formatCurrency(statement.summary.totalCommitted)}</p>
               </div>
-              <div className="rounded-md bg-blue-500/10 p-3">
+              <div className="rounded-md bg-[#C33732]/10 p-3">
                 <p className="text-xs text-zinc-500">Total Deployed</p>
-                <p className="text-lg font-bold text-[#3B82F6]">{formatCurrency(statement.summary.totalDeployed)}</p>
+                <p className="text-lg font-bold text-[#C33732]">{formatCurrency(statement.summary.totalDeployed)}</p>
               </div>
               <div className="rounded-md bg-emerald-50950/30 p-3">
                 <p className="text-xs text-zinc-500">Total Distributed</p>

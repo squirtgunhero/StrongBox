@@ -36,8 +36,8 @@ export default function ForgotPasswordPage() {
     return (
       <div className="rounded-xl p-8 shadow-sm">
         <div className="flex flex-col items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/10">
-            <Mail className="h-6 w-6 text-[#3B82F6]" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#C33732]/10">
+            <Mail className="h-6 w-6 text-[#C33732]" />
           </div>
           <h1 className="text-xl font-semibold">Check your email</h1>
           <p className="text-sm text-zinc-500 text-center">
@@ -45,7 +45,7 @@ export default function ForgotPasswordPage() {
           </p>
           <Link
             href="/login"
-            className="text-sm text-[#3B82F6] hover:text-blue-400"
+            className="text-sm text-[#C33732] hover:text-[#A52F2B]"
           >
             Back to sign in
           </Link>
@@ -58,7 +58,7 @@ export default function ForgotPasswordPage() {
     <div className="rounded-xl p-8 shadow-sm">
       <Link
         href="/login"
-        className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-white mb-6"
+        className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-black mb-6"
       >
         <ArrowLeft className="h-4 w-4" />
         Back to sign in
@@ -79,7 +79,7 @@ export default function ForgotPasswordPage() {
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-zinc-300 mb-1"
+            className="block text-sm font-medium text-zinc-700 mb-1"
           >
             Email
           </label>
@@ -90,14 +90,14 @@ export default function ForgotPasswordPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
           />
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full flex items-center justify-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="w-full flex items-center justify-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           {loading && <Loader2 className="h-4 w-4 animate-spin" />}
           Send reset link

@@ -75,7 +75,7 @@ export default function DocumentDetailPage() {
       <div className="flex items-center gap-3 mb-6">
         <Link
           href="/documents"
-          className="rounded-md p-2 text-zinc-500 hover:text-zinc-400 hover:bg-white/5"
+          className="rounded-md p-2 text-zinc-500 hover:text-zinc-600 hover:bg-white/5"
         >
           <ArrowLeft className="h-5 w-5" />
         </Link>
@@ -89,7 +89,7 @@ export default function DocumentDetailPage() {
               href={doc.storageUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium text-zinc-400 hover:bg-white/5"
+              className="flex items-center gap-2 rounded-md border px-4 py-2 text-sm font-medium text-zinc-600 hover:bg-white/5"
             >
               <Download className="h-4 w-4" /> Download
             </a>
@@ -134,7 +134,7 @@ export default function DocumentDetailPage() {
                     href={doc.storageUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-sm text-[#3B82F6] hover:text-blue-400"
+                    className="flex items-center gap-2 text-sm text-[#C33732] hover:text-[#A52F2B]"
                   >
                     <ExternalLink className="h-4 w-4" /> Open in new tab
                   </a>
@@ -227,7 +227,7 @@ export default function DocumentDetailPage() {
               {doc.loan && (
                 <Link
                   href={`/loans/${doc.loan.id}`}
-                  className="flex items-center gap-2 text-[#3B82F6] hover:text-blue-400"
+                  className="flex items-center gap-2 text-[#C33732] hover:text-[#A52F2B]"
                 >
                   <FileText className="h-4 w-4" />
                   Loan {doc.loan.loanNumber}
@@ -236,7 +236,7 @@ export default function DocumentDetailPage() {
               {doc.contact && (
                 <Link
                   href={`/contacts/${doc.contact.id}`}
-                  className="flex items-center gap-2 text-[#3B82F6] hover:text-blue-400"
+                  className="flex items-center gap-2 text-[#C33732] hover:text-[#A52F2B]"
                 >
                   {doc.contact.firstName} {doc.contact.lastName}
                 </Link>

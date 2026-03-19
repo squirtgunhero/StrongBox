@@ -50,7 +50,7 @@ export default function ContactDetailPage() {
     return (
       <div className="p-12 text-center">
         <p className="text-sm text-red-500">Contact not found</p>
-        <Link href="/contacts" className="text-sm text-[#3B82F6] mt-2 inline-block">
+        <Link href="/contacts" className="text-sm text-[#C33732] mt-2 inline-block">
           Back to contacts
         </Link>
       </div>
@@ -63,7 +63,7 @@ export default function ContactDetailPage() {
     <div>
       <Link
         href="/contacts"
-        className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-white mb-4"
+        className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-black mb-4"
       >
         <ArrowLeft className="h-4 w-4" />
         Back to contacts
@@ -97,7 +97,7 @@ export default function ContactDetailPage() {
           </div>
           <div className="flex gap-1 mt-2">
             {contact.isBorrower && (
-              <span className="rounded-full bg-blue-500/10 px-2 py-0.5 text-xs text-[#162D4A]">
+              <span className="rounded-full bg-[#C33732]/10 px-2 py-0.5 text-xs text-[#162D4A]">
                 Borrower
               </span>
             )}
@@ -131,8 +131,8 @@ export default function ContactDetailPage() {
               className={cn(
                 "pb-3 text-sm font-medium border-b-2 -mb-px transition-colors",
                 activeTab === tab
-                  ? "border-[#1E3A5F] text-[#3B82F6]"
-                  : "border-transparent text-zinc-500 hover:text-white"
+                  ? "border-[#1E3A5F] text-[#C33732]"
+                  : "border-transparent text-zinc-500 hover:text-black"
               )}
             >
               {tab}
@@ -244,7 +244,7 @@ function ContactLoansTab({ loans }: { loans: any[] }) {
               <td className="px-4 py-3">
                 <Link
                   href={`/loans/${loan.id}`}
-                  className="font-medium text-[#3B82F6] hover:text-blue-400"
+                  className="font-medium text-[#C33732] hover:text-[#A52F2B]"
                 >
                   {loan.loanNumber}
                 </Link>

@@ -112,7 +112,7 @@ export default function ConditionsDashboard() {
                         <td className="px-4 py-3">
                           <Link
                             href={`/loans/${c.loanId}`}
-                            className="text-[#3B82F6] hover:text-blue-400"
+                            className="text-[#C33732] hover:text-[#A52F2B]"
                           >
                             {c.loanNumber}
                           </Link>
@@ -145,7 +145,7 @@ export default function ConditionsDashboard() {
                       <span className="line-through text-zinc-500">{c.text}</span>
                       <Link
                         href={`/loans/${c.loanId}`}
-                        className="text-xs text-[#3B82F6]"
+                        className="text-xs text-[#C33732]"
                       >
                         {c.loanNumber}
                       </Link>

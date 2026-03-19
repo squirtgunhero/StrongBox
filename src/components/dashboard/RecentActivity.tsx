@@ -6,13 +6,13 @@ import { cn } from "@/lib/utils";
 import { formatRelative } from "@/lib/utils/dates";
 
 const ACTION_ICONS: Record<string, { icon: typeof FileText; color: string }> = {
-  CREATE: { icon: UserPlus, color: "text-emerald-400 bg-white/5" },
-  UPDATE: { icon: ArrowRightLeft, color: "text-[#3B82F6] bg-white/5" },
-  DELETE: { icon: Shield, color: "text-red-400 bg-white/5" },
-  STATUS_CHANGE: { icon: ArrowRightLeft, color: "text-purple-400 bg-white/5" },
-  UPLOAD: { icon: FileText, color: "text-indigo-400 bg-white/5" },
-  PAYMENT: { icon: DollarSign, color: "text-emerald-400 bg-white/5" },
-  DRAW: { icon: HardHat, color: "text-amber-400 bg-white/5" },
+  CREATE: { icon: UserPlus, color: "text-emerald-600 bg-[#f3f3f3]" },
+  UPDATE: { icon: ArrowRightLeft, color: "text-[#C33732] bg-[#f3f3f3]" },
+  DELETE: { icon: Shield, color: "text-red-500 bg-[#f3f3f3]" },
+  STATUS_CHANGE: { icon: ArrowRightLeft, color: "text-violet-600 bg-[#f3f3f3]" },
+  UPLOAD: { icon: FileText, color: "text-indigo-600 bg-[#f3f3f3]" },
+  PAYMENT: { icon: DollarSign, color: "text-emerald-600 bg-[#f3f3f3]" },
+  DRAW: { icon: HardHat, color: "text-amber-600 bg-[#f3f3f3]" },
 };
 
 export function RecentActivity() {
@@ -40,7 +40,7 @@ export function RecentActivity() {
 
   return (
     <div className="rounded-xl p-5" style={{ background: "var(--surface)", border: "1px solid var(--border)" }}>
-      <h3 className="text-sm font-semibold text-white mb-4">Recent Activity</h3>
+      <h3 className="text-sm font-semibold text-zinc-900 mb-4">Recent Activity</h3>
 
       {activity.length === 0 ? (
         <p className="text-xs text-zinc-500 text-center py-6">No recent activity</p>
@@ -57,10 +57,10 @@ export function RecentActivity() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-xs">
-                    <span className="font-medium text-white">
+                    <span className="font-medium text-zinc-900">
                       {item.user ? `${item.user.firstName} ${item.user.lastName}` : "System"}
                     </span>{" "}
-                    <span className="text-zinc-400">
+                    <span className="text-zinc-600">
                       {item.action.toLowerCase().replace("_", " ")} {item.entityType?.toLowerCase()}
                     </span>
                   </p>

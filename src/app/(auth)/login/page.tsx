@@ -63,8 +63,8 @@ export default function LoginPage() {
     return (
       <div className="rounded-xl p-8 shadow-sm">
         <div className="flex flex-col items-center gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-500/10">
-            <Mail className="h-6 w-6 text-[#3B82F6]" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#C33732]/10">
+            <Mail className="h-6 w-6 text-[#C33732]" />
           </div>
           <h1 className="text-xl font-semibold">Check your email</h1>
           <p className="text-sm text-zinc-500 text-center">
@@ -73,7 +73,7 @@ export default function LoginPage() {
           </p>
           <button
             onClick={() => setMagicLinkSent(false)}
-            className="text-sm text-[#3B82F6] hover:text-blue-400"
+            className="text-sm text-[#C33732] hover:text-[#A52F2B]"
           >
             Try a different method
           </button>
@@ -86,7 +86,7 @@ export default function LoginPage() {
     <div className="rounded-xl p-8 shadow-sm">
       <div className="flex flex-col items-center gap-2 mb-8">
         <div className="flex items-center gap-2">
-          <Landmark className="h-7 w-7 text-[#3B82F6]" />
+          <Landmark className="h-7 w-7 text-[#C33732]" />
           <span className="text-xl font-bold">StrongBox</span>
         </div>
         <p className="text-sm text-zinc-500">Sign in to your account</p>
@@ -105,7 +105,7 @@ export default function LoginPage() {
         <div>
           <label
             htmlFor="email"
-            className="block text-sm font-medium text-zinc-300 mb-1"
+            className="block text-sm font-medium text-zinc-700 mb-1"
           >
             Email
           </label>
@@ -116,7 +116,7 @@ export default function LoginPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="you@example.com"
-            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+            className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
           />
         </div>
 
@@ -125,13 +125,13 @@ export default function LoginPage() {
             <div className="flex items-center justify-between mb-1">
               <label
                 htmlFor="password"
-                className="block text-sm font-medium text-zinc-300"
+                className="block text-sm font-medium text-zinc-700"
               >
                 Password
               </label>
               <Link
                 href="/forgot-password"
-                className="text-xs text-[#3B82F6] hover:text-blue-400"
+                className="text-xs text-[#C33732] hover:text-[#A52F2B]"
               >
                 Forgot password?
               </Link>
@@ -143,7 +143,7 @@ export default function LoginPage() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
-              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]"
+              className="w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]"
             />
           </div>
         )}
@@ -151,7 +151,7 @@ export default function LoginPage() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full flex items-center justify-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          className="w-full flex items-center justify-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
         >
           {loading && <Loader2 className="h-4 w-4 animate-spin" />}
           {mode === "password" ? "Sign in" : "Send magic link"}
@@ -161,7 +161,7 @@ export default function LoginPage() {
       <div className="mt-4 text-center">
         <button
           onClick={() => setMode(mode === "password" ? "magic-link" : "password")}
-          className="text-sm text-zinc-500 hover:text-white"
+          className="text-sm text-zinc-500 hover:text-black"
         >
           {mode === "password"
             ? "Sign in with magic link instead"

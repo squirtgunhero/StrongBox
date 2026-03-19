@@ -19,6 +19,7 @@ import { createClient } from "@/lib/supabase/client";
 
 const PAGE_TITLES: Record<string, string> = {
   "/": "Dashboard",
+  "/dashboard": "Dashboard",
   "/pipeline": "Pipeline",
   "/loans": "Loans",
   "/contacts": "Contacts",
@@ -120,21 +121,21 @@ export function Header() {
   }
 
   return (
-    <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0b1220]/90 px-4 py-3 backdrop-blur-md sm:px-6">
+    <header className="sticky top-0 z-30 border-b border-black/10 bg-white/95 px-4 py-3 backdrop-blur-md sm:px-6">
       <div className="flex items-center justify-between gap-3">
         <div>
-          <h1 className="text-[17px] font-semibold tracking-tight text-white">{pageTitle}</h1>
-          <p className="text-xs text-zinc-400">Operational lending workspace</p>
+          <h1 className="text-[17px] font-semibold tracking-tight text-black">{pageTitle}</h1>
+          <p className="text-xs text-zinc-600">Operational lending workspace</p>
         </div>
 
         <div className="flex items-center gap-2">
           <button
             type="button"
-            className="group hidden items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-zinc-300 transition hover:border-white/20 hover:bg-white/[0.08] hover:text-white md:flex"
+            className="group hidden items-center gap-2 rounded-xl border border-black/10 bg-[#f8f8f8] px-3 py-2 text-sm text-zinc-700 transition hover:border-black/20 hover:bg-[#f3f3f3] hover:text-black md:flex"
           >
-            <Search className="h-4 w-4 text-zinc-500 group-hover:text-zinc-200" />
-            <span className="text-zinc-400">Search loans, borrowers, actions</span>
-            <span className="ml-4 flex items-center gap-1 rounded-md border border-white/10 bg-[#0a111f] px-1.5 py-0.5 text-[10px] text-zinc-500">
+            <Search className="h-4 w-4 text-zinc-500 group-hover:text-zinc-700" />
+            <span className="text-zinc-600">Search loans, borrowers, actions</span>
+            <span className="ml-4 flex items-center gap-1 rounded-md border border-black/10 bg-white px-1.5 py-0.5 text-[10px] text-zinc-500">
               <Command className="h-3 w-3" />K
             </span>
           </button>
@@ -144,7 +145,7 @@ export function Header() {
               <Link
                 key={action.id}
                 href={action.href}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.03] px-2.5 py-2 text-xs font-medium text-zinc-300 transition hover:border-white/20 hover:bg-white/[0.08] hover:text-white"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-black/10 bg-[#f8f8f8] px-2.5 py-2 text-xs font-medium text-zinc-700 transition hover:border-black/20 hover:bg-[#f3f3f3] hover:text-black"
               >
                 <action.icon className="h-3.5 w-3.5" />
                 {action.label}
@@ -156,20 +157,20 @@ export function Header() {
             <button
               type="button"
               onClick={() => setShowCreateMenu((prev) => !prev)}
-              className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-[#1f5bd6] to-[#2f88ff] px-3 py-2 text-xs font-semibold text-white shadow-[0_10px_18px_-12px_rgba(47,136,255,0.95)] transition hover:from-[#2d68df] hover:to-[#4493ff]"
+              className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-[#C33732] to-[#A52F2B] px-3 py-2 text-xs font-semibold text-white shadow-[0_10px_18px_-12px_rgba(195,55,50,0.9)] transition hover:from-[#B0332E] hover:to-[#8E2824]"
             >
               <CirclePlus className="h-3.5 w-3.5" />
               Create
             </button>
 
             {showCreateMenu ? (
-              <div className="absolute right-0 top-full mt-2 w-56 rounded-xl border border-white/10 bg-[#111b2b] p-1.5 shadow-2xl">
+              <div className="absolute right-0 top-full mt-2 w-56 rounded-xl border border-black/10 bg-white p-1.5 shadow-2xl">
                 {createActions.map((item) => (
                   <Link
                     key={item.label}
                     href={item.href}
                     onClick={() => setShowCreateMenu(false)}
-                    className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-zinc-300 transition hover:bg-white/[0.06] hover:text-white"
+                    className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-zinc-700 transition hover:bg-[#f3f3f3] hover:text-black"
                   >
                     <item.icon className="h-4 w-4 text-zinc-500" />
                     {item.label}
@@ -186,18 +187,18 @@ export function Header() {
           <button
             type="button"
             onClick={() => setShowNotifications((prev) => !prev)}
-            className="relative rounded-lg border border-white/10 bg-white/[0.03] p-2 text-zinc-400 transition hover:bg-white/[0.08] hover:text-white"
+            className="relative rounded-lg border border-black/10 bg-[#f8f8f8] p-2 text-zinc-600 transition hover:bg-[#f3f3f3] hover:text-black"
             aria-label="View notifications"
           >
             <BellDot className="h-4 w-4" />
-            <span className="absolute right-1 top-1 flex h-2 w-2 rounded-full bg-[#2f88ff]" />
+            <span className="absolute right-1 top-1 flex h-2 w-2 rounded-full bg-[#C33732]" />
           </button>
 
           {showNotifications ? (
-            <div className="absolute right-0 top-full z-50 mt-2 w-96 rounded-xl border border-white/10 bg-[#111b2b] shadow-2xl">
-              <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
-                <h3 className="text-sm font-semibold text-white">Notifications</h3>
-                <span className="rounded-full border border-blue-400/40 bg-blue-500/15 px-2 py-0.5 text-[11px] font-medium text-blue-200">
+            <div className="absolute right-0 top-full z-50 mt-2 w-96 rounded-xl border border-black/10 bg-white shadow-2xl">
+              <div className="flex items-center justify-between border-b border-black/10 px-4 py-3">
+                <h3 className="text-sm font-semibold text-black">Notifications</h3>
+                <span className="rounded-full border border-[#C33732]/35 bg-[#C33732]/10 px-2 py-0.5 text-[11px] font-medium text-[#7D2320]">
                   {notifications.length} new
                 </span>
               </div>
@@ -208,12 +209,12 @@ export function Header() {
                     key={item.id}
                     href={item.href}
                     onClick={() => setShowNotifications(false)}
-                    className="flex items-start gap-3 border-b border-white/10 px-4 py-3 transition hover:bg-white/[0.06]"
+                    className="flex items-start gap-3 border-b border-black/10 px-4 py-3 transition hover:bg-[#f8f8f8]"
                   >
-                    <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-blue-400" />
+                    <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-[#C33732]" />
                     <div className="min-w-0 flex-1">
-                      <p className="text-sm font-medium text-white">{item.title}</p>
-                      <p className="mt-0.5 truncate text-xs text-zinc-400">{item.detail}</p>
+                      <p className="text-sm font-medium text-black">{item.title}</p>
+                      <p className="mt-0.5 truncate text-xs text-zinc-600">{item.detail}</p>
                       <p className="mt-1 text-[11px] text-zinc-500">{item.when}</p>
                     </div>
                     <ArrowRight className="mt-1 h-3.5 w-3.5 text-zinc-500" />
@@ -221,11 +222,11 @@ export function Header() {
                 ))}
               </div>
 
-              <div className="border-t border-white/10 px-4 py-2">
+              <div className="border-t border-black/10 px-4 py-2">
                 <Link
                   href="/notifications"
                   onClick={() => setShowNotifications(false)}
-                  className="flex items-center justify-center gap-1 py-1 text-xs font-medium text-blue-300 transition hover:text-blue-200"
+                  className="flex items-center justify-center gap-1 py-1 text-xs font-medium text-[#C33732] transition hover:text-[#A52F2B]"
                 >
                   View all notifications <ArrowRight className="h-3 w-3" />
                 </Link>
@@ -238,30 +239,30 @@ export function Header() {
           <button
             type="button"
             onClick={() => setShowUserMenu((prev) => !prev)}
-            className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.03] px-2.5 py-1.5 transition hover:bg-white/[0.08]"
+            className="flex items-center gap-2 rounded-lg border border-black/10 bg-[#f8f8f8] px-2.5 py-1.5 transition hover:bg-[#f3f3f3]"
             aria-label="Open user menu"
           >
-            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-[#2f88ff] to-[#1f5bd6] text-xs font-semibold text-white">
+            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-[#C33732] to-[#8F2521] text-xs font-semibold text-white">
               ME
             </span>
-            <span className="hidden text-xs text-zinc-300 sm:block">Michael E.</span>
+            <span className="hidden text-xs text-zinc-700 sm:block">Michael E.</span>
           </button>
 
           {showUserMenu ? (
-            <div className="absolute right-0 top-full z-50 mt-2 w-52 rounded-xl border border-white/10 bg-[#111b2b] py-1 shadow-2xl">
+            <div className="absolute right-0 top-full z-50 mt-2 w-52 rounded-xl border border-black/10 bg-white py-1 shadow-2xl">
               <Link
                 href="/settings"
                 onClick={() => setShowUserMenu(false)}
-                className="flex items-center gap-2 px-4 py-2 text-sm text-zinc-300 transition hover:bg-white/[0.06] hover:text-white"
+                className="flex items-center gap-2 px-4 py-2 text-sm text-zinc-700 transition hover:bg-[#f3f3f3] hover:text-black"
               >
                 <Settings className="h-4 w-4 text-zinc-500" />
                 Settings
               </Link>
-              <div className="my-1 border-t border-white/10" />
+              <div className="my-1 border-t border-black/10" />
               <button
                 type="button"
                 onClick={handleSignOut}
-                className="flex w-full items-center gap-2 px-4 py-2 text-sm text-zinc-300 transition hover:bg-white/[0.06] hover:text-white"
+                className="flex w-full items-center gap-2 px-4 py-2 text-sm text-zinc-700 transition hover:bg-[#f3f3f3] hover:text-black"
               >
                 <LogOut className="h-4 w-4 text-zinc-500" />
                 Sign out

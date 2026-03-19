@@ -142,13 +142,13 @@ export default function NewLoanPage() {
     step === 3;
 
   const inputClass =
-    "w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#3B82F6]";
+    "w-full rounded-md px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-[#C33732]";
 
   return (
     <div>
       <Link
         href="/loans"
-        className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-white mb-4"
+        className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-black mb-4"
       >
         <ArrowLeft className="h-4 w-4" /> Back to loans
       </Link>
@@ -163,9 +163,9 @@ export default function NewLoanPage() {
               className={cn(
                 "flex h-8 w-8 items-center justify-center rounded-full text-xs font-medium",
                 i < step
-                  ? "bg-[#3B82F6] text-white"
+                  ? "bg-[#C33732] text-white"
                   : i === step
-                  ? "bg-blue-500/10 text-[#162D4A] border-2 border-[#1E3A5F]"
+                  ? "bg-[#C33732]/10 text-[#162D4A] border-2 border-[#1E3A5F]"
                   : "bg-white/10 text-zinc-500"
               )}
             >
@@ -175,7 +175,7 @@ export default function NewLoanPage() {
               {s}
             </span>
             {i < STEPS.length - 1 && (
-              <div className={cn("h-px w-8", i < step ? "bg-[#3B82F6]" : "bg-stone-200")} />
+              <div className={cn("h-px w-8", i < step ? "bg-[#C33732]" : "bg-stone-200")} />
             )}
           </div>
         ))}
@@ -207,7 +207,7 @@ export default function NewLoanPage() {
             </select>
             <p className="text-xs text-zinc-500">
               Don&apos;t see the borrower?{" "}
-              <Link href="/contacts" className="text-[#3B82F6]">
+              <Link href="/contacts" className="text-[#C33732]">
                 Create a new contact first
               </Link>
             </p>
@@ -369,7 +369,7 @@ export default function NewLoanPage() {
           <button
             onClick={() => setStep(step + 1)}
             disabled={!canProceed}
-            className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] disabled:opacity-50"
           >
             Next <ArrowRight className="h-4 w-4" />
           </button>
@@ -377,7 +377,7 @@ export default function NewLoanPage() {
           <button
             onClick={() => createLoan.mutate(form)}
             disabled={createLoan.isPending}
-            className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] disabled:opacity-50"
           >
             {createLoan.isPending && <Loader2 className="h-4 w-4 animate-spin" />}
             Create Loan

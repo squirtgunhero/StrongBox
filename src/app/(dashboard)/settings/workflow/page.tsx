@@ -167,7 +167,7 @@ export default function WorkflowSettingsPage() {
         </div>
         <button
           onClick={() => setShowCreate(true)}
-          className="flex items-center gap-2 rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600"
+          className="flex items-center gap-2 rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B]"
         >
           <Plus className="h-4 w-4" /> New Rule
         </button>
@@ -178,7 +178,7 @@ export default function WorkflowSettingsPage() {
         <div className="rounded-xl p-5 mb-6">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-sm font-semibold">Create Workflow Rule</h3>
-            <button onClick={() => { setShowCreate(false); setForm({ ...EMPTY_FORM }); }} className="text-zinc-500 hover:text-zinc-400">
+            <button onClick={() => { setShowCreate(false); setForm({ ...EMPTY_FORM }); }} className="text-zinc-500 hover:text-zinc-600">
               <X className="h-4 w-4" />
             </button>
           </div>
@@ -265,7 +265,7 @@ export default function WorkflowSettingsPage() {
               <button
                 onClick={addCondition}
                 disabled={!condKey || !condValue}
-                className="text-xs text-[#3B82F6] hover:text-blue-400 font-medium disabled:opacity-50"
+                className="text-xs text-[#C33732] hover:text-[#A52F2B] font-medium disabled:opacity-50"
               >
                 Add
               </button>
@@ -321,7 +321,7 @@ export default function WorkflowSettingsPage() {
             <button
               onClick={() => createRule.mutate(form)}
               disabled={!form.name || form.actions.length === 0 || createRule.isPending}
-              className="rounded-md bg-[#3B82F6] px-4 py-2 text-sm font-medium text-white hover:bg-blue-600 disabled:opacity-50"
+              className="rounded-md bg-[#C33732] px-4 py-2 text-sm font-medium text-white hover:bg-[#A52F2B] disabled:opacity-50"
             >
               {createRule.isPending ? "Creating..." : "Create Rule"}
             </button>
@@ -374,7 +374,7 @@ export default function WorkflowSettingsPage() {
                   <div className="flex items-center gap-2">
                     <button
                       onClick={() => toggleRule.mutate({ id: rule.id, isActive: !rule.isActive })}
-                      className="text-zinc-500 hover:text-zinc-400"
+                      className="text-zinc-500 hover:text-zinc-600"
                     >
                       {rule.isActive ? (
                         <ToggleRight className="h-5 w-5 text-emerald-500" />
@@ -394,7 +394,7 @@ export default function WorkflowSettingsPage() {
                 <div className="ml-6 mt-3 space-y-1.5 text-xs">
                   <div className="flex items-center gap-2">
                     <span className="text-zinc-500 w-10">When</span>
-                    <span className="bg-blue-500/10 text-[#3B82F6] px-2 py-0.5 rounded">
+                    <span className="bg-[#C33732]/10 text-[#C33732] px-2 py-0.5 rounded">
                       {rule.triggerEntity}.{rule.triggerEvent}
                     </span>
                   </div>

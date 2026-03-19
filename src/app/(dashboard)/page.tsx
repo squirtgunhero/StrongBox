@@ -11,7 +11,6 @@ import {
   Clock3,
   Filter,
   RefreshCw,
-  ShieldAlert,
   Sparkles,
   TrendingUp,
 } from "lucide-react";
@@ -29,18 +28,6 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
-import {
-  attentionLoans,
-  capitalFlow,
-  dashboardKpis,
-  pipelineByStage,
-  portfolioTrend,
-  recentActivity,
-  repaymentFlow,
-  riskRows,
-  statusDistribution,
-  tasksDueToday,
-} from "@/lib/mock/operations";
 import { formatCurrencyCompact } from "@/lib/utils/currency";
 
 type RangeOption = "7D" | "30D" | "QTD" | "YTD";
@@ -73,8 +60,48 @@ type PaymentsApi = {
   payments: Array<{ loan?: { loanNumber?: string; borrower?: { firstName?: string; lastName?: string } }; amount: number; status: string }>;
 };
 
+type DashboardKpi = {
+  label: string;
+  value: string;
+  trend: string;
+  trendDirection: "up" | "down" | "flat";
+};
+
+type TrendPoint = {
+  label: string;
+  value: number;
+};
+
+type DistributionPoint = {
+  label: string;
+  value: number;
+  color: string;
+};
+
+type StagePoint = {
+  stage: string;
+  count: number;
+  amount: number;
+};
+
+type RiskRow = {
+  label: string;
+  exposure: number;
+  share: number;
+  riskLevel: "low" | "moderate" | "high";
+};
+
+type TaskItem = {
+  id: string;
+  title: string;
+  owner: string;
+  due: string;
+  priority: "low" | "medium" | "high";
+};
+
 const rangeOptions: RangeOption[] = ["7D", "30D", "QTD", "YTD"];
 const teamOptions: TeamOption[] = ["All Teams", "Originations", "Servicing", "Special Assets"];
+const chartColors = ["#C33732", "#34d399", "#f4b45f", "#7c93ff", "#f97373", "#86b4ff"];
 
 const STATUS_LABELS: Record<string, string> = {
   LEAD: "Lead",
@@ -131,16 +158,15 @@ export default function DashboardPage() {
   });
 
   const isLoading = dashboardQuery.isLoading || loansQuery.isLoading || paymentsQuery.isLoading;
-  const usingFallback = dashboardQuery.isError || loansQuery.isError || paymentsQuery.isError;
+  const hasError = dashboardQuery.isError || loansQuery.isError || paymentsQuery.isError;
 
   const data = useMemo(() => {
     const dashboardData = dashboardQuery.data;
     const loans = loansQuery.data?.loans ?? [];
     const payments = paymentsQuery.data;
 
-    let kpis = dashboardKpis;
-    if (dashboardData) {
-      kpis = [
+    const kpis: DashboardKpi[] = dashboardData
+      ? [
         {
           label: "Total Portfolio Value",
           value: formatCurrencyCompact(dashboardData.activePortfolio.amount),
@@ -195,17 +221,24 @@ export default function DashboardPage() {
           trend: "from available records",
           trendDirection: "flat" as const,
         },
-      ];
-    }
+      ]
+      : [];
 
-    const monthlySeries = portfolioTrend.map((point, idx) => {
-      const anchor = dashboardData?.activePortfolio.amount ?? point.value * 1_000_000;
-      const factor = (idx + 1) / portfolioTrend.length;
-      return {
-        label: point.label,
-        value: Math.max(anchor * (0.75 + factor * 0.35), 1),
-      };
-    });
+    const monthlySeries: TrendPoint[] = loans.length
+      ? Object.values(
+          loans.reduce<Record<string, TrendPoint>>((acc, loan) => {
+            if (!loan.maturityDate) return acc;
+            const bucketDate = new Date(loan.maturityDate);
+            if (Number.isNaN(bucketDate.getTime())) return acc;
+            const label = bucketDate.toLocaleString("en-US", { month: "short", year: "2-digit" });
+            acc[label] = {
+              label,
+              value: (acc[label]?.value || 0) + Number(loan.loanAmount || 0),
+            };
+            return acc;
+          }, {})
+        ).sort((a, b) => a.label.localeCompare(b.label))
+      : [];
 
     const distribution = dashboardData?.loansByStatus?.length
       ? dashboardData.loansByStatus
@@ -214,11 +247,11 @@ export default function DashboardPage() {
           .map((entry, index) => ({
             label: STATUS_LABELS[entry.status] || entry.status,
             value: entry.count,
-            color: ["#C33732", "#34d399", "#f4b45f", "#7c93ff", "#f97373", "#86b4ff"][index],
+            color: chartColors[index],
           }))
-      : statusDistribution;
+      : [];
 
-    const pipeline = dashboardData?.loansByStatus?.length
+    const pipeline: StagePoint[] = dashboardData?.loansByStatus?.length
       ? [
           {
             stage: "New Submissions",
@@ -261,7 +294,7 @@ export default function DashboardPage() {
                 .reduce((sum, s) => sum + Number(s.amount), 0) / 1_000_000,
           },
         ]
-      : pipelineByStage;
+      : [];
 
     const activity = dashboardData?.recentActivity?.length
       ? dashboardData.recentActivity.map((item, idx) => ({
@@ -271,7 +304,7 @@ export default function DashboardPage() {
           actor: item.user ? `${item.user.firstName || ""} ${item.user.lastName || ""}`.trim() || "System" : "System",
           when: new Date(item.createdAt).toLocaleString(),
         }))
-      : recentActivity;
+      : [];
 
     const recentPayments = payments?.payments?.length
       ? payments.payments.slice(0, 4).map((payment, idx) => ({
@@ -283,9 +316,16 @@ export default function DashboardPage() {
           amount: Number(payment.amount),
           status: payment.status,
         }))
-      : [
-          { id: "p1", loan: "-", borrower: "No live payments", amount: 0, status: "No Data" },
-        ];
+      : [];
+
+    const capitalBars = dashboardData
+      ? [
+          { label: "Pipeline", deployed: dashboardData.pipeline.amount / 1_000_000, repaid: 0 },
+          { label: "Active", deployed: dashboardData.activePortfolio.amount / 1_000_000, repaid: 0 },
+          { label: "Paid Off", deployed: 0, repaid: dashboardData.paidOff.amount / 1_000_000 },
+          { label: "Distressed", deployed: dashboardData.distressed.amount / 1_000_000, repaid: 0 },
+        ]
+      : [];
 
     const liveAttention = loans
       .filter((loan) => ["DEFAULT", "FORECLOSURE", "REO"].includes(loan.status))
@@ -305,10 +345,11 @@ export default function DashboardPage() {
       distribution,
       pipeline,
       activity,
+      capitalBars,
       payments: recentPayments,
-      attention: liveAttention.length ? liveAttention : attentionLoans,
-      tasks: tasksDueToday,
-      risk: riskRows,
+      attention: liveAttention,
+      tasks: [] as TaskItem[],
+      risk: [] as RiskRow[],
     };
   }, [dashboardQuery.data, loansQuery.data, paymentsQuery.data]);
 
@@ -318,12 +359,12 @@ export default function DashboardPage() {
 
   return (
     <div className="elevate-in space-y-4 pb-6">
-      {usingFallback ? (
+      {hasError ? (
         <section className="rounded-xl border border-[#C33732]/30 bg-[#C33732]/8 px-4 py-3">
           <div className="flex items-center justify-between gap-3">
             <div className="flex items-center gap-2 text-xs text-[#5B1A18]">
-              <ShieldAlert className="h-4 w-4 text-[#C33732]" />
-              Live metrics are temporarily unavailable. Showing fallback dashboard data.
+              <AlertTriangle className="h-4 w-4 text-[#C33732]" />
+              Live metrics are temporarily unavailable.
             </div>
             <button
               type="button"
@@ -390,7 +431,7 @@ export default function DashboardPage() {
       </section>
 
       <section className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
-        {data.kpis.map((kpi) => (
+        {data.kpis.length ? data.kpis.map((kpi) => (
           <article key={kpi.label} className="rounded-xl border border-black/10 bg-white p-4">
             <p className="text-[11px] uppercase tracking-[0.16em] text-zinc-500">{kpi.label}</p>
             <p className="mt-2 text-2xl font-semibold tracking-tight text-black">{kpi.value}</p>
@@ -403,11 +444,15 @@ export default function DashboardPage() {
               </span>
             </div>
           </article>
-        ))}
+        )) : (
+          <article className="rounded-xl border border-black/10 bg-white p-4 md:col-span-2 xl:col-span-4">
+            <p className="text-sm text-zinc-600">No live dashboard metrics available.</p>
+          </article>
+        )}
       </section>
 
       <section className="grid grid-cols-1 gap-4 xl:grid-cols-12">
-        <ChartCard className="xl:col-span-7" title="Portfolio Value Over Time" subtitle="Net principal outstanding">
+        <ChartCard className="xl:col-span-7" title="Maturity Volume by Month" subtitle="Loan principal grouped by maturity date">
           <div className="h-48 w-full">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={data.monthlySeries}>
@@ -450,10 +495,10 @@ export default function DashboardPage() {
           </div>
         </ChartCard>
 
-        <ChartCard className="xl:col-span-6" title="Capital Deployed vs Repaid" subtitle="Monthly cash movement">
+        <ChartCard className="xl:col-span-6" title="Capital Deployed vs Repaid" subtitle="Live portfolio aggregates">
           <div className="h-48 w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={capitalFlow.map((point, index) => ({ label: point.label, deployed: point.value, repaid: repaymentFlow[index]?.value ?? 0 }))}>
+              <BarChart data={data.capitalBars}>
                 <CartesianGrid stroke="#e2e2e2" vertical={false} />
                 <XAxis dataKey="label" tick={{ fill: "#6b6b6b", fontSize: 11 }} axisLine={false} tickLine={false} />
                 <YAxis tick={{ fill: "#6b6b6b", fontSize: 11 }} axisLine={false} tickLine={false} />
@@ -473,7 +518,7 @@ export default function DashboardPage() {
       <section className="grid grid-cols-1 gap-4 xl:grid-cols-12">
         <Panel className="xl:col-span-4" title="Loans Requiring Attention" subtitle="Priority follow-up">
           <div className="space-y-2.5">
-            {data.attention.map((loan) => (
+            {data.attention.length ? data.attention.map((loan) => (
               <div key={loan.id} className="rounded-lg border border-black/10 bg-[#f8f8f8] p-3">
                 <div className="flex items-center justify-between gap-2">
                   <p className="text-sm font-medium text-zinc-900">{loan.loanId}</p>
@@ -483,7 +528,7 @@ export default function DashboardPage() {
                 <p className="mt-1 text-xs text-zinc-600">{loan.issue}</p>
                 <p className="mt-2 text-[11px] text-zinc-500">Due {loan.due}</p>
               </div>
-            ))}
+            )) : <p className="text-xs text-zinc-600">No attention items found in live data.</p>}
           </div>
         </Panel>
 
@@ -511,7 +556,7 @@ export default function DashboardPage() {
 
         <Panel className="xl:col-span-4" title="Recent Payments" subtitle="Cash movement and servicing status">
           <div className="space-y-2.5">
-            {data.payments.map((payment) => (
+            {data.payments.length ? data.payments.map((payment) => (
               <div key={payment.id} className="rounded-lg border border-black/10 bg-[#f8f8f8] p-3">
                 <div className="flex items-center justify-between gap-2">
                   <p className="text-sm font-medium text-zinc-900">{payment.loan}</p>
@@ -520,7 +565,7 @@ export default function DashboardPage() {
                 <p className="mt-1 text-xs text-zinc-600">{payment.borrower}</p>
                 <p className="mt-2 text-sm font-semibold text-[#7D2320]">{formatCurrencyCompact(payment.amount)}</p>
               </div>
-            ))}
+            )) : <p className="text-xs text-zinc-600">No recent payments available.</p>}
           </div>
         </Panel>
       </section>
@@ -528,7 +573,7 @@ export default function DashboardPage() {
       <section className="grid grid-cols-1 gap-4 xl:grid-cols-12">
         <Panel className="xl:col-span-5" title="Portfolio Risk Snapshot" subtitle="Exposure and concentration signals">
           <div className="space-y-3">
-            {data.risk.map((row) => (
+            {data.risk.length ? data.risk.map((row) => (
               <div key={row.label} className="rounded-lg border border-black/10 bg-[#f8f8f8] p-3">
                 <div className="flex items-center justify-between gap-2">
                   <p className="text-sm text-zinc-800">{row.label}</p>
@@ -542,13 +587,13 @@ export default function DashboardPage() {
                   <div className="h-1.5 rounded-full bg-gradient-to-r from-[#C33732] to-[#E3726E]" style={{ width: `${Math.min(row.share * 2, 100)}%` }} />
                 </div>
               </div>
-            ))}
+            )) : <p className="text-xs text-zinc-600">No risk snapshot data available.</p>}
           </div>
         </Panel>
 
         <Panel className="xl:col-span-7" title="Recent Activity" subtitle="Live operational timeline">
           <div className="space-y-2.5">
-            {data.activity.map((event) => (
+            {data.activity.length ? data.activity.map((event) => (
               <div key={event.id} className="flex items-start gap-3 rounded-lg border border-black/10 bg-[#f8f8f8] p-3">
                 <div className="mt-1 h-2 w-2 shrink-0 rounded-full bg-[#C33732]" />
                 <div className="min-w-0 grow">
@@ -560,13 +605,13 @@ export default function DashboardPage() {
                   <p className="mt-1 text-[11px] text-zinc-500">by {event.actor}</p>
                 </div>
               </div>
-            ))}
+            )) : <p className="text-xs text-zinc-600">No recent activity available.</p>}
           </div>
         </Panel>
       </section>
 
       <div className="flex items-center justify-between rounded-xl border border-black/10 bg-white px-4 py-3 text-xs text-zinc-600">
-        <p>Source: {usingFallback ? "Fallback (mock)" : "Live API"} | Team view: {selectedTeam} | Range: {selectedRange}</p>
+        <p>Source: Live API | Team view: {selectedTeam} | Range: {selectedRange}</p>
         <button
           type="button"
           onClick={() => {
@@ -633,6 +678,10 @@ function Panel({ title, subtitle, className, children }: { title: string; subtit
 
 function PipelineStages({ stages }: { stages: Array<{ stage: string; count: number; amount: number }> }) {
   const maxCount = Math.max(...stages.map((stage) => stage.count), 1);
+
+  if (!stages.length) {
+    return <p className="text-xs text-zinc-600">No pipeline data available.</p>;
+  }
 
   return (
     <div className="space-y-3">

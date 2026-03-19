@@ -879,3 +879,345 @@ model ScheduledReport {
 
   @@index([organizationId, isActive])
 }
+
+// ─── StrongBox Workbook-Normalized Models ─────────────────────────
+
+enum SbLoanStage {
+  APPLICATION @map("application")
+  UPCOMING    @map("upcoming")
+  ACTIVE      @map("active")
+  CLOSED      @map("closed")
+}
+
+enum SbLoanStatus {
+  PENDING  @map("pending")
+  APPROVED @map("approved")
+  FUNDED   @map("funded")
+  ACTIVE   @map("active")
+  MATURED  @map("matured")
+  PAID_OFF @map("paid_off")
+  CLOSED   @map("closed")
+  REJECTED @map("rejected")
+  ON_HOLD  @map("on_hold")
+}
+
+enum SbDrawRequestStatus {
+  REQUESTED    @map("requested")
+  UNDER_REVIEW @map("under_review")
+  APPROVED     @map("approved")
+  REJECTED     @map("rejected")
+  FUNDED       @map("funded")
+}
+
+enum SbImportStatus {
+  UPLOADED
+  VALIDATED
+  PUBLISHED
+  FAILED
+}
+
+enum SbImportRowStatus {
+  PENDING
+  VALID
+  INVALID
+  NEEDS_REVIEW
+  CORRECTED
+  PUBLISHED
+}
+
+model SbBorrower {
+  id               String      @id @default(cuid())
+  legal_name       String
+  contact_name     String?
+  email            String?
+  phone            String?
+  ein              String?
+  mailing_address  String?
+  source           String?
+  active_flag      Boolean     @default(true)
+  home_state       String?
+  notes            String?
+  created_at       DateTime    @default(now())
+  updated_at       DateTime    @updatedAt
+
+  properties       SbProperty[]
+  loans            SbLoan[]
+  tax_1098_records SbTax1098Prep[]
+
+  @@index([legal_name])
+  @@index([email])
+  @@index([active_flag])
+  @@map("borrowers")
+}
+
+model SbProperty {
+  id           String      @id @default(cuid())
+  borrower_id  String?
+  borrower     SbBorrower? @relation(fields: [borrower_id], references: [id])
+
+  full_address String
+  city         String?
+  state        String?
+  zip          String?
+  market_name  String?
+  is_active    Boolean     @default(true)
+  notes        String?
+  created_at   DateTime    @default(now())
+  updated_at   DateTime    @updatedAt
+
+  loans        SbLoan[]
+  draws        SbDrawRequest[]
+
+  @@index([borrower_id])
+  @@index([state])
+  @@index([market_name])
+  @@map("properties")
+}
+
+model SbLoan {
+  id                           String              @id @default(cuid())
+  borrower_id                  String
+  borrower                     SbBorrower          @relation(fields: [borrower_id], references: [id])
+  property_id                  String?
+  property                     SbProperty?         @relation(fields: [property_id], references: [id])
+
+  loan_stage                   SbLoanStage
+  loan_status                  SbLoanStatus
+  loan_type                    String?
+  origination_date             DateTime?
+  payoff_date                  DateTime?
+  maturity_date                DateTime?
+  term_months                  Int?
+  terms_text                   String?
+
+  principal_total              Decimal?            @db.Decimal(18, 2)
+  purchase_amount              Decimal?            @db.Decimal(18, 2)
+  rehab_amount                 Decimal?            @db.Decimal(18, 2)
+  draw_reserve                 Decimal?            @db.Decimal(18, 2)
+  arv                          Decimal?            @db.Decimal(18, 2)
+  ltv                          Decimal?            @db.Decimal(12, 6)
+  rehab_percent_of_loan        Decimal?            @db.Decimal(12, 6)
+  interest_rate                Decimal?            @db.Decimal(8, 4)
+  origination_fee              Decimal?            @db.Decimal(18, 2)
+  uw_fee                       Decimal?            @db.Decimal(18, 2)
+  rush_fee                     Decimal?            @db.Decimal(18, 2)
+  upfront_cash_required        Decimal?            @db.Decimal(18, 2)
+  monthly_payment              Decimal?            @db.Decimal(18, 2)
+  total_cash_currently_needed  Decimal?            @db.Decimal(18, 2)
+  calculation_notes            String?
+
+  accrued_interest_mode        String?
+  title_company                String?
+  title_contact                String?
+  notes                        String?
+  source_sheet                 String?
+  source_row_key               String?
+  created_at                   DateTime            @default(now())
+  updated_at                   DateTime            @updatedAt
+
+  draw_requests                SbDrawRequest[]
+  annual_history               SbAnnualLoanHistory[]
+
+  @@index([borrower_id])
+  @@index([property_id])
+  @@index([loan_stage])
+  @@index([loan_status])
+  @@index([maturity_date])
+  @@index([source_sheet])
+  @@unique([source_sheet, source_row_key])
+  @@map("loans")
+}
+
+model SbDrawRequest {
+  id                String               @id @default(cuid())
+  loan_id           String
+  loan              SbLoan               @relation(fields: [loan_id], references: [id])
+  property_id       String?
+  property          SbProperty?          @relation(fields: [property_id], references: [id])
+
+  request_date      DateTime?
+  amount_requested  Decimal              @db.Decimal(18, 2)
+  payment_method    String?
+  status            SbDrawRequestStatus
+  notes             String?
+  approved_amount   Decimal?             @db.Decimal(18, 2)
+  processed_date    DateTime?
+  admin_override    Boolean              @default(false)
+  exception_flag    Boolean              @default(false)
+  created_at        DateTime             @default(now())
+  updated_at        DateTime             @updatedAt
+
+  audit_entries     SbDrawRequestAudit[]
+
+  @@index([loan_id])
+  @@index([status])
+  @@index([request_date])
+  @@map("draw_requests")
+}
+
+model SbDrawRequestAudit {
+  id               String         @id @default(cuid())
+  draw_request_id  String
+  draw_request     SbDrawRequest  @relation(fields: [draw_request_id], references: [id], onDelete: Cascade)
+  action_type      String
+  requested_amount Decimal?       @db.Decimal(18, 2)
+  approved_amount  Decimal?       @db.Decimal(18, 2)
+  action_by        String?
+  notes            String?
+  created_at       DateTime       @default(now())
+
+  @@index([draw_request_id, created_at])
+  @@map("draw_request_audit")
+}
+
+model SbMarketReference {
+  id                   String    @id @default(cuid())
+  market_name          String
+  state                String?
+  is_active            Boolean   @default(true)
+  is_future_market     Boolean   @default(false)
+  is_expansion_market  Boolean   @default(false)
+  created_at           DateTime  @default(now())
+  updated_at           DateTime  @updatedAt
+
+  @@unique([market_name, state])
+  @@index([is_active])
+  @@map("market_reference")
+}
+
+model SbCashAccount {
+  id              String    @id @default(cuid())
+  account_name    String
+  current_balance Decimal   @default(0) @db.Decimal(18, 2)
+  updated_on      DateTime  @default(now())
+  notes           String?
+
+  @@unique([account_name])
+  @@map("cash_accounts")
+}
+
+model SbPortfolioSnapshot {
+  id                    String    @id @default(cuid())
+  snapshot_date         DateTime
+  total_loans_out       Decimal?  @db.Decimal(18, 2)
+  total_company_cash    Decimal?  @db.Decimal(18, 2)
+  company_cash_out      Decimal?  @db.Decimal(18, 2)
+  total_draw_reserve    Decimal?  @db.Decimal(18, 2)
+  upcoming_hml_loans    Int?
+  loc_business_balance  Decimal?  @db.Decimal(18, 2)
+  current_cash_balance  Decimal?  @db.Decimal(18, 2)
+  created_at            DateTime  @default(now())
+
+  @@index([snapshot_date])
+  @@map("portfolio_snapshots")
+}
+
+model SbAnnualLoanHistory {
+  id                 String    @id @default(cuid())
+  loan_id            String?
+  loan               SbLoan?   @relation(fields: [loan_id], references: [id])
+  closed_year        Int
+  borrower_name      String
+  origination_date   DateTime?
+  payoff_date        DateTime?
+  years_outstanding  Decimal?  @db.Decimal(10, 4)
+  principal          Decimal?  @db.Decimal(18, 2)
+  purchase_amount    Decimal?  @db.Decimal(18, 2)
+  rehab_amount       Decimal?  @db.Decimal(18, 2)
+  city               String?
+  state              String?
+  loan_type          String?
+  terms_text         String?
+  property_address   String?
+  created_at         DateTime  @default(now())
+
+  @@index([closed_year])
+  @@index([borrower_name])
+  @@map("annual_loan_history")
+}
+
+model SbTax1098Prep {
+  id                         String      @id @default(cuid())
+  borrower_id                String?
+  borrower                   SbBorrower? @relation(fields: [borrower_id], references: [id])
+  borrower_name              String
+  loans_closed_2022_count    Int         @default(0)
+  loans_closed_2023_count    Int         @default(0)
+  active_or_cashout_count    Int         @default(0)
+  total_loan_count           Int         @default(0)
+  terms_reference            String?
+  property_address           String?
+  notes                      String?
+  source_reference           String?
+  review_flag                Boolean     @default(false)
+  created_at                 DateTime    @default(now())
+  updated_at                 DateTime    @updatedAt
+
+  @@index([borrower_name])
+  @@index([review_flag])
+  @@map("tax_1098_prep")
+}
+
+model SbImportBatch {
+  id                   String         @id @default(cuid())
+  source_sheet_family  String
+  source_sheet_name    String
+  uploaded_by          String?
+  status               SbImportStatus @default(UPLOADED)
+  total_rows           Int            @default(0)
+  valid_rows           Int            @default(0)
+  invalid_rows         Int            @default(0)
+  notes                String?
+  created_at           DateTime       @default(now())
+  updated_at           DateTime       @updatedAt
+
+  rows                 SbImportRow[]
+
+  @@index([source_sheet_family])
+  @@index([status])
+  @@map("import_batches")
+}
+
+model SbImportRow {
+  id                  String            @id @default(cuid())
+  batch_id            String
+  batch               SbImportBatch     @relation(fields: [batch_id], references: [id], onDelete: Cascade)
+  source_sheet_name   String
+  source_row_number   Int?
+  source_row_key      String?
+  payload             Json
+  normalized_payload  Json?
+  status              SbImportRowStatus @default(PENDING)
+  missing_critical    Boolean           @default(false)
+  validation_errors   Json?
+  admin_correction    Json?
+  published_at        DateTime?
+  created_at          DateTime          @default(now())
+  updated_at          DateTime          @updatedAt
+  remediation_audits  SbRemediationAudit[]
+
+  @@index([batch_id])
+  @@index([status])
+  @@index([missing_critical])
+  @@map("import_rows")
+}
+
+model SbRemediationAudit {
+  id            String      @id @default(cuid())
+  import_row_id String
+  import_row    SbImportRow @relation(fields: [import_row_id], references: [id], onDelete: Cascade)
+  entity_type   String
+  action_type   String
+  field_name    String?
+  old_value     Json?
+  new_value     Json?
+  actor_id      String?
+  note          String?
+  created_at    DateTime    @default(now())
+
+  @@index([import_row_id])
+  @@index([entity_type])
+  @@index([action_type])
+  @@index([created_at])
+  @@map("remediation_audits")
+}

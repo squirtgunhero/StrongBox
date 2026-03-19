@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
   ArrowRight,
@@ -50,7 +50,12 @@ type LoanRow = {
 
 export default function PipelinePage() {
   const [view, setView] = useState<ViewMode>("kanban");
+  const [isChartReady, setIsChartReady] = useState(false);
   const queryClient = useQueryClient();
+
+  useEffect(() => {
+    setIsChartReady(true);
+  }, []);
 
   const { data, isLoading, isError, refetch } = useQuery<{ loans: LoanRow[] }>({
     queryKey: ["pipeline-loans-live"],
@@ -132,17 +137,21 @@ export default function PipelinePage() {
           <TrendingUp className="h-4 w-4 text-zinc-500" />
         </div>
         <div className="h-52 w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData}>
-              <CartesianGrid stroke="#e2e2e2" vertical={false} />
-              <XAxis dataKey="stage" tick={{ fill: "#6b6b6b", fontSize: 10 }} axisLine={false} tickLine={false} />
-              <YAxis yAxisId="left" tick={{ fill: "#6b6b6b", fontSize: 10 }} axisLine={false} tickLine={false} />
-              <YAxis yAxisId="right" orientation="right" tick={{ fill: "#6b6b6b", fontSize: 10 }} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={{ background: "#ffffff", border: "1px solid #d9d9d9", borderRadius: 10 }} />
-              <Bar yAxisId="left" dataKey="loans" fill="#C33732" radius={[4, 4, 0, 0]} />
-              <Bar yAxisId="right" dataKey="volume" fill="#34d399" radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
+          {isChartReady ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={chartData}>
+                <CartesianGrid stroke="#e2e2e2" vertical={false} />
+                <XAxis dataKey="stage" tick={{ fill: "#6b6b6b", fontSize: 10 }} axisLine={false} tickLine={false} />
+                <YAxis yAxisId="left" tick={{ fill: "#6b6b6b", fontSize: 10 }} axisLine={false} tickLine={false} />
+                <YAxis yAxisId="right" orientation="right" tick={{ fill: "#6b6b6b", fontSize: 10 }} axisLine={false} tickLine={false} />
+                <Tooltip contentStyle={{ background: "#ffffff", border: "1px solid #d9d9d9", borderRadius: 10 }} />
+                <Bar yAxisId="left" dataKey="loans" fill="#C33732" radius={[4, 4, 0, 0]} />
+                <Bar yAxisId="right" dataKey="volume" fill="#34d399" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="h-full w-full rounded-lg bg-[#f3f3f3]" aria-hidden="true" />
+          )}
         </div>
       </section>
 

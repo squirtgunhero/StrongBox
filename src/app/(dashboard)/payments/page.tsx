@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import {
   AlertTriangle,
@@ -57,6 +57,11 @@ const STATUS_CONFIG: Record<string, { label: string; color: string; bg: string }
 export default function PaymentsPage() {
   const [statusFilter, setStatusFilter] = useState<StatusTab>("");
   const [page, setPage] = useState(1);
+  const [isChartReady, setIsChartReady] = useState(false);
+
+  useEffect(() => {
+    setIsChartReady(true);
+  }, []);
 
   const query = useQuery<PaymentsResponse>({
     queryKey: ["payments-live", statusFilter, page],
@@ -113,15 +118,19 @@ export default function PaymentsPage() {
           <DollarSign className="h-4 w-4 text-zinc-500" />
         </div>
         <div className="h-52 w-full">
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData}>
-              <CartesianGrid stroke="#e2e2e2" vertical={false} />
-              <XAxis dataKey="status" tick={{ fill: "#6b6b6b", fontSize: 10 }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fill: "#6b6b6b", fontSize: 10 }} axisLine={false} tickLine={false} />
-              <Tooltip contentStyle={{ background: "#ffffff", border: "1px solid #d9d9d9", borderRadius: 10 }} />
-              <Bar dataKey="amount" fill="#C33732" radius={[4, 4, 0, 0]} />
-            </BarChart>
-          </ResponsiveContainer>
+          {isChartReady ? (
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={chartData}>
+                <CartesianGrid stroke="#e2e2e2" vertical={false} />
+                <XAxis dataKey="status" tick={{ fill: "#6b6b6b", fontSize: 10 }} axisLine={false} tickLine={false} />
+                <YAxis tick={{ fill: "#6b6b6b", fontSize: 10 }} axisLine={false} tickLine={false} />
+                <Tooltip contentStyle={{ background: "#ffffff", border: "1px solid #d9d9d9", borderRadius: 10 }} />
+                <Bar dataKey="amount" fill="#C33732" radius={[4, 4, 0, 0]} />
+              </BarChart>
+            </ResponsiveContainer>
+          ) : (
+            <div className="h-full w-full rounded-lg bg-[#f3f3f3]" aria-hidden="true" />
+          )}
         </div>
       </section>
 

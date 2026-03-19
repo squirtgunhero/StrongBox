@@ -17,7 +17,29 @@ import {
 } from "lucide-react";
 import { formatCurrency, formatPercent } from "@/lib/utils/currency";
 import { formatDate } from "@/lib/utils/dates";
-import { managers as sampleManagers, sampleLoans, savedLoanViews, type LoanRecord } from "@/lib/mock/operations";
+
+type LoanRecord = {
+  id: string;
+  loanId: string;
+  borrower: string;
+  borrowerEntity: string;
+  property: string;
+  propertyType: "SFR" | "Multifamily" | "Retail" | "Industrial" | "Mixed-Use";
+  loanType: "Bridge" | "DSCR" | "Construction" | "Rental Portfolio";
+  stage: "Lead" | "Application" | "Underwriting" | "Conditional" | "Approved" | "Funded" | "Active" | "Matured" | "Delinquent";
+  principal: number;
+  interestRate: number;
+  ltv: number;
+  maturityDate: string;
+  paymentStatus: "Current" | "Due Soon" | "Late" | "Grace";
+  lastActivity: string;
+  manager: string;
+  riskGrade: "A" | "B" | "C" | "D";
+  docsPending: number;
+  nextPaymentAmount: number;
+  timeline: Array<{ date: string; event: string; by: string }>;
+  notes: string;
+};
 
 type StageFilter = "All" | "Pipeline" | "Active" | "Funded" | "Matured" | "Delinquent";
 type SortKey = "lastActivity" | "principalDesc" | "maturitySoon" | "ltvDesc";
@@ -66,6 +88,14 @@ type ApiLoanDetail = {
 
 const stageFilters: StageFilter[] = ["All", "Pipeline", "Active", "Funded", "Matured", "Delinquent"];
 const paymentFilters: PaymentFilter[] = ["All", "Current", "Due Soon", "Late", "Grace"];
+const savedLoanViews = [
+  "All Loans",
+  "Today: Priority Follow-up",
+  "Delinquency Watchlist",
+  "Funding This Week",
+  "Maturing in 60 Days",
+  "High LTV (>= 72%)",
+];
 
 const defaultAdvancedFilters = {
   manager: "All",
@@ -120,8 +150,8 @@ export default function LoansPage() {
     enabled: Boolean(selectedLoanId),
   });
 
-  const loans = data?.length ? data : sampleLoans;
-  const usingFallback = isError;
+  const loans = data ?? [];
+  const hasError = isError;
 
   const selectedLoan = useMemo(() => {
     const local = loans.find((loan) => loan.id === selectedLoanId) ?? null;
@@ -143,8 +173,7 @@ export default function LoansPage() {
   }, [loans, selectedLoanId, selectedLoanDetail.data]);
 
   const managers = useMemo(() => {
-    const fromRows = Array.from(new Set(loans.map((loan) => loan.manager).filter(Boolean)));
-    return fromRows.length ? fromRows : sampleManagers;
+    return Array.from(new Set(loans.map((loan) => loan.manager).filter(Boolean)));
   }, [loans]);
 
   const summary = useMemo(() => {
@@ -270,11 +299,11 @@ export default function LoansPage() {
         </section>
       ) : null}
 
-      {usingFallback ? (
+      {hasError ? (
         <section className="rounded-xl border border-[#C33732]/30 bg-[#C33732]/8 px-4 py-3">
           <div className="flex items-center gap-2 text-xs text-[#5B1A18]">
             <CircleAlert className="h-4 w-4 text-[#C33732]" />
-            Live data is temporarily unavailable. Showing demo data while connection recovers.
+            Live data is temporarily unavailable.
           </div>
         </section>
       ) : null}

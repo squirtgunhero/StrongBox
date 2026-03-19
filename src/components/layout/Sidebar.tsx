@@ -19,6 +19,7 @@ import {
   Mail,
   ClipboardCheck,
   ScrollText,
+  Boxes,
   ChevronLeft,
   PanelLeft,
   Search,
@@ -32,6 +33,7 @@ const navGroups = [
   {
     label: "OPERATIONS",
     items: [
+      { name: "StrongBox", href: "/strongbox", icon: Boxes },
       { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
       { name: "Pipeline", href: "/pipeline", icon: Kanban },
       { name: "Loans", href: "/loans", icon: BriefcaseBusiness },
@@ -56,6 +58,14 @@ const navGroups = [
   {
     label: "SYSTEM",
     items: [
+      { name: "SB Borrowers", href: "/strongbox/borrowers", icon: Users },
+      { name: "SB Loans", href: "/strongbox/loans", icon: BriefcaseBusiness },
+      { name: "SB Draws", href: "/strongbox/draw-requests", icon: CreditCard },
+      { name: "SB Cash", href: "/strongbox/cash-accounts", icon: Landmark },
+      { name: "SB Snapshots", href: "/strongbox/portfolio-snapshots", icon: Activity },
+      { name: "SB Reports", href: "/strongbox/reports", icon: BarChart3 },
+      { name: "SB Review", href: "/strongbox/review", icon: ClipboardCheck },
+      { name: "SB Import", href: "/strongbox/import", icon: Upload },
       { name: "Import", href: "/import", icon: Upload },
       { name: "Settings", href: "/settings", icon: Settings },
     ],

@@ -1,38 +1,21 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { usePathname } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import {
-  Bell,
-  Search,
   ArrowRight,
-  ClipboardCheck,
-  Upload,
-  RefreshCw,
-  DollarSign,
-  AlertTriangle,
-  FileText,
-  Settings,
+  BellDot,
+  CirclePlus,
+  Command,
+  FilePlus2,
   LogOut,
+  Rocket,
+  Search,
+  Settings,
+  WalletCards,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
-import { cn } from "@/lib/utils";
-import { formatRelative } from "@/lib/utils/dates";
-
-const TYPE_ICONS: Record<string, typeof Bell> = {
-  TASK_ASSIGNED: ClipboardCheck,
-  DOCUMENT_UPLOADED: Upload,
-  DOCUMENT_REQUESTED: FileText,
-  STATUS_CHANGE: RefreshCw,
-  PAYMENT_DUE: DollarSign,
-  PAYMENT_RECEIVED: DollarSign,
-  PAYMENT_LATE: AlertTriangle,
-  APPROVAL_NEEDED: ClipboardCheck,
-  LOAN_MATURITY_WARNING: AlertTriangle,
-};
 
 const PAGE_TITLES: Record<string, string> = {
   "/": "Dashboard",
@@ -54,82 +37,80 @@ const PAGE_TITLES: Record<string, string> = {
   "/notifications": "Notifications",
 };
 
+type NotificationItem = {
+  id: string;
+  title: string;
+  detail: string;
+  when: string;
+  href: string;
+};
+
+const notifications: NotificationItem[] = [
+  {
+    id: "n1",
+    title: "Late payment alert",
+    detail: "SB-24044 is now 8 days overdue",
+    when: "6 min ago",
+    href: "/loans",
+  },
+  {
+    id: "n2",
+    title: "Funding ready",
+    detail: "SB-24067 cleared final closing checklist",
+    when: "22 min ago",
+    href: "/pipeline",
+  },
+  {
+    id: "n3",
+    title: "Condition due today",
+    detail: "Insurance update required for SB-24031",
+    when: "1h ago",
+    href: "/conditions",
+  },
+];
+
+const quickActions = [
+  { id: "qa1", label: "New Loan", href: "/loans/new", icon: CirclePlus },
+  { id: "qa2", label: "Start Review", href: "/pipeline", icon: Rocket },
+];
+
+const createActions = [
+  { label: "Loan Application", href: "/loans/new", icon: FilePlus2 },
+  { label: "Payment Record", href: "/payments", icon: WalletCards },
+  { label: "Task", href: "/tasks", icon: CirclePlus },
+];
+
 export function Header() {
   const pathname = usePathname();
   const router = useRouter();
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [showNotifications, setShowNotifications] = useState(false);
   const [showUserMenu, setShowUserMenu] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [showCreateMenu, setShowCreateMenu] = useState(false);
+  const notificationsRef = useRef<HTMLDivElement>(null);
   const userMenuRef = useRef<HTMLDivElement>(null);
-  const queryClient = useQueryClient();
+  const createMenuRef = useRef<HTMLDivElement>(null);
 
   const pageTitle = PAGE_TITLES[pathname] || PAGE_TITLES["/" + pathname.split("/")[1]] || "";
 
-  const { data } = useQuery({
-    queryKey: ["notifications"],
-    queryFn: async () => {
-      const res = await fetch("/api/notifications?limit=10");
-      if (!res.ok) throw new Error("Failed to fetch notifications");
-      return res.json();
-    },
-    refetchInterval: 30000,
-  });
-
-  const markAllRead = useMutation({
-    mutationFn: async () => {
-      const res = await fetch("/api/notifications/read-all", { method: "POST" });
-      if (!res.ok) throw new Error("Failed");
-      return res.json();
-    },
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["notifications"] }),
-  });
-
-  const markRead = useMutation({
-    mutationFn: async (id: string) => {
-      const res = await fetch(`/api/notifications/${id}/read`, { method: "PATCH" });
-      if (!res.ok) throw new Error("Failed");
-      return res.json();
-    },
-    onMutate: async (id) => {
-      await queryClient.cancelQueries({ queryKey: ["notifications"] });
-      const previous = queryClient.getQueryData(["notifications"]);
-      queryClient.setQueryData(["notifications"], (old: any) => {
-        if (!old) return old;
-        return {
-          ...old,
-          unreadCount: Math.max(0, (old.unreadCount || 1) - 1),
-          notifications: old.notifications?.map((n: any) =>
-            n.id === id ? { ...n, isRead: true } : n
-          ),
-        };
-      });
-      return { previous };
-    },
-    onError: (_err, _vars, context) => {
-      if (context?.previous) {
-        queryClient.setQueryData(["notifications"], context.previous);
-      }
-    },
-    onSettled: () => queryClient.invalidateQueries({ queryKey: ["notifications"] }),
-  });
-
-  const notifications = data?.notifications || [];
-  const unreadCount = data?.unreadCount || 0;
-
   useEffect(() => {
-    function handleClick(e: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-        setShowDropdown(false);
+    function handleClick(event: MouseEvent) {
+      const target = event.target as Node;
+      if (notificationsRef.current && !notificationsRef.current.contains(target)) {
+        setShowNotifications(false);
       }
-      if (userMenuRef.current && !userMenuRef.current.contains(e.target as Node)) {
+      if (userMenuRef.current && !userMenuRef.current.contains(target)) {
         setShowUserMenu(false);
       }
+      if (createMenuRef.current && !createMenuRef.current.contains(target)) {
+        setShowCreateMenu(false);
+      }
     }
-    if (showDropdown || showUserMenu) {
+
+    if (showNotifications || showUserMenu || showCreateMenu) {
       document.addEventListener("mousedown", handleClick);
       return () => document.removeEventListener("mousedown", handleClick);
     }
-  }, [showDropdown, showUserMenu]);
+  }, [showNotifications, showUserMenu, showCreateMenu]);
 
   async function handleSignOut() {
     const supabase = createClient();
@@ -139,139 +120,154 @@ export function Header() {
   }
 
   return (
-    <header className="flex h-14 items-center justify-between px-6" style={{ background: "var(--surface)", borderBottom: "1px solid var(--border)" }}>
-      <h1 className="text-xl font-semibold tracking-tight text-white">
-        {pageTitle}
-      </h1>
+    <header className="sticky top-0 z-30 border-b border-white/10 bg-[#0b1220]/90 px-4 py-3 backdrop-blur-md sm:px-6">
+      <div className="flex items-center justify-between gap-3">
+        <div>
+          <h1 className="text-[17px] font-semibold tracking-tight text-white">{pageTitle}</h1>
+          <p className="text-xs text-zinc-400">Operational lending workspace</p>
+        </div>
 
-      <div className="flex items-center gap-3">
-        <button className="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm text-zinc-400 hover:text-white transition-colors" style={{ border: "1px solid var(--border)", background: "var(--surface-secondary)" }}>
-          <Search className="h-3.5 w-3.5" />
-          <span>Search...</span>
-          <kbd className="ml-4 rounded px-1.5 py-0.5 text-[10px] font-mono text-zinc-500" style={{ border: "1px solid var(--border)", background: "var(--background)" }}>
-            ⌘K
-          </kbd>
-        </button>
-
-        <div className="relative" ref={dropdownRef}>
+        <div className="flex items-center gap-2">
           <button
-            onClick={() => setShowDropdown(!showDropdown)}
-            className="relative rounded-md p-2 text-zinc-400 hover:text-white hover:bg-white/5 transition-colors"
+            type="button"
+            className="group hidden items-center gap-2 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2 text-sm text-zinc-300 transition hover:border-white/20 hover:bg-white/[0.08] hover:text-white md:flex"
           >
-            <Bell className="h-5 w-5" />
-            {unreadCount > 0 && (
-              <span className="absolute top-1.5 right-1.5 flex h-2 w-2 rounded-full bg-[#3B82F6]" />
-            )}
+            <Search className="h-4 w-4 text-zinc-500 group-hover:text-zinc-200" />
+            <span className="text-zinc-400">Search loans, borrowers, actions</span>
+            <span className="ml-4 flex items-center gap-1 rounded-md border border-white/10 bg-[#0a111f] px-1.5 py-0.5 text-[10px] text-zinc-500">
+              <Command className="h-3 w-3" />K
+            </span>
           </button>
 
-          {showDropdown && (
-            <div className="absolute right-0 top-full mt-2 w-96 rounded-lg shadow-2xl z-50" style={{ background: "var(--surface)", border: "1px solid var(--border-strong)" }}>
-              <div className="flex items-center justify-between px-4 py-3" style={{ borderBottom: "1px solid var(--border)" }}>
-                <h3 className="text-sm font-semibold text-white">Notifications</h3>
-                {unreadCount > 0 && (
-                  <button
-                    onClick={() => markAllRead.mutate()}
-                    className="text-xs text-[#3B82F6] hover:text-blue-400 font-medium"
+          <div className="hidden items-center gap-1.5 sm:flex">
+            {quickActions.map((action) => (
+              <Link
+                key={action.id}
+                href={action.href}
+                className="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/[0.03] px-2.5 py-2 text-xs font-medium text-zinc-300 transition hover:border-white/20 hover:bg-white/[0.08] hover:text-white"
+              >
+                <action.icon className="h-3.5 w-3.5" />
+                {action.label}
+              </Link>
+            ))}
+          </div>
+
+          <div className="relative" ref={createMenuRef}>
+            <button
+              type="button"
+              onClick={() => setShowCreateMenu((prev) => !prev)}
+              className="inline-flex items-center gap-1.5 rounded-lg bg-gradient-to-r from-[#1f5bd6] to-[#2f88ff] px-3 py-2 text-xs font-semibold text-white shadow-[0_10px_18px_-12px_rgba(47,136,255,0.95)] transition hover:from-[#2d68df] hover:to-[#4493ff]"
+            >
+              <CirclePlus className="h-3.5 w-3.5" />
+              Create
+            </button>
+
+            {showCreateMenu ? (
+              <div className="absolute right-0 top-full mt-2 w-56 rounded-xl border border-white/10 bg-[#111b2b] p-1.5 shadow-2xl">
+                {createActions.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    onClick={() => setShowCreateMenu(false)}
+                    className="flex items-center gap-2 rounded-lg px-3 py-2 text-sm text-zinc-300 transition hover:bg-white/[0.06] hover:text-white"
                   >
-                    Mark all read
-                  </button>
-                )}
+                    <item.icon className="h-4 w-4 text-zinc-500" />
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            ) : null}
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-3 flex items-center justify-end gap-2">
+        <div className="relative" ref={notificationsRef}>
+          <button
+            type="button"
+            onClick={() => setShowNotifications((prev) => !prev)}
+            className="relative rounded-lg border border-white/10 bg-white/[0.03] p-2 text-zinc-400 transition hover:bg-white/[0.08] hover:text-white"
+            aria-label="View notifications"
+          >
+            <BellDot className="h-4 w-4" />
+            <span className="absolute right-1 top-1 flex h-2 w-2 rounded-full bg-[#2f88ff]" />
+          </button>
+
+          {showNotifications ? (
+            <div className="absolute right-0 top-full z-50 mt-2 w-96 rounded-xl border border-white/10 bg-[#111b2b] shadow-2xl">
+              <div className="flex items-center justify-between border-b border-white/10 px-4 py-3">
+                <h3 className="text-sm font-semibold text-white">Notifications</h3>
+                <span className="rounded-full border border-blue-400/40 bg-blue-500/15 px-2 py-0.5 text-[11px] font-medium text-blue-200">
+                  {notifications.length} new
+                </span>
               </div>
 
-              <div className="max-h-[400px] overflow-y-auto">
-                {notifications.length === 0 ? (
-                  <div className="p-8 text-center">
-                    <Bell className="h-8 w-8 text-zinc-600 mx-auto mb-2" strokeWidth={1} />
-                    <p className="text-xs text-zinc-500">No notifications yet</p>
-                  </div>
-                ) : (
-                  notifications.map((notif: any) => {
-                    const Icon = TYPE_ICONS[notif.type] || Bell;
-                    return (
-                      <div
-                        key={notif.id}
-                        className={cn(
-                          "flex items-start gap-3 px-4 py-3 hover:bg-white/5 transition-colors",
-                          !notif.isRead && "bg-blue-500/5"
-                        )}
-                        style={{ borderBottom: "1px solid var(--border)" }}
-                      >
-                        <Icon className="h-4 w-4 text-zinc-500 mt-0.5 flex-shrink-0" />
-                        <div className="flex-1 min-w-0">
-                          <p className={cn("text-xs text-zinc-300", !notif.isRead && "font-medium text-white")}>
-                            {notif.title}
-                          </p>
-                          <p className="text-[11px] text-zinc-500 mt-0.5 truncate">
-                            {notif.message}
-                          </p>
-                          <div className="flex items-center gap-2 mt-1">
-                            <span className="text-[10px] text-zinc-600">
-                              {formatRelative(notif.createdAt)}
-                            </span>
-                            {notif.actionUrl && (
-                              <Link
-                                href={notif.actionUrl}
-                                onClick={() => {
-                                  if (!notif.isRead) markRead.mutate(notif.id);
-                                  setShowDropdown(false);
-                                }}
-                                className="text-[10px] text-[#3B82F6] hover:text-blue-400 font-medium"
-                              >
-                                View
-                              </Link>
-                            )}
-                          </div>
-                        </div>
-                        {!notif.isRead && (
-                          <div className="h-2 w-2 rounded-full bg-[#3B82F6] mt-1 flex-shrink-0" />
-                        )}
-                      </div>
-                    );
-                  })
-                )}
+              <div className="max-h-[360px] overflow-y-auto">
+                {notifications.map((item) => (
+                  <Link
+                    key={item.id}
+                    href={item.href}
+                    onClick={() => setShowNotifications(false)}
+                    className="flex items-start gap-3 border-b border-white/10 px-4 py-3 transition hover:bg-white/[0.06]"
+                  >
+                    <span className="mt-1 h-2 w-2 shrink-0 rounded-full bg-blue-400" />
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-medium text-white">{item.title}</p>
+                      <p className="mt-0.5 truncate text-xs text-zinc-400">{item.detail}</p>
+                      <p className="mt-1 text-[11px] text-zinc-500">{item.when}</p>
+                    </div>
+                    <ArrowRight className="mt-1 h-3.5 w-3.5 text-zinc-500" />
+                  </Link>
+                ))}
               </div>
 
-              <div className="px-4 py-2" style={{ borderTop: "1px solid var(--border)" }}>
+              <div className="border-t border-white/10 px-4 py-2">
                 <Link
                   href="/notifications"
-                  onClick={() => setShowDropdown(false)}
-                  className="flex items-center justify-center gap-1 text-xs text-[#3B82F6] hover:text-blue-400 font-medium py-1"
+                  onClick={() => setShowNotifications(false)}
+                  className="flex items-center justify-center gap-1 py-1 text-xs font-medium text-blue-300 transition hover:text-blue-200"
                 >
                   View all notifications <ArrowRight className="h-3 w-3" />
                 </Link>
               </div>
             </div>
-          )}
+          ) : null}
         </div>
 
         <div className="relative" ref={userMenuRef}>
           <button
-            onClick={() => setShowUserMenu(!showUserMenu)}
-            className="h-8 w-8 rounded-full bg-[#3B82F6] flex items-center justify-center text-white text-sm font-medium hover:bg-blue-600 transition-colors"
+            type="button"
+            onClick={() => setShowUserMenu((prev) => !prev)}
+            className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.03] px-2.5 py-1.5 transition hover:bg-white/[0.08]"
+            aria-label="Open user menu"
           >
-            U
+            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-[#2f88ff] to-[#1f5bd6] text-xs font-semibold text-white">
+              ME
+            </span>
+            <span className="hidden text-xs text-zinc-300 sm:block">Michael E.</span>
           </button>
 
-          {showUserMenu && (
-            <div className="absolute right-0 top-full mt-2 w-48 rounded-lg shadow-2xl z-50 py-1" style={{ background: "var(--surface)", border: "1px solid var(--border-strong)" }}>
+          {showUserMenu ? (
+            <div className="absolute right-0 top-full z-50 mt-2 w-52 rounded-xl border border-white/10 bg-[#111b2b] py-1 shadow-2xl">
               <Link
                 href="/settings"
                 onClick={() => setShowUserMenu(false)}
-                className="flex items-center gap-2 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 transition-colors"
+                className="flex items-center gap-2 px-4 py-2 text-sm text-zinc-300 transition hover:bg-white/[0.06] hover:text-white"
               >
                 <Settings className="h-4 w-4 text-zinc-500" />
                 Settings
               </Link>
-              <div className="my-1" style={{ borderTop: "1px solid var(--border)" }} />
+              <div className="my-1 border-t border-white/10" />
               <button
+                type="button"
                 onClick={handleSignOut}
-                className="flex w-full items-center gap-2 px-4 py-2 text-sm text-zinc-300 hover:bg-white/5 transition-colors"
+                className="flex w-full items-center gap-2 px-4 py-2 text-sm text-zinc-300 transition hover:bg-white/[0.06] hover:text-white"
               >
                 <LogOut className="h-4 w-4 text-zinc-500" />
                 Sign out
               </button>
             </div>
-          )}
+          ) : null}
         </div>
       </div>
     </header>

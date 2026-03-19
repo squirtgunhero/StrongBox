@@ -1,55 +1,86 @@
 @import "tailwindcss";
 
 :root {
-  /* Core dark surfaces */
-  --background: #0F1117;
-  --surface: #1A1D27;
-  --surface-secondary: #22252F;
-  --surface-hover: #282B35;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-strong: rgba(255, 255, 255, 0.12);
-  --ring: rgba(255, 255, 255, 0.15);
+  --background: #070b12;
+  --surface: #0f1623;
+  --surface-secondary: #111b2b;
+  --surface-tertiary: #152136;
+  --surface-hover: #1b2941;
+  --border: rgba(154, 178, 214, 0.18);
+  --border-strong: rgba(186, 204, 232, 0.3);
+  --ring: rgba(86, 154, 255, 0.45);
 
-  /* Text hierarchy */
-  --text-primary: #F5F5F4;
-  --text-secondary: #A1A1AA;
-  --text-tertiary: #71717A;
+  --text-primary: #f4f8ff;
+  --text-secondary: #b4c2d8;
+  --text-tertiary: #7f91ab;
 
-  /* Accent — blue */
-  --accent: #3B82F6;
-  --accent-hover: #2563EB;
-  --accent-subtle: rgba(59, 130, 246, 0.12);
-  --accent-muted: rgba(59, 130, 246, 0.4);
+  --accent: #2f88ff;
+  --accent-hover: #4a98ff;
+  --accent-subtle: rgba(47, 136, 255, 0.2);
+  --accent-muted: rgba(47, 136, 255, 0.55);
 
-  /* Status colors */
-  --status-active: #22C55E;
-  --status-active-bg: rgba(34, 197, 94, 0.12);
-  --status-pipeline: #EAB308;
-  --status-pipeline-bg: rgba(234, 179, 8, 0.12);
-  --status-funded: #3B82F6;
-  --status-funded-bg: rgba(59, 130, 246, 0.12);
-  --status-paid-off: #71717A;
-  --status-paid-off-bg: rgba(113, 113, 122, 0.12);
-  --status-distressed: #EF4444;
-  --status-distressed-bg: rgba(239, 68, 68, 0.12);
+  --status-active: #2ecf89;
+  --status-active-bg: rgba(46, 207, 137, 0.15);
+  --status-pipeline: #f4b45f;
+  --status-pipeline-bg: rgba(244, 180, 95, 0.18);
+  --status-funded: #55b2ff;
+  --status-funded-bg: rgba(85, 178, 255, 0.18);
+  --status-paid-off: #95a4bc;
+  --status-paid-off-bg: rgba(149, 164, 188, 0.16);
+  --status-distressed: #ff7272;
+  --status-distressed-bg: rgba(255, 114, 114, 0.18);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--text-primary);
-  --font-sans: var(--font-inter);
+  --font-sans: var(--font-jakarta);
+  --font-heading: var(--font-grotesk);
   --font-mono: 'JetBrains Mono', 'SF Mono', 'Fira Code', ui-monospace, monospace;
 
-  --color-accent: #3B82F6;
-  --color-accent-hover: #2563EB;
-  --color-accent-subtle: rgba(59, 130, 246, 0.12);
-  --color-accent-muted: rgba(59, 130, 246, 0.4);
+  --color-accent: #2f88ff;
+  --color-accent-hover: #4a98ff;
+  --color-accent-subtle: rgba(47, 136, 255, 0.2);
+  --color-accent-muted: rgba(47, 136, 255, 0.55);
 }
 
 body {
   background: var(--background);
   color: var(--text-primary);
-  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: var(--font-jakarta), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  border-color: var(--border);
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0c131f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #22344f;
+  border-radius: 999px;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.elevate-in {
+  animation: fade-up 360ms ease-out;
 }

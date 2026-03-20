@@ -29,11 +29,57 @@ import {
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 
-const navGroups = [
+type NavItem = {
+  name: string;
+  href: string;
+  icon: React.ComponentType<{ className?: string }>;
+  exact?: boolean;
+};
+
+type NavSection = {
+  label: string;
+  items: NavItem[];
+};
+
+type NavGroup = {
+  label: string;
+  items?: NavItem[];
+  sections?: NavSection[];
+};
+
+const navGroups: NavGroup[] = [
   {
-    label: "OPERATIONS",
+    label: "STRONGBOX",
+    sections: [
+      {
+        label: "INTAKE",
+        items: [
+          { name: "Overview", href: "/strongbox", icon: Boxes, exact: true },
+          { name: "Import", href: "/strongbox/import", icon: Upload },
+          { name: "Review", href: "/strongbox/review", icon: ClipboardCheck },
+        ],
+      },
+      {
+        label: "RECORDS",
+        items: [
+          { name: "Borrowers", href: "/strongbox/borrowers", icon: Users },
+          { name: "Loans", href: "/strongbox/loans", icon: BriefcaseBusiness },
+          { name: "Draw Requests", href: "/strongbox/draw-requests", icon: CreditCard },
+        ],
+      },
+      {
+        label: "REPORTING",
+        items: [
+          { name: "Cash Accounts", href: "/strongbox/cash-accounts", icon: Landmark },
+          { name: "Snapshots", href: "/strongbox/portfolio-snapshots", icon: Activity },
+          { name: "Reports", href: "/strongbox/reports", icon: BarChart3 },
+        ],
+      },
+    ],
+  },
+  {
+    label: "LENDING",
     items: [
-      { name: "StrongBox", href: "/strongbox", icon: Boxes },
       { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
       { name: "Pipeline", href: "/pipeline", icon: Kanban },
       { name: "Loans", href: "/loans", icon: BriefcaseBusiness },
@@ -50,23 +96,15 @@ const navGroups = [
       { name: "Tasks", href: "/tasks", icon: CheckSquare },
       { name: "Conditions", href: "/conditions", icon: ClipboardCheck },
       { name: "Communications", href: "/communications", icon: Mail },
-      { name: "Reports", href: "/reports", icon: BarChart3 },
+      { name: "Loan Reports", href: "/reports", icon: BarChart3 },
       { name: "Analytics", href: "/analytics", icon: Activity },
       { name: "Statements", href: "/statements", icon: ScrollText },
     ],
   },
   {
-    label: "SYSTEM",
+    label: "ADMIN",
     items: [
-      { name: "SB Borrowers", href: "/strongbox/borrowers", icon: Users },
-      { name: "SB Loans", href: "/strongbox/loans", icon: BriefcaseBusiness },
-      { name: "SB Draws", href: "/strongbox/draw-requests", icon: CreditCard },
-      { name: "SB Cash", href: "/strongbox/cash-accounts", icon: Landmark },
-      { name: "SB Snapshots", href: "/strongbox/portfolio-snapshots", icon: Activity },
-      { name: "SB Reports", href: "/strongbox/reports", icon: BarChart3 },
-      { name: "SB Review", href: "/strongbox/review", icon: ClipboardCheck },
-      { name: "SB Import", href: "/strongbox/import", icon: Upload },
-      { name: "Import", href: "/import", icon: Upload },
+      { name: "Platform Import", href: "/import", icon: Upload },
       { name: "Settings", href: "/settings", icon: Settings },
     ],
   },
@@ -135,35 +173,46 @@ export function Sidebar() {
               </p>
             ) : null}
             <div className="space-y-0.5">
-              {group.items.map((item) => {
-                const isActive =
-                  pathname === item.href ||
-                  (item.href !== "/" && pathname.startsWith(item.href));
-                return (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    title={collapsed ? item.name : undefined}
-                    className={cn(
-                      "group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-all duration-200",
-                      collapsed && "justify-center px-0",
-                      isActive
-                        ? "bg-gradient-to-r from-[#C33732] to-[#A52F2B] text-white shadow-[0_12px_24px_-14px_rgba(195,55,50,0.8)]"
-                        : "text-zinc-700 hover:bg-black/[0.05] hover:text-black"
-                    )}
-                  >
-                    <item.icon
-                      className={cn(
-                        "h-4 w-4 shrink-0",
-                        isActive ? "text-white" : "text-zinc-500 group-hover:text-black"
-                      )}
-                    />
-                    {!collapsed ? (
-                      <span className={cn("truncate font-medium", isActive ? "text-white" : "text-zinc-800")}>{item.name}</span>
-                    ) : null}
-                  </Link>
-                );
-              })}
+              {(group.sections ?? [{ label: "", items: group.items || [] }]).map((section, sectionIndex) => (
+                <div key={`${group.label}-${section.label || sectionIndex}`} className={cn(sectionIndex > 0 && !collapsed && "mt-3 pt-2 border-t border-black/6")}>
+                  {!collapsed && section.label ? (
+                    <p className="px-3 pb-1.5 text-[10px] font-medium uppercase tracking-[0.18em] text-zinc-400">
+                      {section.label}
+                    </p>
+                  ) : null}
+                  <div className="space-y-0.5">
+                    {section.items.map((item) => {
+                      const isActive =
+                        pathname === item.href ||
+                        (!("exact" in item && item.exact) && item.href !== "/" && pathname.startsWith(item.href));
+                      return (
+                        <Link
+                          key={item.name}
+                          href={item.href}
+                          title={collapsed ? item.name : undefined}
+                          className={cn(
+                            "group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm transition-all duration-200",
+                            collapsed && "justify-center px-0",
+                            isActive
+                              ? "bg-gradient-to-r from-[#C33732] to-[#A52F2B] text-white shadow-[0_12px_24px_-14px_rgba(195,55,50,0.8)]"
+                              : "text-zinc-700 hover:bg-black/[0.05] hover:text-black"
+                          )}
+                        >
+                          <item.icon
+                            className={cn(
+                              "h-4 w-4 shrink-0",
+                              isActive ? "text-white" : "text-zinc-500 group-hover:text-black"
+                            )}
+                          />
+                          {!collapsed ? (
+                            <span className={cn("truncate font-medium", isActive ? "text-white" : "text-zinc-800")}>{item.name}</span>
+                          ) : null}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
             </div>
           </section>
         ))}
